@@ -23,11 +23,13 @@ body{
   position: relative;
   background: linear-gradient(180deg, var(--panel2), var(--bg));
   border-bottom: 1px solid var(--stroke);
-  overflow: hidden;
+  overflow: visible; /* let the arc exist outside normal flow */
 }
 
 /* Top nav */
 .topNav{
+  position: relative;
+  z-index: 30; /* always on top */
   display: flex;
   gap: 1rem;
   align-items: center;
@@ -52,10 +54,12 @@ body{
 
 /* 3 image boxes row */
 .sceneTiles{
+  position: relative;
+  z-index: 20; /* keep tiles ABOVE the arc/name */
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1rem;
-  padding: 1rem 1.25rem 4.25rem; /* extra space so arc/text is visible */
+  padding: 1rem 1.25rem 3.2rem; /* space for arc without huge gap */
 }
 
 .tile{
@@ -94,20 +98,32 @@ body{
   font-size: 0.95rem;
 }
 
-/* Arc + curved name */
+/* Arc + curved name (kept behind tiles, above background) */
 .arcWrap{
   position: absolute;
   left: 0;
   right: 0;
-  bottom: -70px;   /* pushes arc a bit lower so it sits under tiles */
-  height: 240px;   /* gives the bowl more vertical room */
+
+  /* Place the arc lower so it doesn't cover the tiles */
+  bottom: -86px;
+
+  /* Taller so the text arc has room, but not too tall */
+  height: 260px;
+
   pointer-events: none;
+
+  /* Between background and tiles */
+  z-index: 10;
+
+  /* Prevent accidental clipping due to transforms in some browsers */
+  overflow: visible;
 }
 
 .arcSvg{
   width: 100%;
   height: 100%;
   display: block;
+  overflow: visible;
 }
 
 .arcStroke{
@@ -118,20 +134,16 @@ body{
 .arcText{
   fill: rgba(233,233,239,0.92);
   font-weight: 800;
-  letter-spacing: 0.42em;
-  font-size: 40px;
-}
 
-/* Responsive */
-@media (max-width: 900px){
-  .sceneTiles{
-    grid-template-columns: 1fr;
-    padding-bottom: 5rem;
-  }
-  .arcText{
-    letter-spacing: 0.26em;
-    font-size: 38px;
-  }
+  /* MUCH tighter tracking */
+  letter-spacing: 0.16em;
+
+  font-size: 40px;
+
+  /* helps anti-aliasing feel less jaggy on some renders */
+  paint-order: stroke;
+  stroke: rgba(0,0,0,0.25);
+  stroke-width: 1px;
 }
 
 /* ====== Main Content ====== */
@@ -223,4 +235,48 @@ body{
   padding: 2rem 1rem;
   text-align: center;
   color: var(--muted);
+}
+
+/* ====== Responsive ====== */
+@media (max-width: 980px){
+  .sceneTiles{
+    padding-bottom: 3.6rem;
+  }
+  .arcText{
+    font-size: 38px;
+    letter-spacing: 0.14em;
+  }
+  .arcWrap{
+    bottom: -92px;
+    height: 270px;
+  }
+}
+
+@media (max-width: 900px){
+  .sceneTiles{
+    grid-template-columns: 1fr;
+    padding-bottom: 5rem;
+  }
+  .arcText{
+    font-size: 34px;
+    letter-spacing: 0.12em;
+  }
+  .arcWrap{
+    bottom: -110px;
+    height: 300px;
+  }
+}
+
+@media (max-width: 520px){
+  .topNav{
+    gap: 0.5rem;
+    padding: 0.9rem 0.9rem 0.25rem;
+  }
+  .navItem{
+    padding: 0.35rem 0.55rem;
+  }
+  .arcText{
+    font-size: 30px;
+    letter-spacing: 0.10em;
+  }
 }
