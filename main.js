@@ -339,6 +339,23 @@ document.querySelectorAll(".tile").forEach(tile => {
   const nodeEls = [];
   const nodeElById = new Map();
   const laneElsByGroup = new Map();
+  const laneNav = document.createElement("div");
+  laneNav.className = "hobbyLaneNav";
+  const lanePrev = document.createElement("button");
+  lanePrev.type = "button";
+  lanePrev.className = "hobbyLaneNavButton prev";
+  lanePrev.setAttribute("aria-label", "Show previous hobby lanes");
+  lanePrev.textContent = "‹";
+  const laneHint = document.createElement("div");
+  laneHint.className = "hobbyLaneHint";
+  laneHint.textContent = "More lanes";
+  const laneNext = document.createElement("button");
+  laneNext.type = "button";
+  laneNext.className = "hobbyLaneNavButton next";
+  laneNext.setAttribute("aria-label", "Show more hobby lanes");
+  laneNext.textContent = "›";
+  laneNav.append(lanePrev, laneHint, laneNext);
+  map.appendChild(laneNav);
 
   const rootNodes = nodes.filter((n) => n.virtualRoot);
   rootNodes.forEach((root) => {
@@ -350,6 +367,41 @@ document.querySelectorAll(".tile").forEach(tile => {
     laneBar.appendChild(lane);
     laneElsByGroup.set(root.theme, lane);
   });
+
+  const updateLaneNav = () => {
+    const mobile = window.matchMedia("(max-width: 900px)").matches;
+    if (!mobile) {
+      laneNav.classList.remove("isVisible");
+      laneBar.classList.remove("isScrollable");
+      return;
+    }
+
+    laneNav.classList.add("isVisible");
+    laneBar.classList.add("isScrollable");
+
+    const maxLeft = Math.max(0, laneBar.scrollWidth - laneBar.clientWidth);
+    const canPrev = laneBar.scrollLeft > 4;
+    const canNext = laneBar.scrollLeft < maxLeft - 4;
+
+    lanePrev.disabled = !canPrev;
+    laneNext.disabled = !canNext;
+    laneHint.textContent = canNext ? "More lanes" : (canPrev ? "Start" : "All lanes");
+  };
+
+  const scrollLaneBarByPage = (direction) => {
+    const delta = laneBar.clientWidth * 0.72 * direction;
+    laneBar.scrollBy({ left: delta, behavior: "smooth" });
+  };
+
+  lanePrev.addEventListener("click", (e) => {
+    e.stopPropagation();
+    scrollLaneBarByPage(-1);
+  });
+  laneNext.addEventListener("click", (e) => {
+    e.stopPropagation();
+    scrollLaneBarByPage(1);
+  });
+  laneBar.addEventListener("scroll", updateLaneNav, { passive: true });
 
   nodes.forEach((node) => {
     if (node.virtualRoot) return;
@@ -541,7 +593,11 @@ document.querySelectorAll(".tile").forEach(tile => {
   };
 
   layoutAndRender();
-  window.addEventListener("resize", layoutAndRender);
+  updateLaneNav();
+  window.addEventListener("resize", () => {
+    layoutAndRender();
+    updateLaneNav();
+  });
 
   const activeIdsForGroup = (group) => {
     const ids = new Set(["engineering"]);
@@ -668,11 +724,12 @@ document.querySelectorAll(".tile").forEach(tile => {
       setInspector(group);
       applyOpenNode();
       applyActive(lockedGroup);
+      laneEl.scrollIntoView({ inline: "center", block: "nearest", behavior: "smooth" });
     });
   });
 
   map.addEventListener("click", (e) => {
-    if (e.target instanceof Element && (e.target.closest(".hobbyNode") || e.target.closest(".hobbyLane"))) return;
+    if (e.target instanceof Element && (e.target.closest(".hobbyNode") || e.target.closest(".hobbyLane") || e.target.closest(".hobbyLaneNav"))) return;
     lockedGroup = null;
     openNodeId = null;
     setInspector(null);
