@@ -339,13 +339,14 @@ document.querySelectorAll(".tile").forEach(tile => {
   const nodeEls = [];
   const nodeElById = new Map();
   const laneElsByGroup = new Map();
+  const isMobileView = () => window.matchMedia("(max-width: 900px)").matches;
   const laneNav = document.createElement("div");
   laneNav.className = "hobbyLaneNav";
   const lanePrev = document.createElement("button");
   lanePrev.type = "button";
   lanePrev.className = "hobbyLaneNavButton prev";
   lanePrev.setAttribute("aria-label", "Show previous hobby lanes");
-  lanePrev.textContent = "‹";
+  lanePrev.textContent = "<";
   const laneHint = document.createElement("div");
   laneHint.className = "hobbyLaneHint";
   laneHint.textContent = "More lanes";
@@ -353,11 +354,12 @@ document.querySelectorAll(".tile").forEach(tile => {
   laneNext.type = "button";
   laneNext.className = "hobbyLaneNavButton next";
   laneNext.setAttribute("aria-label", "Show more hobby lanes");
-  laneNext.textContent = "›";
+  laneNext.textContent = ">";
   laneNav.append(lanePrev, laneHint, laneNext);
   map.appendChild(laneNav);
 
   const rootNodes = nodes.filter((n) => n.virtualRoot);
+  const defaultMobileGroup = rootNodes[0]?.theme || null;
   rootNodes.forEach((root) => {
     const lane = document.createElement("button");
     lane.type = "button";
@@ -369,7 +371,7 @@ document.querySelectorAll(".tile").forEach(tile => {
   });
 
   const updateLaneNav = () => {
-    const mobile = window.matchMedia("(max-width: 900px)").matches;
+    const mobile = isMobileView();
     if (!mobile) {
       laneNav.classList.remove("isVisible");
       laneBar.classList.remove("isScrollable");
@@ -597,6 +599,7 @@ document.querySelectorAll(".tile").forEach(tile => {
   window.addEventListener("resize", () => {
     layoutAndRender();
     updateLaneNav();
+    syncMobileDefaultGroup();
   });
 
   const activeIdsForGroup = (group) => {
@@ -611,6 +614,7 @@ document.querySelectorAll(".tile").forEach(tile => {
 
   let lockedGroup = null;
   let openNodeId = null;
+  let mobileAutoLocked = false;
 
   const applyOpenNode = () => {
     nodeEls.forEach((el) => {
@@ -664,6 +668,26 @@ document.querySelectorAll(".tile").forEach(tile => {
     }
   };
 
+  const syncMobileDefaultGroup = () => {
+    if (!defaultMobileGroup) return;
+    if (isMobileView()) {
+      if (!lockedGroup) {
+        lockedGroup = defaultMobileGroup;
+        mobileAutoLocked = true;
+      }
+      applyActive(lockedGroup);
+      if (!openNodeId) setInspector(lockedGroup);
+      return;
+    }
+
+    if (mobileAutoLocked && !openNodeId) {
+      lockedGroup = null;
+      applyActive(null);
+      setInspector(null);
+    }
+    mobileAutoLocked = false;
+  };
+
   nodeEls.forEach((nodeEl) => {
     const group = nodeEl.dataset.group;
     const nodeId = nodeEl.dataset.id;
@@ -692,6 +716,7 @@ document.querySelectorAll(".tile").forEach(tile => {
     });
     nodeEl.addEventListener("click", () => {
       lockedGroup = group;
+      mobileAutoLocked = false;
       openNodeId = nodeId;
       setInspector(openNodeId);
       applyOpenNode();
@@ -719,9 +744,14 @@ document.querySelectorAll(".tile").forEach(tile => {
       applyActive(null);
     });
     laneEl.addEventListener("click", () => {
-      lockedGroup = lockedGroup === group ? null : group;
+      if (isMobileView()) {
+        lockedGroup = group;
+      } else {
+        lockedGroup = lockedGroup === group ? null : group;
+      }
+      mobileAutoLocked = false;
       openNodeId = null;
-      setInspector(group);
+      setInspector(lockedGroup ? group : null);
       applyOpenNode();
       applyActive(lockedGroup);
       laneEl.scrollIntoView({ inline: "center", block: "nearest", behavior: "smooth" });
@@ -730,10 +760,23 @@ document.querySelectorAll(".tile").forEach(tile => {
 
   map.addEventListener("click", (e) => {
     if (e.target instanceof Element && (e.target.closest(".hobbyNode") || e.target.closest(".hobbyLane") || e.target.closest(".hobbyLaneNav"))) return;
-    lockedGroup = null;
     openNodeId = null;
-    setInspector(null);
     applyOpenNode();
+    if (isMobileView()) {
+      if (!lockedGroup) {
+        lockedGroup = defaultMobileGroup;
+        mobileAutoLocked = true;
+      }
+      setInspector(lockedGroup);
+      applyActive(lockedGroup);
+      return;
+    }
+    lockedGroup = null;
+    mobileAutoLocked = false;
+    setInspector(null);
     applyActive(null);
   });
+
+  syncMobileDefaultGroup();
 })();
+
