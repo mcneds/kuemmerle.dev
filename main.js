@@ -556,20 +556,11 @@ document.querySelectorAll(".tile").forEach(tile => {
     const mobile = isMobileView();
     const pageGroups = groupsForMobileWindow(mobileLaneStartIndex);
     const groupOffset = new Map();
-    const mobileYShift = 4;
-    const mapRect = map.getBoundingClientRect();
+    const mobileYShift = 8;
     pageGroups.forEach((group, index) => {
       const root = rootByGroup.get(group);
       if (!root) return;
-      let slotX = mobileLaneSlots[Math.min(index, mobileLaneSlots.length - 1)];
-      if (mobile && mapRect.width > 0) {
-        const laneEl = laneElsByGroup.get(group);
-        if (laneEl) {
-          const laneRect = laneEl.getBoundingClientRect();
-          const centerPx = ((laneRect.left + laneRect.right) * 0.5) - mapRect.left;
-          slotX = clamp((centerPx / mapRect.width) * 100, 10, 90);
-        }
-      }
+      const slotX = mobileLaneSlots[Math.min(index, mobileLaneSlots.length - 1)];
       groupOffset.set(group, slotX - root.x);
     });
 
@@ -577,7 +568,7 @@ document.querySelectorAll(".tile").forEach(tile => {
       const node = nodeById.get(id);
       if (!node) return;
       const baseX = (node.x / 100) * viewW;
-      const yPercent = mobile && !node.engineering ? Math.max(14, node.y - mobileYShift) : node.y;
+      const yPercent = mobile && !node.engineering ? Math.max(8, node.y - mobileYShift) : node.y;
       const baseY = (yPercent / 100) * viewH;
       let anchorX = baseX;
       if (mobile && node.theme !== "core") {
@@ -739,8 +730,8 @@ document.querySelectorAll(".tile").forEach(tile => {
     relaxLayout();
     if (isMobileView()) {
       nodeState.forEach((state) => {
-        const minX = state.w / 2 + 8;
-        const maxX = viewW - state.w / 2 - 8;
+        const minX = state.w / 2 + 16;
+        const maxX = viewW - state.w / 2 - 16;
         state.x = clamp(state.anchorX, minX, maxX);
       });
     }
