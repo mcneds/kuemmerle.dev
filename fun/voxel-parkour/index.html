@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Voxel Parkour | kuemmerle.dev</title>
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="stylesheet" href="/fun/voxel-parkour/voxel-parkour.css" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.170.0/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three@0.170.0/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <header class="sceneHeader" id="sceneHeader">
+    <nav class="topNav" aria-label="Primary">
+      <a href="/" class="navItem">Home</a>
+      <a href="/resume" class="navItem">Resume</a>
+      <a href="/contact" class="navItem">Contact</a>
+      <a href="/fun" class="navItem">Fun</a>
+    </nav>
+    <section class="sceneTiles" aria-label="Section tiles">
+      <a class="tile" href="/quick" data-section="quick">
+        <div class="tileInner">
+          <div class="tileLabel">Quick Side Quests</div>
+          <div class="tileHint">Small builds and fast experiments</div>
+        </div>
+      </a>
+      <a class="tile" href="/projects" data-section="standalone">
+        <div class="tileInner">
+          <div class="tileLabel">Standalone Projects</div>
+          <div class="tileHint">Complete systems built end to end</div>
+        </div>
+      </a>
+      <a class="tile" href="/construction" data-section="construction">
+        <div class="tileInner">
+          <div class="tileLabel">Under Construction</div>
+          <div class="tileHint">Active work currently in progress</div>
+        </div>
+      </a>
+    </section>
+  </header>
+
+  <main class="page">
+    <section class="contentSection parkourSection">
+      <p class="parkourBack"><a href="/fun/">Back to Fun</a></p>
+      <h1>Voxel Parkour</h1>
+      <p class="muted parkourIntro">Jump between procedurally spawned blocks. Platforms fade and disappear behind you, so keep moving.</p>
+
+      <div class="parkourShell">
+        <aside class="parkourPanel">
+          <div class="parkourMetric">
+            <span>Distance</span>
+            <strong id="pkDistance">0</strong>
+          </div>
+          <div class="parkourMetric">
+            <span>Best</span>
+            <strong id="pkBest">0</strong>
+          </div>
+          <div class="parkourMetric">
+            <span>Max Separation</span>
+            <strong id="pkMaxSeparation">--</strong>
+          </div>
+
+          <div class="parkourTuning">
+            <h2>Difficulty + Physics</h2>
+
+            <label class="parkourTuneRow">
+              <span>Difficulty</span>
+              <input id="pkDifficulty" type="range" min="0" max="100" value="58" step="1">
+              <strong id="pkDifficultyValue">58%</strong>
+            </label>
+
+            <label class="parkourTuneRow">
+              <span>Min Separation</span>
+              <input id="pkMinSeparation" type="range" min="0" max="92" value="34" step="1">
+              <strong id="pkMinSeparationValue">34%</strong>
+            </label>
+
+            <label class="parkourTuneRow">
+              <span>Future Jumps</span>
+              <input id="pkFutureJumps" type="range" min="8" max="96" value="28" step="1">
+              <strong id="pkFutureJumpsValue">28</strong>
+            </label>
+
+            <label class="parkourTuneRow">
+              <span>Move Speed</span>
+              <input id="pkMoveSpeed" type="range" min="6" max="15" value="10.2" step="0.1">
+              <strong id="pkMoveSpeedValue">10.2</strong>
+            </label>
+
+            <label class="parkourTuneRow">
+              <span>Jump Speed</span>
+              <input id="pkJumpSpeed" type="range" min="8" max="16" value="11.2" step="0.1">
+              <strong id="pkJumpSpeedValue">11.2</strong>
+            </label>
+
+            <label class="parkourTuneRow">
+              <span>Gravity</span>
+              <input id="pkGravity" type="range" min="18" max="44" value="30" step="1">
+              <strong id="pkGravityValue">30</strong>
+            </label>
+
+            <label class="parkourTuneRow">
+              <span>Air Drag</span>
+              <input id="pkAirDrag" type="range" min="90" max="100" value="97" step="0.5">
+              <strong id="pkAirDragValue">97%</strong>
+            </label>
+
+            <label class="parkourTuneRow">
+              <span>Jump Tightness</span>
+              <input id="pkThreshold" type="range" min="0" max="100" value="52" step="1">
+              <strong id="pkThresholdValue">52%</strong>
+            </label>
+          </div>
+
+          <div class="parkourSamplerCard" id="pkSamplerCard">
+            <div class="parkourSamplerHead">
+              <h2>Sampler</h2>
+              <button id="pkSamplerSize" type="button" aria-pressed="false">Larger</button>
+            </div>
+            <div class="parkourSamplerViewportWrap">
+              <div id="pkSamplerViewport" class="parkourSamplerViewport" aria-label="Jump sampling visualizer"></div>
+              <button id="pkSamplerRotate" class="parkourSamplerRotate" type="button" aria-pressed="true">Spin On</button>
+            </div>
+            <p>Blue points are sampled candidates. Gold is the chosen next block.</p>
+          </div>
+
+          <div class="parkourControls">
+            <h2>Controls</h2>
+            <p><kbd>W / S</kbd> forward/back</p>
+            <p><kbd>A / D</kbd> strafe left/right</p>
+            <p><kbd>Click game</kbd> lock look</p>
+            <p><kbd>Space</kbd> jump</p>
+            <p><kbd>Shift</kbd> sneak (slow + edge guard)</p>
+            <p><kbd>R</kbd> restart</p>
+          </div>
+          <button id="pkRestart" type="button">Restart Run</button>
+          <p class="parkourHint" id="pkHint">Click inside the viewport to lock cursor and look around.</p>
+        </aside>
+
+        <section class="parkourViewportWrap">
+          <button id="pkFullscreen" class="parkourFullscreen" type="button">Fullscreen</button>
+          <div id="parkourViewport" class="parkourViewport" aria-label="Voxel parkour 3D viewport"></div>
+          <div class="parkourTouchOverlay">
+            <div class="parkourTouchLeft">
+              <button id="pkTouchForward" type="button">Forward</button>
+              <button id="pkTouchJump" type="button">Jump</button>
+            </div>
+            <div id="pkTouchLook" class="parkourTouchLook" aria-label="Touch and drag to look around"></div>
+          </div>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div>&copy; 2026 kuemmerle.dev</div>
+  </footer>
+
+  <script type="module" src="/fun/voxel-parkour/voxel-parkour.js"></script>
+</body>
+</html>

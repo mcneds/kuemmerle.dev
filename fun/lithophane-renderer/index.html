@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lithophane Renderer | kuemmerle.dev</title>
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="stylesheet" href="/fun/lithophane-renderer/lithophane.css" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.170.0/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three@0.170.0/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <header class="sceneHeader" id="sceneHeader">
+    <nav class="topNav" aria-label="Primary">
+      <a href="/" class="navItem">Home</a>
+      <a href="/resume" class="navItem">Resume</a>
+      <a href="/contact" class="navItem">Contact</a>
+      <a href="/fun" class="navItem">Fun</a>
+    </nav>
+    <section class="sceneTiles" aria-label="Section tiles">
+      <a class="tile" href="/quick" data-section="quick">
+        <div class="tileInner">
+          <div class="tileLabel">Quick Side Quests</div>
+          <div class="tileHint">Small builds and fast experiments</div>
+        </div>
+      </a>
+      <a class="tile" href="/projects" data-section="standalone">
+        <div class="tileInner">
+          <div class="tileLabel">Standalone Projects</div>
+          <div class="tileHint">Complete systems built end to end</div>
+        </div>
+      </a>
+      <a class="tile" href="/construction" data-section="construction">
+        <div class="tileInner">
+          <div class="tileLabel">Under Construction</div>
+          <div class="tileHint">Active work currently in progress</div>
+        </div>
+      </a>
+    </section>
+  </header>
+
+  <main class="page">
+    <section class="contentSection lithoSection" data-litho-app>
+      <p class="lithoBack"><a href="/fun/">Back to Fun</a></p>
+      <h1>Lithophane Shader Renderer</h1>
+      <p class="muted lithoIntro">Modernized from the old Netlify build with updated rendering defaults, cleaner controls, and direct OBJ export.</p>
+
+      <div class="lithoLayout">
+        <aside class="lithoPanel">
+          <label class="lithoField">
+            <span>Images (one or more)</span>
+            <input id="lithoUpload" type="file" accept="image/*" multiple>
+          </label>
+
+          <label class="lithoField">
+            <span>Resolution</span>
+            <div class="lithoInline">
+              <input id="lithoResolution" type="range" min="5" max="100" value="35" step="1">
+              <input id="lithoResolutionNumber" type="number" min="5" max="100" value="35">
+              <span>%</span>
+            </div>
+          </label>
+
+          <label class="lithoField">
+            <span>Min Thickness</span>
+            <div class="lithoInline">
+              <input id="lithoMinThickness" type="range" min="0.5" max="8" value="1.2" step="0.1">
+              <span id="lithoMinThicknessValue">1.2 mm</span>
+            </div>
+          </label>
+
+          <label class="lithoField">
+            <span>Max Thickness</span>
+            <div class="lithoInline">
+              <input id="lithoMaxThickness" type="range" min="1" max="20" value="6.5" step="0.1">
+              <span id="lithoMaxThicknessValue">6.5 mm</span>
+            </div>
+          </label>
+
+          <div class="lithoStats" id="lithoStats">
+            <div>Segments: -- x --</div>
+            <div>Vertices: --</div>
+          </div>
+
+          <div class="lithoActions">
+            <button id="lithoDownload" type="button" disabled>Download OBJ</button>
+            <button id="lithoResetView" type="button">Reset View</button>
+          </div>
+          <p class="lithoHint">Tip: use light-on-dark images for stronger relief.</p>
+        </aside>
+
+        <section class="lithoViewportWrap">
+          <div id="lithoViewport" class="lithoViewport" aria-label="Lithophane 3D viewport"></div>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div>&copy; 2026 kuemmerle.dev</div>
+  </footer>
+
+  <script type="module" src="/fun/lithophane-renderer/lithophane.js"></script>
+</body>
+</html>

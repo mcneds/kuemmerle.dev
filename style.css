@@ -929,6 +929,82 @@ body{
   color: #b7f8ca;
 }
 
+/* Fun entries */
+.funSection{
+  border-bottom: 0;
+}
+
+.funEntryList{
+  display: grid;
+  gap: 1rem;
+}
+
+.funEntryCard{
+  border: 1px solid rgba(233,233,239,0.18);
+  border-radius: 14px;
+  overflow: hidden;
+  background:
+    radial-gradient(120% 160% at 8% 0%, rgba(58,123,253,0.18), transparent 62%),
+    rgba(255,255,255,0.02);
+}
+
+.funEntryHero{
+  margin: 0;
+  border-bottom: 1px solid rgba(233,233,239,0.16);
+  height: 220px;
+}
+
+.funEntryHero img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.funEntryBody{
+  padding: 0.95rem;
+}
+
+.funEntryBody h2{
+  margin: 0 0 0.45rem;
+}
+
+.funEntryPills{
+  margin: 0.75rem 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.funEntryPills li{
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid rgba(233,233,239,0.2);
+  border-radius: 999px;
+  padding: 0.18rem 0.5rem;
+  font-size: 0.74rem;
+  color: rgba(233,233,239,0.88);
+  background: rgba(255,255,255,0.04);
+}
+
+.funEntryLink{
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid rgba(124,177,255,0.66);
+  border-radius: 10px;
+  padding: 0.5rem 0.72rem;
+  text-decoration: none;
+  font-weight: 700;
+  color: rgba(213,230,255,0.95);
+  background: rgba(58,123,253,0.14);
+}
+
+.funEntryLink:hover{
+  background: rgba(58,123,253,0.22);
+}
+
 .twoCol{
   display: grid;
   grid-template-columns: 1fr;

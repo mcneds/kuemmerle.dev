@@ -39,14 +39,51 @@
   </header>
 
   <main class="page">
-    <section class="contentSection">
+    <section class="contentSection funSection">
       <h1>Fun</h1>
       <p class="muted">Demos, experiments, and interactive toys live here.</p>
+
+      <div class="funEntryList">
+        <article class="funEntryCard">
+          <figure class="funEntryHero">
+            <img src="/assets/images/lithodemo.png" alt="Lithophane preview render">
+          </figure>
+          <div class="funEntryBody">
+            <h2>Lithophane Shader Renderer</h2>
+            <p class="muted">Upload one or more images, tune resolution and thickness, orbit the result, and export an OBJ.</p>
+            <ul class="funEntryPills">
+              <li>WebGL</li>
+              <li>Three.js</li>
+              <li>OBJ Export</li>
+              <li>Image Processing</li>
+            </ul>
+            <a class="funEntryLink" href="/fun/lithophane-renderer/">Open renderer</a>
+          </div>
+        </article>
+
+        <article class="funEntryCard">
+          <figure class="funEntryHero">
+            <img src="/assets/images/parkourdemo.png" alt="Voxel parkour minigame preview">
+          </figure>
+          <div class="funEntryBody">
+            <h2>Voxel Parkour</h2>
+            <p class="muted">A compact procedural parkour toy: jump across randomly generated blocks while platforms fade away behind you.</p>
+            <ul class="funEntryPills">
+              <li>Three.js</li>
+              <li>Procedural Spawn</li>
+              <li>Platforming</li>
+              <li>Arcade Loop</li>
+            </ul>
+            <a class="funEntryLink" href="/fun/voxel-parkour/">Play game</a>
+          </div>
+        </article>
+      </div>
     </section>
   </main>
 
   <footer class="footer">
     <div>&copy; 2026 kuemmerle.dev</div>
   </footer>
+  <script src="/main.js"></script>
 </body>
 </html>
