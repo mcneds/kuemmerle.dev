@@ -368,15 +368,15 @@ document.querySelectorAll(".tile").forEach(tile => {
   const rootNodes = nodes.filter((n) => n.virtualRoot);
   const rootByGroup = new Map(rootNodes.map((n) => [n.theme, n]));
   const laneOrder = rootNodes.map((n) => n.theme);
-  const mobileLanePageSize = 3;
+  const mobileLaneWindowSize = 3;
   const mobileLaneSlots = [18, 50, 82];
-  const mobileLanePageCount = Math.max(1, Math.ceil(laneOrder.length / mobileLanePageSize));
+  const mobileLaneMaxStart = Math.max(0, laneOrder.length - mobileLaneWindowSize);
   const defaultMobileGroup = rootNodes[0]?.theme || null;
   let lockedGroup = null;
   let openNodeId = null;
   let mobileAutoLocked = false;
   let visibleLaneGroups = new Set();
-  let mobileLanePage = 0;
+  let mobileLaneStartIndex = 0;
   let mobileScrollSnapTimer = null;
   rootNodes.forEach((root) => {
     const lane = document.createElement("button");
@@ -388,12 +388,12 @@ document.querySelectorAll(".tile").forEach(tile => {
     laneElsByGroup.set(root.theme, lane);
   });
 
-  const groupsForMobilePage = (pageIndex) => {
-    const start = pageIndex * mobileLanePageSize;
-    return laneOrder.slice(start, start + mobileLanePageSize);
+  const groupsForMobileWindow = (startIndex) => {
+    const start = Math.max(0, Math.min(startIndex, mobileLaneMaxStart));
+    return laneOrder.slice(start, start + mobileLaneWindowSize);
   };
 
-  const clampPage = (pageIndex) => Math.max(0, Math.min(pageIndex, mobileLanePageCount - 1));
+  const clampMobileStart = (startIndex) => Math.max(0, Math.min(startIndex, mobileLaneMaxStart));
 
   const mobilePageStride = () => {
     const firstLane = laneElsByGroup.get(laneOrder[0]);
@@ -401,11 +401,11 @@ document.querySelectorAll(".tile").forEach(tile => {
     const laneWidth = firstLane.getBoundingClientRect().width || 1;
     const style = window.getComputedStyle(laneBar);
     const gap = parseFloat(style.columnGap || style.gap || "0") || 0;
-    return (laneWidth + gap) * mobileLanePageSize;
+    return laneWidth + gap;
   };
 
-  const scrollToMobilePage = (pageIndex, behavior = "smooth") => {
-    const left = clampPage(pageIndex) * mobilePageStride();
+  const scrollToMobileStart = (startIndex, behavior = "smooth") => {
+    const left = clampMobileStart(startIndex) * mobilePageStride();
     laneBar.scrollTo({ left, behavior });
   };
 
@@ -420,8 +420,8 @@ document.querySelectorAll(".tile").forEach(tile => {
 
     laneNav.classList.add("isVisible");
     laneBar.classList.add("isScrollable");
-    const canPrev = mobileLanePage > 0;
-    const canNext = mobileLanePage < mobileLanePageCount - 1;
+    const canPrev = mobileLaneStartIndex > 0;
+    const canNext = mobileLaneStartIndex < mobileLaneMaxStart;
 
     lanePrev.disabled = !canPrev;
     laneNext.disabled = !canNext;
@@ -439,7 +439,7 @@ document.querySelectorAll(".tile").forEach(tile => {
       return;
     }
 
-    visibleLaneGroups = new Set(groupsForMobilePage(mobileLanePage));
+    visibleLaneGroups = new Set(groupsForMobileWindow(mobileLaneStartIndex));
     map.classList.add("isLaneWindowed");
 
     edgeEls.forEach((el) => {
@@ -460,10 +460,10 @@ document.querySelectorAll(".tile").forEach(tile => {
 
   const normalizeMobileGroupSelection = () => {
     if (!isMobileView()) return;
-    const pageGroups = groupsForMobilePage(mobileLanePage);
-    if (!pageGroups.length) return;
-    if (!lockedGroup || !pageGroups.includes(lockedGroup)) {
-      lockedGroup = pageGroups[0];
+    const windowGroups = groupsForMobileWindow(mobileLaneStartIndex);
+    if (!windowGroups.length) return;
+    if (!lockedGroup || !windowGroups.includes(lockedGroup)) {
+      lockedGroup = windowGroups[0];
       openNodeId = null;
       mobileAutoLocked = true;
       applyOpenNode();
@@ -472,37 +472,41 @@ document.querySelectorAll(".tile").forEach(tile => {
     applyActive(lockedGroup);
   };
 
-  const scrollLaneBarByPage = (direction) => {
-    const target = clampPage(mobileLanePage + direction);
-    if (target === mobileLanePage) return;
-    mobileLanePage = target;
-    scrollToMobilePage(mobileLanePage, "smooth");
+  const commitMobileWindow = (nextStartIndex, behavior = "smooth") => {
+    const clamped = clampMobileStart(nextStartIndex);
+    if (clamped === mobileLaneStartIndex && behavior !== "auto") {
+      scrollToMobileStart(clamped, behavior);
+      return;
+    }
+    mobileLaneStartIndex = clamped;
+    scrollToMobileStart(mobileLaneStartIndex, behavior);
     layoutAndRender();
+    map.classList.add("isWindowSwitching");
+    window.setTimeout(() => map.classList.remove("isWindowSwitching"), 170);
     normalizeMobileGroupSelection();
     updateLaneNav();
     updateVisibleLaneWindow();
   };
 
+  const scrollLaneBarByStep = (direction) => {
+    commitMobileWindow(mobileLaneStartIndex + direction, "smooth");
+  };
+
   lanePrev.addEventListener("click", (e) => {
     e.stopPropagation();
-    scrollLaneBarByPage(-1);
+    scrollLaneBarByStep(-1);
   });
   laneNext.addEventListener("click", (e) => {
     e.stopPropagation();
-    scrollLaneBarByPage(1);
+    scrollLaneBarByStep(1);
   });
   laneBar.addEventListener("scroll", () => {
     if (!isMobileView()) return;
     if (mobileScrollSnapTimer) window.clearTimeout(mobileScrollSnapTimer);
     mobileScrollSnapTimer = window.setTimeout(() => {
       const stride = mobilePageStride();
-      const page = clampPage(Math.round((laneBar.scrollLeft || 0) / Math.max(1, stride)));
-      mobileLanePage = page;
-      scrollToMobilePage(mobileLanePage, "smooth");
-      layoutAndRender();
-      normalizeMobileGroupSelection();
-      updateLaneNav();
-      updateVisibleLaneWindow();
+      const nextStart = clampMobileStart(Math.round((laneBar.scrollLeft || 0) / Math.max(1, stride)));
+      commitMobileWindow(nextStart, "smooth");
     }, 110);
   }, { passive: true });
 
@@ -550,9 +554,9 @@ document.querySelectorAll(".tile").forEach(tile => {
 
   const syncNodeAnchorsForViewport = () => {
     const mobile = isMobileView();
-    const pageGroups = groupsForMobilePage(mobileLanePage);
+    const pageGroups = groupsForMobileWindow(mobileLaneStartIndex);
     const groupOffset = new Map();
-    const mobileYShift = 8;
+    const mobileYShift = 4;
     const mapRect = map.getBoundingClientRect();
     pageGroups.forEach((group, index) => {
       const root = rootByGroup.get(group);
@@ -573,7 +577,7 @@ document.querySelectorAll(".tile").forEach(tile => {
       const node = nodeById.get(id);
       if (!node) return;
       const baseX = (node.x / 100) * viewW;
-      const yPercent = mobile && !node.engineering ? Math.max(6, node.y - mobileYShift) : node.y;
+      const yPercent = mobile && !node.engineering ? Math.max(14, node.y - mobileYShift) : node.y;
       const baseY = (yPercent / 100) * viewH;
       let anchorX = baseX;
       if (mobile && node.theme !== "core") {
@@ -894,9 +898,7 @@ document.querySelectorAll(".tile").forEach(tile => {
         lockedGroup = group;
         const laneIndex = laneOrder.indexOf(group);
         if (laneIndex >= 0) {
-          mobileLanePage = clampPage(Math.floor(laneIndex / mobileLanePageSize));
-          scrollToMobilePage(mobileLanePage, "smooth");
-          layoutAndRender();
+          commitMobileWindow(laneIndex, "smooth");
         }
       } else {
         lockedGroup = lockedGroup === group ? null : group;
