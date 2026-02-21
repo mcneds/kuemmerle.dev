@@ -4,9 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>kuemmerle.dev</title>
+
   <link rel="stylesheet" href="style.css" />
+
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="alternate icon" type="image/png" href="/favicon.png">
+
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -46,22 +49,36 @@
       </a>
     </section>
 
-    <!-- Curved arc + curved name (real curve via SVG path) -->
-    <div class="arcWrap" aria-hidden="true">
-      <svg class="arcSvg" viewBox="0 0 1000 180" preserveAspectRatio="none">
-        <!-- Arc border -->
-        <path id="arcPath"
-          d="M -80 70 Q 500 220 1080 70"
-          fill="none"
-          class="arcStroke"
-        />
-        <!-- Name on arc -->
-        <text class="arcText">
-          <textPath href="#arcPath" startOffset="50%" text-anchor="middle">
-            AIDEN KUEMMERLE
-          </textPath>
-        </text>
-      </svg>
+    <!-- Flat rule + CAD dimension name (replaces arc) -->
+    <div class="cadNameWrap" aria-label="Aiden Kuemmerle">
+      <div class="cadTopRule"></div>
+
+      <div class="cadNameBox" id="cadBox">
+        <div class="cadNameText" id="cadText">
+          <span class="first">AIDEN</span>
+          <span class="last">KUEMMERLE</span>
+        </div>
+
+        <!-- Width dimension -->
+        <div class="dimX" aria-hidden="true">
+          <span class="tick left"></span>
+          <span class="tick right"></span>
+          <span class="label"><span id="dimW">0</span>px</span>
+        </div>
+
+        <!-- Height dimension -->
+        <div class="dimY" aria-hidden="true">
+          <span class="tick top"></span>
+          <span class="tick bottom"></span>
+          <span class="label"><span id="dimH">0</span>px</span>
+        </div>
+
+        <!-- “Sketch handles” (visual + interactive) -->
+        <button class="sketchHandle tl" type="button" aria-label="Resize top-left"></button>
+        <button class="sketchHandle tr" type="button" aria-label="Resize top-right"></button>
+        <button class="sketchHandle bl" type="button" aria-label="Resize bottom-left"></button>
+        <button class="sketchHandle br" type="button" aria-label="Resize bottom-right"></button>
+      </div>
     </div>
 
   </header>
