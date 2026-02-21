@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>kuemmerle.dev</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- TOP "SCENE" HEADER (shown on all pages later) -->
+  <header class="sceneHeader" id="sceneHeader">
+
+    <!-- top nav -->
+    <nav class="topNav" aria-label="Primary">
+      <a href="#home" class="navItem">Home</a>
+      <a href="#resume" class="navItem">Resume</a>
+      <a href="#contact" class="navItem">Contact</a>
+      <a href="#fun" class="navItem">Fun</a>
+    </nav>
+
+    <!-- placeholder "scene": 3 image boxes -->
+    <section class="sceneTiles" aria-label="Section tiles">
+      <a class="tile" href="#standalone" data-section="standalone">
+        <div class="tileInner">
+          <div class="tileLabel">Standalone Projects</div>
+          <div class="tileHint">Image goes here</div>
+        </div>
+      </a>
+
+      <a class="tile" href="#quick" data-section="quick">
+        <div class="tileInner">
+          <div class="tileLabel">Quick Side Quests</div>
+          <div class="tileHint">Image goes here</div>
+        </div>
+      </a>
+
+      <a class="tile" href="#construction" data-section="construction">
+        <div class="tileInner">
+          <div class="tileLabel">Under Construction</div>
+          <div class="tileHint">Image goes here</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- curved name + hide tab -->
+    <div class="arcWrap">
+      <div class="arcLine" aria-hidden="true"></div>
+
+      <button class="hideTab" id="toggleHeader" type="button" aria-expanded="true" aria-controls="sceneHeader">
+        <span class="tabIcon" aria-hidden="true">▁▁▁</span>
+        <span class="tabText">Click to hide</span>
+      </button>
+
+      <div class="curvedName" aria-label="Site owner name">
+        <span class="nameText">AIDEN KUEMMERLE</span>
+      </div>
+    </div>
+
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main id="home" class="page">
+
+    <section id="about" class="contentSection">
+      <h1>About me</h1>
+
+      <div class="twoCol">
+        <div class="col">
+          <p>
+            I build things at the intersection of mechanical design, embedded systems,
+            simulation, and tooling. I like projects that start as a messy constraint
+            and end as a clean system.
+          </p>
+          <p class="muted">
+            (Replace this with your real “story” when you’re ready.)
+          </p>
+        </div>
+
+        <div class="col card">
+          <div class="cardTitle">Quick snapshot</div>
+          <ul class="bullet">
+            <li>Engineering student (UBC)</li>
+            <li>CAD / prototyping / software tools</li>
+            <li>Story-driven portfolio (“Kuemmerle Corner”)</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="hobbies" class="contentSection">
+      <h1>Hobbies</h1>
+
+      <div class="trail">
+        <div class="trailLine" aria-hidden="true"></div>
+
+        <div class="trailNode">
+          <div class="nodeDot" aria-hidden="true"></div>
+          <div class="nodeBody">
+            <h2>Outdoors</h2>
+            <p class="muted">Ski • MTB • Hiking</p>
+          </div>
+        </div>
+
+        <div class="trailNode">
+          <div class="nodeDot" aria-hidden="true"></div>
+          <div class="nodeBody">
+            <h2>Creative media</h2>
+            <p class="muted">Reading • Movies • Music</p>
+          </div>
+        </div>
+
+        <div class="trailNode">
+          <div class="nodeDot" aria-hidden="true"></div>
+          <div class="nodeBody">
+            <h2>Tinkering</h2>
+            <p class="muted">LEGO • 3D printing • code • robotics</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Placeholder sections for tile targets -->
+    <section id="standalone" class="contentSection anchorSection">
+      <h1>Standalone Projects</h1>
+      <p class="muted">This will become a full page or a deep section later.</p>
+    </section>
+
+    <section id="quick" class="contentSection anchorSection">
+      <h1>Quick Side Quests</h1>
+      <p class="muted">Small tools, experiments, and focused wins.</p>
+    </section>
+
+    <section id="construction" class="contentSection anchorSection">
+      <h1>Under Construction</h1>
+      <p class="muted">Long-term WIP and “always evolving” projects.</p>
+    </section>
+
+    <section id="resume" class="contentSection anchorSection">
+      <h1>Resume</h1>
+      <p class="muted">Later: embed PDF + download link.</p>
+    </section>
+
+    <section id="contact" class="contentSection anchorSection">
+      <h1>Contact</h1>
+      <p class="muted">Later: email link + socials.</p>
+    </section>
+
+    <section id="fun" class="contentSection anchorSection">
+      <h1>Fun</h1>
+      <p class="muted">Demos, experiments, and interactive toys.</p>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div>© 2026 kuemmerle.dev</div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>
