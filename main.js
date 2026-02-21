@@ -945,3 +945,271 @@ document.querySelectorAll(".tile").forEach(tile => {
   syncMobileDefaultGroup();
 })();
 
+(() => {
+  const libraries = [...document.querySelectorAll("[data-project-library]")];
+  if (!libraries.length) return;
+
+  const sectionLabelByCategory = {
+    quick: "Quick Side Quests",
+    standalone: "Standalone Projects",
+    construction: "Under Construction"
+  };
+
+  const sectionUrlByCategory = {
+    quick: "/quick/",
+    standalone: "/projects/",
+    construction: "/construction/"
+  };
+
+  const projectCatalog = [
+    {
+      id: "quick-field-rig-fastener-pack",
+      category: "quick",
+      type: "single",
+      title: "Field-Rig Fastener Pack",
+      hero: "/assets/images/goproclip%20mount.png",
+      alt: "3D printed GoPro clip mount prototype",
+      problem: "Cold-weather camera clips were failing unexpectedly in the field. I needed a quick-turn mount system that could survive vibration and still be repairable with minimal tools.",
+      solution: "I built a small fastener pack with printable clip variants, tuned edge fillets for stress concentration, and set up a simple pre-ride check procedure so the mount can be swapped in minutes.",
+      tags: ["Rapid prototype", "3D print", "Field testing", "Cold weather", "Adapter"],
+      skills: ["Constraint-based CAD", "Tolerance tuning", "Failure analysis", "Iterative prototyping", "Test logging"]
+    },
+    {
+      id: "quick-powder-cam-mount",
+      category: "quick",
+      type: "detail",
+      detailUrl: "/quick/powder-cam-mount/",
+      title: "Powder Cam Mount (Insta360 + GoPro)",
+      hero: "/assets/images/gopro%20to%20insta360%20adapter.png",
+      alt: "Adapter concept for mounting Insta360 and GoPro systems",
+      problem: "Ski footage setup changes were too fragile: snow ingress, strap slip, and emergency zip-tie fixes were creating unreliable capture at the worst time.",
+      solution: "I designed a dual-camera adapter geometry with drainage and anti-slip contact surfaces, then validated fit and retention under repeated snowpack and glove-on handling cycles.",
+      tags: ["Camera system", "Ski context", "Ingress control", "Reliability", "Mounting"],
+      skills: ["Mechanical packaging", "Rapid validation", "User-context design", "Design for serviceability", "Tradeoff analysis"]
+    },
+    {
+      id: "standalone-cise-transport-stand",
+      category: "standalone",
+      type: "single",
+      title: "CISE Trophy Transport Stand",
+      hero: "/assets/images/CISE%20Trophy%20render.png",
+      alt: "Render of CISE trophy transport stand",
+      problem: "Transporting display pieces between build space and event space introduced repeated setup friction and damage risk due to poor constraints and no standardized docking posture.",
+      solution: "I created a compact stand architecture with predictable contact points and handling clearances, making transport and setup repeatable while preserving presentation quality.",
+      tags: ["Event hardware", "Transport", "Display design", "Repeatability", "Presentation"],
+      skills: ["Fixture design", "CAD surfacing", "Tolerance stackup", "Assembly strategy", "Design communication"]
+    },
+    {
+      id: "standalone-leaf-walker-platform",
+      category: "standalone",
+      type: "detail",
+      detailUrl: "/projects/leaf-walker-platform/",
+      title: "Leaf Walker: Better Forestry Platform",
+      hero: "/assets/images/leafwalkerWalking.jpg",
+      alt: "Leaf Walker robotics platform in motion",
+      problem: "The original concept mixed mobility, sensing, and platform constraints without a clear systems boundary, making iteration slow and performance comparisons inconsistent.",
+      solution: "I restructured the platform around modular subsystems, defined interface contracts, and introduced a repeatable test loop so mechanical and controls changes could be evaluated quickly.",
+      tags: ["Robotics", "Forestry platform", "Systems integration", "Mobility", "Iteration loop"],
+      skills: ["System architecture", "Interface design", "Prototype instrumentation", "Integration testing", "Technical storytelling"]
+    },
+    {
+      id: "construction-defender-packaging-study",
+      category: "construction",
+      type: "single",
+      title: "Defender 90 Packaging Study",
+      hero: "/assets/images/defender90.PNG",
+      alt: "Defender 90 CAD packaging model",
+      problem: "Early packaging layouts for a Defender 90 concept were too optimistic and ignored service clearances, creating conflicts once real component envelopes were introduced.",
+      solution: "I started a constraint-first packaging study with service corridors and maintenance access baked in, then used quick envelope sweeps to catch interference before detailed modeling.",
+      tags: ["Concept vehicle", "Packaging", "Clearance study", "Serviceability", "Early-phase"],
+      skills: ["Spatial reasoning", "Envelope analysis", "Constraint planning", "CAD organization", "Design review"]
+    },
+    {
+      id: "construction-modulus-drawer-system-v2",
+      category: "construction",
+      type: "detail",
+      detailUrl: "/construction/modulus-drawer-system/",
+      title: "Modulus Drawer System v2",
+      hero: "/assets/images/modulus%20drawer%20logo.png",
+      alt: "Modulus drawer system concept branding",
+      problem: "Storage modules were growing ad hoc, so dimensions, labeling, and attachment methods were inconsistent, which made scaling and maintenance harder over time.",
+      solution: "Version 2 introduces a parameterized module standard, shared interface geometry, and a naming/labeling strategy so additions stay compatible and easy to fabricate.",
+      tags: ["Modular system", "Workshop tooling", "Scalability", "Standardization", "In progress"],
+      skills: ["Parametric design", "Configuration planning", "Process design", "Fabrication workflow", "Versioned iteration"]
+    }
+  ];
+
+  const normalize = (value) =>
+    String(value || "")
+      .toLowerCase()
+      .replace(/\s+/g, " ")
+      .trim();
+
+  const escapeHtml = (value) =>
+    String(value || "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
+
+  const renderPills = (items) =>
+    items.map((item) => `<span class="projectPill">${escapeHtml(item)}</span>`).join("");
+
+  const indexedCatalog = projectCatalog.map((entry) => {
+    const combined = [
+      entry.title,
+      entry.problem,
+      entry.solution,
+      entry.tags.join(" "),
+      entry.skills.join(" "),
+      sectionLabelByCategory[entry.category] || ""
+    ].join(" ");
+    return { ...entry, searchText: normalize(combined) };
+  });
+
+  const renderEntry = (entry) => {
+    const badge = entry.type === "detail" ? "Detailed" : "Single entry";
+    const typeLabel = entry.type === "detail" ? "Detailed project page" : "Single-entry snapshot";
+    const previewTags = entry.tags.slice(0, 3);
+    const previewSkills = entry.skills.slice(0, 3);
+    const linkMarkup = entry.type === "detail" && entry.detailUrl
+      ? `<a class="projectEntryLink" href="${escapeHtml(entry.detailUrl)}">Open full project page</a>`
+      : "";
+
+    return `
+      <article id="project-entry-${escapeHtml(entry.id)}" class="projectEntry${entry.type === "detail" ? " projectEntry--detail" : ""}" data-project-entry data-entry-id="${escapeHtml(entry.id)}">
+        <div class="projectEntryHead">
+          <div>
+            <h2 class="projectEntryTitle">${escapeHtml(entry.title)}</h2>
+            <p class="projectEntryType">${escapeHtml(typeLabel)}</p>
+          </div>
+          <span class="projectEntryBadge">${escapeHtml(badge)}</span>
+        </div>
+        <figure class="projectEntryHero">
+          <img src="${escapeHtml(entry.hero)}" alt="${escapeHtml(entry.alt)}">
+        </figure>
+        <div class="projectEntryBody">
+          <section class="projectEntryPanel">
+            <h3>Problem Definition</h3>
+            <p>${escapeHtml(entry.problem)}</p>
+          </section>
+          <section class="projectEntryPanel">
+            <h3>Problem Solution</h3>
+            <p>${escapeHtml(entry.solution)}</p>
+          </section>
+        </div>
+        <div class="projectEntryMeta">
+          <details class="projectMetaDetails">
+            <summary>
+              <span>Tags</span>
+              <span class="projectMetaPreview">${renderPills(previewTags)}</span>
+            </summary>
+            <div class="projectPills">${renderPills(entry.tags)}</div>
+          </details>
+          <details class="projectMetaDetails">
+            <summary>
+              <span>Skills</span>
+              <span class="projectMetaPreview">${renderPills(previewSkills)}</span>
+            </summary>
+            <div class="projectPills">${renderPills(entry.skills)}</div>
+          </details>
+        </div>
+        ${linkMarkup}
+      </article>
+    `;
+  };
+
+  const linkForEntry = (entry) => {
+    if (entry.type === "detail" && entry.detailUrl) return entry.detailUrl;
+    const sectionUrl = sectionUrlByCategory[entry.category] || "/";
+    return `${sectionUrl}#project-entry-${entry.id}`;
+  };
+
+  libraries.forEach((library) => {
+    const category = library.dataset.projectCategory || "";
+    const categoryEntries = indexedCatalog.filter((entry) => entry.category === category);
+    if (!categoryEntries.length) return;
+
+    const list = library.querySelector("[data-project-entry-list]");
+    const input = library.querySelector("[data-project-search]");
+    const clearButton = library.querySelector("[data-project-search-clear]");
+    const meta = library.querySelector("[data-project-search-meta]");
+    const emptyState = library.querySelector("[data-project-search-empty]");
+    const crossWrap = library.querySelector("[data-project-cross-wrap]");
+    const crossList = library.querySelector("[data-project-cross-results]");
+    if (!list || !input) return;
+
+    list.innerHTML = categoryEntries.map((entry) => renderEntry(entry)).join("");
+    const entryById = new Map(categoryEntries.map((entry) => [entry.id, entry]));
+    const cardById = new Map(
+      [...list.querySelectorAll("[data-project-entry]")].map((el) => [el.dataset.entryId || "", el])
+    );
+
+    const applyFilter = () => {
+      const queryRaw = input.value.trim();
+      const query = normalize(queryRaw);
+      let visibleCount = 0;
+
+      cardById.forEach((card, id) => {
+        const entry = entryById.get(id);
+        if (!entry) return;
+        const matches = !query || entry.searchText.includes(query);
+        card.hidden = !matches;
+        if (matches) visibleCount += 1;
+      });
+
+      const globalMatches = query
+        ? indexedCatalog.filter((entry) => entry.searchText.includes(query))
+        : [];
+      const crossMatches = globalMatches.filter((entry) => entry.category !== category).slice(0, 6);
+
+      if (meta) {
+        if (!query) {
+          const sectionLabel = sectionLabelByCategory[category] || "this section";
+          meta.textContent = `Showing ${visibleCount} of ${categoryEntries.length} entries in ${sectionLabel}.`;
+        } else {
+          meta.textContent = `${visibleCount} in this section, ${globalMatches.length} across all projects.`;
+        }
+      }
+
+      if (emptyState) {
+        emptyState.hidden = !(query && visibleCount === 0);
+      }
+
+      if (crossWrap && crossList) {
+        if (query && crossMatches.length) {
+          crossList.innerHTML = crossMatches
+            .map((entry) => {
+              const href = linkForEntry(entry);
+              const sectionLabel = sectionLabelByCategory[entry.category] || "Other";
+              return `
+                <li>
+                  <a href="${escapeHtml(href)}">
+                    <span>${escapeHtml(entry.title)}</span>
+                    <span class="projectCrossSection">(${escapeHtml(sectionLabel)})</span>
+                  </a>
+                </li>
+              `;
+            })
+            .join("");
+          crossWrap.hidden = false;
+        } else {
+          crossWrap.hidden = true;
+          crossList.innerHTML = "";
+        }
+      }
+    };
+
+    input.addEventListener("input", applyFilter);
+    if (clearButton) {
+      clearButton.addEventListener("click", () => {
+        input.value = "";
+        input.focus();
+        applyFilter();
+      });
+    }
+
+    applyFilter();
+  });
+})();

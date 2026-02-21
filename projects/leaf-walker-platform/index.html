@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Leaf Walker Platform | kuemmerle.dev</title>
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="sceneHeader" id="sceneHeader">
+    <nav class="topNav" aria-label="Primary">
+      <a href="/" class="navItem">Home</a>
+      <a href="/resume" class="navItem">Resume</a>
+      <a href="/contact" class="navItem">Contact</a>
+      <a href="/fun" class="navItem">Fun</a>
+    </nav>
+    <section class="sceneTiles" aria-label="Section tiles">
+      <a class="tile" href="/quick" data-section="quick">
+        <div class="tileInner">
+          <div class="tileLabel">Quick Side Quests</div>
+          <div class="tileHint">Small builds and fast experiments</div>
+        </div>
+      </a>
+      <a class="tile" href="/projects" data-section="standalone">
+        <div class="tileInner">
+          <div class="tileLabel">Standalone Projects</div>
+          <div class="tileHint">Complete systems built end to end</div>
+        </div>
+      </a>
+      <a class="tile" href="/construction" data-section="construction">
+        <div class="tileInner">
+          <div class="tileLabel">Under Construction</div>
+          <div class="tileHint">Active work currently in progress</div>
+        </div>
+      </a>
+    </section>
+  </header>
+
+  <main class="page">
+    <section class="contentSection projectDetail">
+      <p class="projectDetailBack"><a href="/projects/">Back to Standalone Projects</a></p>
+      <h1>Leaf Walker: Better Forestry Platform</h1>
+      <p class="muted">Detailed project entry with additional systems and iteration context.</p>
+
+      <article class="projectEntry projectEntry--detail">
+        <div class="projectEntryHead">
+          <div>
+            <h2 class="projectEntryTitle">From Concept Vehicle To Testable System</h2>
+            <p class="projectEntryType">Detailed project page</p>
+          </div>
+          <span class="projectEntryBadge">Detailed</span>
+        </div>
+        <figure class="projectEntryHero">
+          <img src="/assets/images/leafwalkerWalking.jpg" alt="Leaf Walker robotics platform in motion">
+        </figure>
+        <div class="projectEntryBody">
+          <section class="projectEntryPanel">
+            <h3>Problem Definition</h3>
+            <p>Mobility, sensing, and chassis decisions were tightly coupled, so each change caused hidden side effects in another subsystem. That made comparisons between versions inconsistent and slowed iteration dramatically.</p>
+          </section>
+          <section class="projectEntryPanel">
+            <h3>Problem Solution</h3>
+            <p>I separated core functions into modular subsystems with explicit interfaces. This made test plans cleaner, reduced integration surprises, and allowed targeted upgrades without destabilizing the rest of the platform.</p>
+          </section>
+        </div>
+        <div class="projectEntryMeta projectDetailMeta">
+          <details class="projectMetaDetails">
+            <summary>
+              <span>Tags</span>
+              <span class="projectMetaPreview">
+                <span class="projectPill">Robotics</span>
+                <span class="projectPill">Forestry platform</span>
+                <span class="projectPill">Systems integration</span>
+              </span>
+            </summary>
+            <div class="projectPills">
+              <span class="projectPill">Robotics</span>
+              <span class="projectPill">Forestry platform</span>
+              <span class="projectPill">Systems integration</span>
+              <span class="projectPill">Mobility</span>
+              <span class="projectPill">Iteration loop</span>
+            </div>
+          </details>
+          <details class="projectMetaDetails">
+            <summary>
+              <span>Skills</span>
+              <span class="projectMetaPreview">
+                <span class="projectPill">System architecture</span>
+                <span class="projectPill">Interface design</span>
+                <span class="projectPill">Integration testing</span>
+              </span>
+            </summary>
+            <div class="projectPills">
+              <span class="projectPill">System architecture</span>
+              <span class="projectPill">Interface design</span>
+              <span class="projectPill">Prototype instrumentation</span>
+              <span class="projectPill">Integration testing</span>
+              <span class="projectPill">Technical storytelling</span>
+            </div>
+          </details>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div>&copy; 2026 kuemmerle.dev</div>
+  </footer>
+  <script src="/main.js"></script>
+</body>
+</html>

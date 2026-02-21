@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Modulus Drawer System v2 | kuemmerle.dev</title>
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="sceneHeader" id="sceneHeader">
+    <nav class="topNav" aria-label="Primary">
+      <a href="/" class="navItem">Home</a>
+      <a href="/resume" class="navItem">Resume</a>
+      <a href="/contact" class="navItem">Contact</a>
+      <a href="/fun" class="navItem">Fun</a>
+    </nav>
+    <section class="sceneTiles" aria-label="Section tiles">
+      <a class="tile" href="/quick" data-section="quick">
+        <div class="tileInner">
+          <div class="tileLabel">Quick Side Quests</div>
+          <div class="tileHint">Small builds and fast experiments</div>
+        </div>
+      </a>
+      <a class="tile" href="/projects" data-section="standalone">
+        <div class="tileInner">
+          <div class="tileLabel">Standalone Projects</div>
+          <div class="tileHint">Complete systems built end to end</div>
+        </div>
+      </a>
+      <a class="tile" href="/construction" data-section="construction">
+        <div class="tileInner">
+          <div class="tileLabel">Under Construction</div>
+          <div class="tileHint">Active work currently in progress</div>
+        </div>
+      </a>
+    </section>
+  </header>
+
+  <main class="page">
+    <section class="contentSection projectDetail">
+      <p class="projectDetailBack"><a href="/construction/">Back to Under Construction</a></p>
+      <h1>Modulus Drawer System v2</h1>
+      <p class="muted">Detailed project entry for active architecture work and implementation planning.</p>
+
+      <article class="projectEntry projectEntry--detail">
+        <div class="projectEntryHead">
+          <div>
+            <h2 class="projectEntryTitle">Turning Ad Hoc Storage Into A Scalable System</h2>
+            <p class="projectEntryType">Detailed project page</p>
+          </div>
+          <span class="projectEntryBadge">Detailed</span>
+        </div>
+        <figure class="projectEntryHero">
+          <img src="/assets/images/modulus%20drawer%20logo.png" alt="Modulus drawer system concept branding">
+        </figure>
+        <div class="projectEntryBody">
+          <section class="projectEntryPanel">
+            <h3>Problem Definition</h3>
+            <p>Drawer modules were being added over time without shared standards for geometry, naming, or fastener interfaces. That made expansion unpredictable and maintenance inefficient.</p>
+          </section>
+          <section class="projectEntryPanel">
+            <h3>Problem Solution</h3>
+            <p>Version 2 defines a parameterized module spec, interface constraints, and a consistent labeling workflow. This keeps future modules compatible while simplifying fabrication and inventory updates.</p>
+          </section>
+        </div>
+        <div class="projectEntryMeta projectDetailMeta">
+          <details class="projectMetaDetails">
+            <summary>
+              <span>Tags</span>
+              <span class="projectMetaPreview">
+                <span class="projectPill">Modular system</span>
+                <span class="projectPill">Standardization</span>
+                <span class="projectPill">In progress</span>
+              </span>
+            </summary>
+            <div class="projectPills">
+              <span class="projectPill">Modular system</span>
+              <span class="projectPill">Workshop tooling</span>
+              <span class="projectPill">Scalability</span>
+              <span class="projectPill">Standardization</span>
+              <span class="projectPill">In progress</span>
+            </div>
+          </details>
+          <details class="projectMetaDetails">
+            <summary>
+              <span>Skills</span>
+              <span class="projectMetaPreview">
+                <span class="projectPill">Parametric design</span>
+                <span class="projectPill">Process design</span>
+                <span class="projectPill">Versioned iteration</span>
+              </span>
+            </summary>
+            <div class="projectPills">
+              <span class="projectPill">Parametric design</span>
+              <span class="projectPill">Configuration planning</span>
+              <span class="projectPill">Process design</span>
+              <span class="projectPill">Fabrication workflow</span>
+              <span class="projectPill">Versioned iteration</span>
+            </div>
+          </details>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div>&copy; 2026 kuemmerle.dev</div>
+  </footer>
+  <script src="/main.js"></script>
+</body>
+</html>

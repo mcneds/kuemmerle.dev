@@ -39,14 +39,33 @@
   </header>
 
   <main class="page">
-    <section class="contentSection">
+    <section class="contentSection projectLibrary" data-project-library data-project-category="quick">
       <h1>Quick Side Quests</h1>
-      <p class="muted">Small tools, experiments, and focused wins.</p>
+      <p class="muted projectLibraryIntro">Small tools, experiments, and focused wins. Search scans every project field: title, problem, solution, tags, and skills.</p>
+
+      <div class="projectSearchShell">
+        <label class="projectSearchLabel" for="projectSearchQuick">Search all project content</label>
+        <div class="projectSearchRow">
+          <input id="projectSearchQuick" class="projectSearchInput" data-project-search type="search" placeholder="Try: adapter, CAD, sustainability, simulation">
+          <button class="projectSearchClear" type="button" data-project-search-clear>Clear</button>
+        </div>
+        <p class="projectSearchMeta" data-project-search-meta></p>
+      </div>
+
+      <p class="projectSearchEmpty muted" data-project-search-empty hidden>No matches in this section. Try a broader term or check cross-section matches below.</p>
+
+      <section class="projectCrossMatches" data-project-cross-wrap hidden>
+        <h2>Matches In Other Sections</h2>
+        <ul class="projectCrossList" data-project-cross-results></ul>
+      </section>
+
+      <div class="projectEntryList" data-project-entry-list></div>
     </section>
   </main>
 
   <footer class="footer">
     <div>&copy; 2026 kuemmerle.dev</div>
   </footer>
+  <script src="/main.js"></script>
 </body>
 </html>
