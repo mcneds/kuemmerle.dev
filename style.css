@@ -99,8 +99,8 @@ body{
   position: absolute;
   left: 0;
   right: 0;
-  bottom: -6px;      /* pull arc slightly down */
-  height: 170px;     /* controls arc depth */
+  bottom: -18px;   /* pushes arc a bit lower so it sits under tiles */
+  height: 190px;   /* gives the bowl more vertical room */
   pointer-events: none;
 }
 
@@ -119,7 +119,7 @@ body{
   fill: rgba(233,233,239,0.92);
   font-weight: 800;
   letter-spacing: 0.42em;
-  font-size: 44px;
+  font-size: 40px;
 }
 
 /* Responsive */
