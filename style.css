@@ -6,7 +6,7 @@
   --muted: rgba(233,233,239,0.68);
   --stroke: rgba(233,233,239,0.14);
   --accent: #3a7bfd;
-  --pageMax: 1500px;
+  --pageMax: 1860px;
   --pageGutter: clamp(1rem, 2.2vw, 2.25rem);
 
   /* CAD lines */
@@ -85,15 +85,44 @@ body{
   min-height: 160px;
   transition: 180ms;
   position: relative;
+  overflow: hidden;
+}
+.tile::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: var(--tile-image);
+  background-size: cover;
+  background-position: var(--tile-focus, center);
+  transform: scale(1);
+  transition: transform 220ms ease, filter 220ms ease;
+  filter: saturate(0.9) contrast(1.02);
+}
+.tile::after{
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(2, 6, 16, 0.9) 0%,
+    rgba(2, 6, 16, 0.8) 32%,
+    rgba(2, 6, 16, 0.45) 60%,
+    rgba(2, 6, 16, 0.72) 100%
+  );
 }
 .tile:hover{
   border-style: solid;
   border-color: rgba(58,123,253,0.6);
   transform: translateY(-2px);
-  background: rgba(58,123,253,0.06);
+}
+.tile:hover::before{
+  transform: scale(1.03);
+  filter: saturate(0.98) contrast(1.08);
 }
 
 .tileInner{
+  position: relative;
+  z-index: 2;
   height: 100%;
   padding: 1rem;
   display:flex;
@@ -104,11 +133,33 @@ body{
 .tileLabel{
   font-weight: 800;
   letter-spacing: 0.2px;
+  align-self: flex-start;
+  padding: 0.35rem 0.55rem;
+  border-radius: 8px;
+  border: 1px solid rgba(233,233,239,0.22);
+  background: rgba(2, 6, 16, 0.66);
+  text-shadow: 0 1px 4px rgba(0,0,0,0.35);
 }
 
 .tileHint{
-  color: var(--muted);
+  color: rgba(233,233,239,0.86);
   font-size: 0.95rem;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.35);
+}
+
+.tile[data-section="quick"]{
+  --tile-image: url("/assets/images/goproclip mount.png");
+  --tile-focus: center 62%;
+}
+
+.tile[data-section="standalone"]{
+  --tile-image: url("/assets/images/leafwalkerWalking.jpg");
+  --tile-focus: center 45%;
+}
+
+.tile[data-section="construction"]{
+  --tile-image: url("/assets/images/underConstruction.jpg");
+  --tile-focus: center 44%;
 }
 
 /* ===== CAD name block (flat rule + dimension frame) ===== */
@@ -292,7 +343,7 @@ body{
 /* ====== Main Content ====== */
 .page{
   padding: clamp(2rem, 2.8vw, 3rem) var(--pageGutter) 4rem;
-  width: min(var(--pageMax), 98vw);
+  width: min(var(--pageMax), 99.6vw);
   margin: 0 auto;
 }
 
@@ -327,7 +378,9 @@ body{
   grid-column: 2;
   grid-row: 1 / span 4;
   align-self: stretch;
-  display: block;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 @media (max-width: 850px){
@@ -340,7 +393,7 @@ body{
 
 .aboutText{
   display: grid;
-  grid-template-columns: minmax(0, 1fr) clamp(280px, 30vw, 390px);
+  grid-template-columns: minmax(0, 1fr) clamp(360px, 30vw, 520px);
   column-gap: clamp(1rem, 1.8vw, 2rem);
   align-items: start;
   font-size: clamp(1rem, 0.22vw + 0.96rem, 1.08rem);
@@ -354,7 +407,7 @@ body{
 
 .aboutText p{
   margin: 0 0 1.35rem;
-  max-width: 60ch;
+  max-width: 78ch;
   text-wrap: pretty;
 }
 
@@ -371,7 +424,7 @@ body{
 
 .aboutBlockBody{
   display: grid;
-  grid-template-columns: minmax(150px, 210px) minmax(0, 1fr);
+  grid-template-columns: minmax(170px, 250px) minmax(0, 1fr);
   gap: clamp(0.8rem, 1.2vw, 1.1rem);
   align-items: start;
 }
@@ -436,6 +489,32 @@ body{
   padding: 0.45rem;
 }
 
+.aboutMediaFrame img,
+.portraitFrame img{
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  display: block;
+  object-fit: cover;
+  border-radius: inherit;
+}
+
+.portraitImage{
+  object-position: 10% 28%;
+}
+
+.aboutImage--testing{
+  object-position: center 38%;
+}
+
+.aboutImage--cad{
+  object-position: center 22%;
+}
+
+.aboutImage--young{
+  object-position: center 34%;
+}
+
 .aboutMediaItem figcaption{
   margin-top: 0.35rem;
   font-size: 0.74rem;
@@ -445,7 +524,7 @@ body{
 .portraitFrame{
   margin-top: 0.45rem;
   width: 100%;
-  aspect-ratio: 5 / 6;
+  aspect-ratio: auto;
   border: 1px dashed rgba(233,233,239,0.28);
   border-radius: 12px;
   display: grid;
@@ -458,75 +537,21 @@ body{
 }
 
 .aboutPortraitFloat .portraitFrame{
-  aspect-ratio: 5 / 6;
-  flex: 0 0 auto;
-  min-height: 0;
-}
-
-.aboutSidebar{
-  margin-top: 0.9rem;
-  padding-top: 0.85rem;
-  border-top: 1px solid rgba(233,233,239,0.12);
-}
-
-.aboutSidebarTitle{
-  margin: 0 0 0.45rem;
-  font-size: 0.75rem;
-  letter-spacing: 0.09em;
-  text-transform: uppercase;
-  color: rgba(233,233,239,0.7);
-  font-weight: 700;
-}
-
-.aboutSidebarList{
-  margin: 0 0 0.9rem;
-  padding: 0;
-  list-style: none;
-  display: grid;
-  gap: 0.45rem;
-}
-
-.aboutSidebarList li{
-  position: relative;
-  padding-left: 0.85rem;
-  font-size: 0.88rem;
-  line-height: 1.35;
-  color: rgba(233,233,239,0.86);
-}
-
-.aboutSidebarList li::before{
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0.53em;
-  width: 6px;
-  height: 6px;
-  border-radius: 999px;
-  background: rgba(124,177,255,0.8);
-}
-
-.aboutSidebarText{
-  margin: 0;
-  font-size: 0.9rem;
-  line-height: 1.4;
-  color: rgba(233,233,239,0.84);
+  aspect-ratio: auto;
+  flex: 1 1 auto;
+  height: 100%;
+  min-height: clamp(560px, 56vw, 980px);
 }
 
 @media (max-width: 850px){
   .aboutPortraitFloat .portraitFrame{
-    aspect-ratio: 3 / 4;
+    aspect-ratio: 4 / 5;
     flex: none;
     min-height: 0;
   }
   .aboutPortrait .muted,
   .aboutPortrait .aboutSidebar{
     display: none !important;
-  }
-  .aboutSidebarList li{
-    font-size: 0.84rem;
-  }
-  .aboutSidebarText{
-    font-size: 0.86rem;
   }
 }
 

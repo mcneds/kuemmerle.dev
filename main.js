@@ -174,7 +174,7 @@ document.querySelectorAll(".tile").forEach(tile => {
 
     { id: "ski-ast1", label: "AST1", detail: "Risk models in real terrain.", theme: "ski", x: 7, y: 20 },
     { id: "ski-risk", label: "Calm under risk", detail: "Decision quality under pressure.", theme: "ski", x: 7, y: 32 },
-    { id: "ski-mount", label: "Insta360/GoPro mount", detail: "Zip + seal design challenge.", theme: "ski", x: 10, y: 74 },
+    { id: "ski-mount", label: "Insta360/GoPro mount", detail: "Zipties + seal design challenge.", theme: "ski", x: 10, y: 74 },
 
     { id: "mtb-timber", label: "Timberline trails", detail: "Trail networks and logistics.", theme: "mtb", x: 18, y: 24 },
     { id: "mtb-manage", label: "Management", detail: "Constraints, access, and planning.", theme: "mtb", x: 18, y: 36 },
