@@ -670,6 +670,265 @@ body{
   margin-top: 0.85rem;
 }
 
+/* Resume module */
+.resumeLibrary{
+  border-bottom: 0;
+}
+
+.resumeLibraryIntro{
+  margin: 0 0 1rem;
+  max-width: 80ch;
+}
+
+.resumeLibraryLayout{
+  display: grid;
+  grid-template-columns: minmax(220px, 320px) minmax(0, 1fr);
+  gap: 1rem;
+  align-items: start;
+}
+
+.resumePanel{
+  border: 1px solid rgba(233,233,239,0.16);
+  border-radius: 14px;
+  background: rgba(255,255,255,0.02);
+}
+
+.resumePanel--list{
+  position: sticky;
+  top: 3.7rem;
+  padding: 0.85rem;
+}
+
+.resumePanel--viewer{
+  padding: 0.95rem;
+}
+
+.resumePanelTitle{
+  margin: 0 0 0.55rem;
+  font-size: 0.88rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(233,233,239,0.74);
+}
+
+.resumeList{
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.55rem;
+}
+
+.resumeListButton{
+  width: 100%;
+  text-align: left;
+  border: 1px solid rgba(233,233,239,0.2);
+  border-radius: 10px;
+  background: rgba(15,17,21,0.58);
+  color: rgba(233,233,239,0.9);
+  padding: 0.55rem 0.62rem;
+  font: inherit;
+  cursor: pointer;
+}
+
+.resumeListButton:hover{
+  border-color: rgba(124,177,255,0.6);
+  background: rgba(58,123,253,0.12);
+}
+
+.resumeListButton.isActive{
+  border-color: rgba(124,177,255,0.75);
+  background: rgba(58,123,253,0.18);
+  color: rgba(221,236,255,0.96);
+}
+
+.resumeListLabel{
+  display: block;
+  font-weight: 700;
+}
+
+.resumeListSub{
+  display: block;
+  margin-top: 0.18rem;
+  font-size: 0.78rem;
+  color: rgba(233,233,239,0.66);
+}
+
+.resumePanelMeta{
+  margin: 0 0 0.72rem;
+}
+
+.resumeActions{
+  display: flex;
+  gap: 0.55rem;
+  margin-bottom: 0.8rem;
+}
+
+.resumeAction{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  border: 1px solid rgba(233,233,239,0.24);
+  padding: 0.48rem 0.72rem;
+  color: rgba(233,233,239,0.93);
+  text-decoration: none;
+  font-weight: 700;
+  background: rgba(255,255,255,0.04);
+}
+
+.resumeAction:hover{
+  border-color: rgba(124,177,255,0.72);
+  background: rgba(58,123,253,0.14);
+}
+
+.resumeAction--download{
+  border-color: rgba(124,177,255,0.6);
+  color: rgba(208,227,255,0.95);
+}
+
+.resumePreviewFrame{
+  border: 1px solid rgba(233,233,239,0.2);
+  border-radius: 12px;
+  overflow: hidden;
+  background: rgba(8,10,16,0.7);
+  min-height: 70vh;
+}
+
+.resumePreview{
+  width: 100%;
+  height: 70vh;
+  border: 0;
+  display: block;
+}
+
+/* Contact form */
+.contactSection{
+  border-bottom: 0;
+}
+
+.contactIntro{
+  margin: 0 0 1rem;
+  max-width: 78ch;
+}
+
+.contactEmailLink{
+  color: rgba(204,224,255,0.96);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(204,224,255,0.44);
+}
+
+.contactEmailLink:hover{
+  border-bottom-color: rgba(204,224,255,0.88);
+}
+
+.contactForm{
+  border: 1px solid rgba(233,233,239,0.17);
+  border-radius: 16px;
+  padding: 1rem;
+  background:
+    radial-gradient(120% 160% at 8% 0%, rgba(58,123,253,0.18), transparent 62%),
+    rgba(255,255,255,0.02);
+}
+
+.contactHoney{
+  position: absolute;
+  left: -9999px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.contactGrid{
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.8rem;
+}
+
+.contactField{
+  display: grid;
+  gap: 0.4rem;
+  margin-bottom: 0.8rem;
+}
+
+.contactField span{
+  font-size: 0.78rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: rgba(233,233,239,0.74);
+}
+
+.contactField input,
+.contactField textarea{
+  width: 100%;
+  border: 1px solid rgba(233,233,239,0.24);
+  border-radius: 11px;
+  padding: 0.62rem 0.72rem;
+  font: inherit;
+  color: var(--text);
+  background: rgba(11,14,22,0.8);
+}
+
+.contactField textarea{
+  resize: vertical;
+  min-height: 160px;
+}
+
+.contactField input:focus-visible,
+.contactField textarea:focus-visible{
+  outline: 2px solid rgba(124,177,255,0.56);
+  outline-offset: 1px;
+}
+
+.contactActions{
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.contactSubmit{
+  border: 1px solid rgba(124,177,255,0.66);
+  border-radius: 11px;
+  padding: 0.56rem 0.8rem;
+  background: rgba(58,123,253,0.18);
+  color: rgba(220,235,255,0.96);
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.contactSubmit:hover{
+  background: rgba(58,123,253,0.26);
+}
+
+.contactSubmit:disabled{
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.contactSecondary{
+  color: rgba(233,233,239,0.86);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(233,233,239,0.36);
+}
+
+.contactSecondary:hover{
+  border-bottom-color: rgba(233,233,239,0.78);
+}
+
+.contactStatus{
+  margin: 0.85rem 0 0;
+  min-height: 1.2rem;
+  color: rgba(233,233,239,0.78);
+}
+
+.contactStatus.isError{
+  color: #ffadad;
+}
+
+.contactStatus.isSuccess{
+  color: #b7f8ca;
+}
+
 .twoCol{
   display: grid;
   grid-template-columns: 1fr;
@@ -1357,6 +1616,20 @@ body{
   .projectSearchShell{
     top: 3.4rem;
   }
+  .resumeLibraryLayout{
+    grid-template-columns: 1fr;
+  }
+  .resumePanel--list{
+    position: static;
+  }
+  .resumePreviewFrame,
+  .resumePreview{
+    min-height: 62vh;
+    height: 62vh;
+  }
+  .contactGrid{
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 520px){
@@ -1380,5 +1653,18 @@ body{
   }
   .projectMetaPreview{
     justify-content: flex-start;
+  }
+  .resumeActions{
+    flex-direction: column;
+  }
+  .resumeAction{
+    width: 100%;
+  }
+  .contactActions{
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .contactSubmit{
+    width: 100%;
   }
 }

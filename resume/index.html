@@ -39,14 +39,34 @@
   </header>
 
   <main class="page">
-    <section class="contentSection">
+    <section class="contentSection resumeLibrary" data-resume-library>
       <h1>Resume</h1>
-      <p class="muted">Add your resume embed and download links here.</p>
+      <p class="muted resumeLibraryIntro">Use the list to switch resume variants. For now this page only exposes the coop one-page version.</p>
+
+      <div class="resumeLibraryLayout">
+        <aside class="resumePanel resumePanel--list">
+          <h2 class="resumePanelTitle">Available Resumes</h2>
+          <ul class="resumeList" data-resume-list></ul>
+        </aside>
+
+        <section class="resumePanel resumePanel--viewer">
+          <h2 class="resumePanelTitle" data-resume-title>Resume Preview</h2>
+          <p class="muted resumePanelMeta" data-resume-meta></p>
+          <div class="resumeActions">
+            <a class="resumeAction resumeAction--open" data-resume-open target="_blank" rel="noopener noreferrer">Open PDF</a>
+            <a class="resumeAction resumeAction--download" data-resume-download download>Download PDF</a>
+          </div>
+          <div class="resumePreviewFrame">
+            <iframe class="resumePreview" data-resume-preview title="Resume PDF preview"></iframe>
+          </div>
+        </section>
+      </div>
     </section>
   </main>
 
   <footer class="footer">
     <div>&copy; 2026 kuemmerle.dev</div>
   </footer>
+  <script src="/main.js"></script>
 </body>
 </html>

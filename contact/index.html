@@ -39,14 +39,53 @@
   </header>
 
   <main class="page">
-    <section class="contentSection">
+    <section class="contentSection contactSection" data-contact-form-root>
       <h1>Contact</h1>
-      <p class="muted">Add email, social links, and preferred contact options here.</p>
+      <p class="muted contactIntro">Use the form below to send a message directly. If you prefer, email me at <a class="contactEmailLink" href="mailto:aidenkuemmerle@gmail.com">aidenkuemmerle@gmail.com</a>.</p>
+
+      <form class="contactForm" data-contact-form novalidate>
+        <input type="hidden" name="_subject" value="Portfolio contact form message">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_captcha" value="true">
+        <input type="hidden" name="_replyto" data-contact-replyto value="">
+        <input type="hidden" name="_honey" value="">
+        <input type="text" name="website" class="contactHoney" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <input type="hidden" name="startedAt" data-contact-started-at value="">
+
+        <div class="contactGrid">
+          <label class="contactField">
+            <span>Name</span>
+            <input name="name" type="text" autocomplete="name" required maxlength="120">
+          </label>
+
+          <label class="contactField">
+            <span>Email</span>
+            <input name="email" type="email" autocomplete="email" required maxlength="160">
+          </label>
+        </div>
+
+        <label class="contactField">
+          <span>Subject</span>
+          <input name="subject" type="text" required maxlength="180">
+        </label>
+
+        <label class="contactField">
+          <span>Message</span>
+          <textarea name="message" rows="7" required maxlength="3500"></textarea>
+        </label>
+
+        <div class="contactActions">
+          <button class="contactSubmit" type="submit" data-contact-submit>Send message</button>
+          <a class="contactSecondary" href="mailto:aidenkuemmerle@gmail.com">Use email app instead</a>
+        </div>
+        <p class="contactStatus" data-contact-status aria-live="polite"></p>
+      </form>
     </section>
   </main>
 
   <footer class="footer">
     <div>&copy; 2026 kuemmerle.dev</div>
   </footer>
+  <script src="/main.js"></script>
 </body>
 </html>

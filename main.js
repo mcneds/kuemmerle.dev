@@ -1213,3 +1213,151 @@ document.querySelectorAll(".tile").forEach(tile => {
     applyFilter();
   });
 })();
+
+(() => {
+  const root = document.querySelector("[data-resume-library]");
+  if (!root) return;
+
+  // Add new resume variants here as they become publication-ready.
+  const resumeCatalog = [
+    {
+      id: "coop-1page",
+      label: "Co-op Resume (1 Page)",
+      audience: "Primary public version",
+      file: "/assets/resumes/coop resume 1page.pdf"
+    }
+  ];
+
+  const list = root.querySelector("[data-resume-list]");
+  const title = root.querySelector("[data-resume-title]");
+  const meta = root.querySelector("[data-resume-meta]");
+  const preview = root.querySelector("[data-resume-preview]");
+  const openLink = root.querySelector("[data-resume-open]");
+  const downloadLink = root.querySelector("[data-resume-download]");
+  if (!list || !title || !meta || !preview || !openLink || !downloadLink || !resumeCatalog.length) return;
+
+  const encodePath = (path) => encodeURI(path);
+
+  list.innerHTML = resumeCatalog
+    .map((entry, index) => `
+      <li>
+        <button type="button" class="resumeListButton${index === 0 ? " isActive" : ""}" data-resume-id="${entry.id}">
+          <span class="resumeListLabel">${entry.label}</span>
+          <span class="resumeListSub">${entry.audience}</span>
+        </button>
+      </li>
+    `)
+    .join("");
+
+  const buttons = [...list.querySelectorAll(".resumeListButton")];
+
+  const applyResume = (id) => {
+    const entry = resumeCatalog.find((item) => item.id === id) || resumeCatalog[0];
+    const fileUrl = encodePath(entry.file);
+    title.textContent = entry.label;
+    meta.textContent = entry.audience;
+    preview.src = `${fileUrl}#view=FitH`;
+    openLink.href = fileUrl;
+    downloadLink.href = fileUrl;
+    downloadLink.setAttribute("download", entry.file.split("/").pop() || "resume.pdf");
+
+    buttons.forEach((button) => {
+      button.classList.toggle("isActive", button.dataset.resumeId === entry.id);
+    });
+  };
+
+  buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+      applyResume(button.dataset.resumeId || "");
+    });
+  });
+
+  applyResume(resumeCatalog[0].id);
+})();
+
+(() => {
+  const form = document.querySelector("[data-contact-form]");
+  if (!form) return;
+
+  const status = form.querySelector("[data-contact-status]");
+  const submitButton = form.querySelector("[data-contact-submit]");
+  const startedAtInput = form.querySelector("[data-contact-started-at]");
+  const replyToInput = form.querySelector("[data-contact-replyto]");
+  const honeypot = form.querySelector('input[name="website"]');
+  if (!status || !submitButton || !startedAtInput) return;
+
+  const submitUrl = "https://formsubmit.co/ajax/aidenkuemmerle@gmail.com";
+  const cooldownMs = 90000;
+  const minFillMs = 3500;
+  const cooldownKey = "contact_form_last_submit_at";
+  startedAtInput.value = String(Date.now());
+
+  const setStatus = (message, mode = "") => {
+    status.textContent = message;
+    status.classList.remove("isError", "isSuccess");
+    if (mode) status.classList.add(mode);
+  };
+
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+
+    const now = Date.now();
+    const lastSubmit = Number(localStorage.getItem(cooldownKey) || "0");
+    if (lastSubmit && now - lastSubmit < cooldownMs) {
+      const seconds = Math.ceil((cooldownMs - (now - lastSubmit)) / 1000);
+      setStatus(`Please wait ${seconds}s before sending another message.`, "isError");
+      return;
+    }
+
+    const startedAt = Number(startedAtInput.value || now);
+    if (now - startedAt < minFillMs) {
+      setStatus("Please take a moment to fill the form, then try again.", "isError");
+      return;
+    }
+
+    if (honeypot && honeypot.value.trim()) {
+      // Silently accept bot submissions to avoid revealing the trap.
+      setStatus("Message sent. Thanks, I will get back to you soon.", "isSuccess");
+      form.reset();
+      startedAtInput.value = String(Date.now());
+      return;
+    }
+
+    const emailField = form.querySelector('input[name="email"]');
+    if (replyToInput && emailField instanceof HTMLInputElement) {
+      replyToInput.value = emailField.value.trim();
+    }
+
+    const data = new FormData(form);
+    submitButton.disabled = true;
+    submitButton.textContent = "Sending...";
+    setStatus("Sending message...");
+
+    try {
+      const response = await fetch(submitUrl, {
+        method: "POST",
+        body: data,
+        headers: { Accept: "application/json" }
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
+
+      localStorage.setItem(cooldownKey, String(Date.now()));
+      form.reset();
+      startedAtInput.value = String(Date.now());
+      setStatus("Message sent. Check your inbox for FormSubmit verification if this is your first submission.", "isSuccess");
+    } catch (error) {
+      setStatus("Message failed to send. Please try again or email me directly at aidenkuemmerle@gmail.com.", "isError");
+    } finally {
+      submitButton.disabled = false;
+      submitButton.textContent = "Send message";
+    }
+  });
+})();
