@@ -749,7 +749,10 @@ document.querySelectorAll(".tile").forEach(tile => {
       nodeState.forEach((state) => {
         const minX = state.w / 2 + 16;
         const maxX = viewW - state.w / 2 - 16;
+        const minY = state.h / 2 + 8;
+        const maxY = viewH - state.h / 2 - 8;
         state.x = clamp(state.anchorX, minX, maxX);
+        state.y = clamp(state.anchorY, minY, maxY);
       });
     }
     applyNodePositions();
