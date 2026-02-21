@@ -99,8 +99,8 @@ body{
   position: absolute;
   left: 0;
   right: 0;
-  bottom: -18px;   /* pushes arc a bit lower so it sits under tiles */
-  height: 190px;   /* gives the bowl more vertical room */
+  bottom: -70px;   /* pushes arc a bit lower so it sits under tiles */
+  height: 240px;   /* gives the bowl more vertical room */
   pointer-events: none;
 }
 
