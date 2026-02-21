@@ -266,6 +266,12 @@ document.querySelectorAll(".tile").forEach(tile => {
     nodeGroupsById.get(from).add(group);
     nodeGroupsById.get(to).add(group);
   });
+  const firstNodeByGroup = new Map();
+  edges.forEach(({ from, to, group }) => {
+    if (from === group && !firstNodeByGroup.has(group)) {
+      firstNodeByGroup.set(group, to);
+    }
+  });
 
   const createSvg = (name, attrs) => {
     const el = document.createElementNS("http://www.w3.org/2000/svg", name);
@@ -557,6 +563,7 @@ document.querySelectorAll(".tile").forEach(tile => {
     const pageGroups = groupsForMobileWindow(mobileLaneStartIndex);
     const groupOffset = new Map();
     const mobileYShift = 8;
+    const mobileTrailStartY = 20;
     pageGroups.forEach((group, index) => {
       const root = rootByGroup.get(group);
       if (!root) return;
@@ -580,6 +587,16 @@ document.querySelectorAll(".tile").forEach(tile => {
       state.anchorX = anchorX;
       state.anchorY = baseY;
     });
+
+    if (mobile) {
+      pageGroups.forEach((group) => {
+        const firstNodeId = firstNodeByGroup.get(group);
+        if (!firstNodeId) return;
+        const firstState = nodeState.get(firstNodeId);
+        if (!firstState) return;
+        firstState.anchorY = (mobileTrailStartY / 100) * viewH;
+      });
+    }
   };
 
   const applyNodePositions = () => {
