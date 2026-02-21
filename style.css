@@ -6,6 +6,8 @@
   --muted: rgba(233,233,239,0.68);
   --stroke: rgba(233,233,239,0.14);
   --accent: #3a7bfd;
+  --pageMax: 1500px;
+  --pageGutter: clamp(1rem, 2.2vw, 2.25rem);
 
   /* CAD lines */
   --cadLine: rgba(233,233,239,0.22);
@@ -216,7 +218,7 @@ body{
 .dimY .label{
   position: absolute;
   top: 50%;
-  left: 6px; /* move label slightly right of the line */
+  left: -18px; /* small fixed gap from height line */
   transform: translate(-50%, -50%) rotate(-90deg);
   transform-origin: center;
   font-size: 11px;
@@ -289,8 +291,8 @@ body{
 
 /* ====== Main Content ====== */
 .page{
-  padding: 2.5rem 1.25rem 4rem;
-  width: min(1000px, 92vw);
+  padding: clamp(2rem, 2.8vw, 3rem) var(--pageGutter) 4rem;
+  width: min(var(--pageMax), 98vw);
   margin: 0 auto;
 }
 
@@ -308,11 +310,221 @@ body{
 
 .twoCol{
   display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
-  gap: 1.25rem;
+  grid-template-columns: 1fr;
+  gap: clamp(1.25rem, 2vw, 2.25rem);
+  align-items: start;
 }
+
+.aboutPortrait{
+  width: 100%;
+  max-width: none;
+}
+
+.aboutPortraitFloat{
+  float: none;
+  width: 100%;
+  margin: 0;
+  grid-column: 2;
+  grid-row: 1 / span 4;
+  align-self: stretch;
+  display: block;
+}
+
 @media (max-width: 850px){
   .twoCol{ grid-template-columns: 1fr; }
+  .aboutPortrait{ max-width: 420px; }
+  .aboutBlockBody{
+    grid-template-columns: 1fr;
+  }
+}
+
+.aboutText{
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) clamp(280px, 30vw, 390px);
+  column-gap: clamp(1rem, 1.8vw, 2rem);
+  align-items: start;
+  font-size: clamp(1rem, 0.22vw + 0.96rem, 1.08rem);
+  line-height: 1.68;
+  color: rgba(233,233,239,0.94);
+}
+
+.aboutIntro{
+  grid-column: 1;
+}
+
+.aboutText p{
+  margin: 0 0 1.35rem;
+  max-width: 60ch;
+  text-wrap: pretty;
+}
+
+.aboutText p:last-child{
+  margin-bottom: 0;
+}
+
+.aboutBlock{
+  grid-column: 1;
+  margin-top: 1.45rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(233,233,239,0.12);
+}
+
+.aboutBlockBody{
+  display: grid;
+  grid-template-columns: minmax(150px, 210px) minmax(0, 1fr);
+  gap: clamp(0.8rem, 1.2vw, 1.1rem);
+  align-items: start;
+}
+
+@media (max-width: 850px){
+  .aboutText{
+    display: flex;
+    flex-direction: column;
+  }
+  .aboutPortraitFloat{
+    order: -1; /* move portrait to top on mobile */
+    width: min(420px, 100%);
+    margin: 0 0 1rem 0;
+    grid-column: auto;
+    grid-row: auto;
+    align-self: flex-start;
+    display: block;
+  }
+  .aboutSidebar,
+  .aboutPortrait .muted{
+    display: none;
+  }
+}
+
+.aboutBlockTitle{
+  margin: 0 0 0.65rem;
+  font-size: 0.9rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(233,233,239,0.76);
+}
+
+.aboutIntro{
+  font-size: clamp(1.1rem, 0.35vw + 1.02rem, 1.28rem);
+  line-height: 1.36;
+  padding: 0.85rem 0.95rem;
+  margin-bottom: 0;
+  max-width: 100%;
+  border: 1px solid rgba(124,177,255,0.35);
+  border-radius: 10px;
+  background: rgba(58,123,253,0.08);
+}
+
+.aboutMediaItem{
+  margin: 0;
+}
+
+.aboutMediaFrame{
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border: 1px dashed rgba(233,233,239,0.24);
+  border-radius: 10px;
+  background: rgba(255,255,255,0.02);
+  display: grid;
+  place-items: center;
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.82rem;
+  padding: 0.45rem;
+}
+
+.aboutMediaItem figcaption{
+  margin-top: 0.35rem;
+  font-size: 0.74rem;
+  color: rgba(233,233,239,0.62);
+}
+
+.portraitFrame{
+  margin-top: 0.45rem;
+  width: 100%;
+  aspect-ratio: 5 / 6;
+  border: 1px dashed rgba(233,233,239,0.28);
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  color: var(--muted);
+  font-size: 0.9rem;
+  background:
+    radial-gradient(120% 90% at 18% 12%, rgba(58,123,253,0.14), transparent 62%),
+    linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+}
+
+.aboutPortraitFloat .portraitFrame{
+  aspect-ratio: 5 / 6;
+  flex: 0 0 auto;
+  min-height: 0;
+}
+
+.aboutSidebar{
+  margin-top: 0.9rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid rgba(233,233,239,0.12);
+}
+
+.aboutSidebarTitle{
+  margin: 0 0 0.45rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: rgba(233,233,239,0.7);
+  font-weight: 700;
+}
+
+.aboutSidebarList{
+  margin: 0 0 0.9rem;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.45rem;
+}
+
+.aboutSidebarList li{
+  position: relative;
+  padding-left: 0.85rem;
+  font-size: 0.88rem;
+  line-height: 1.35;
+  color: rgba(233,233,239,0.86);
+}
+
+.aboutSidebarList li::before{
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.53em;
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(124,177,255,0.8);
+}
+
+.aboutSidebarText{
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  color: rgba(233,233,239,0.84);
+}
+
+@media (max-width: 850px){
+  .aboutPortraitFloat .portraitFrame{
+    aspect-ratio: 3 / 4;
+    flex: none;
+    min-height: 0;
+  }
+  .aboutPortrait .muted,
+  .aboutPortrait .aboutSidebar{
+    display: none !important;
+  }
+  .aboutSidebarList li{
+    font-size: 0.84rem;
+  }
+  .aboutSidebarText{
+    font-size: 0.86rem;
+  }
 }
 
 .card{
@@ -333,7 +545,297 @@ body{
   margin: 0.35rem 0;
 }
 
-/* Trail / vertical line for hobbies */
+/* Hobbies relationship map */
+.hobbyMapFrame{
+  margin-top: 1.25rem;
+  padding: 1rem;
+  border: 1px solid rgba(233,233,239,0.22);
+  border-radius: 18px;
+  background:
+    radial-gradient(120% 80% at 20% 0%, rgba(58,123,253,0.09), transparent 56%),
+    radial-gradient(90% 80% at 85% 100%, rgba(102,205,170,0.10), transparent 62%),
+    rgba(255,255,255,0.015);
+  box-shadow: inset 0 0 0 1px rgba(233,233,239,0.05);
+}
+
+.hobbyMapViewport{
+  overflow: hidden;
+  padding-bottom: 0.25rem;
+}
+
+.hobbyMap{
+  position: relative;
+  width: 100%;
+  height: 680px;
+  border: 1px solid rgba(233,233,239,0.14);
+  border-radius: 14px;
+  background: linear-gradient(180deg, rgba(16,19,27,0.78), rgba(15,17,21,0.88));
+  overflow: hidden;
+}
+
+.hobbyLaneBar{
+  position: absolute;
+  left: 1rem;
+  right: 1rem;
+  top: 0.95rem;
+  z-index: 3;
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  gap: 0.5rem;
+  padding: 0.45rem;
+  border: 1px solid rgba(233,233,239,0.14);
+  border-radius: 12px;
+  background: linear-gradient(180deg, rgba(12,16,24,0.86), rgba(9,12,20,0.8));
+}
+
+.hobbyLane{
+  border: 1px solid rgba(233,233,239,0.16);
+  border-radius: 999px;
+  background: rgba(10,13,20,0.8);
+  color: rgba(233,233,239,0.92);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-align: center;
+  padding: 0.35rem 0.5rem;
+  cursor: pointer;
+  transition: border-color 140ms ease, box-shadow 140ms ease, background 140ms ease;
+}
+
+.hobbyLane:hover,
+.hobbyLane:focus-visible,
+.hobbyLane.isActive{
+  border-color: rgba(124,177,255,0.95);
+  background: rgba(19,27,44,0.94);
+  box-shadow: inset 0 0 0 1px rgba(124,177,255,0.32), 0 1px 4px rgba(58,123,253,0.15);
+}
+
+.hobbyLane:focus-visible{
+  outline: 2px solid rgba(150,193,255,0.9);
+  outline-offset: 1px;
+}
+
+.hobbyMapEdges{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.hobbyEdge{
+  fill: none;
+  stroke-width: 1.8;
+  opacity: 0.56;
+  transition: opacity 160ms ease, stroke-width 160ms ease;
+}
+
+.hobbyEdge.terminal{
+  stroke: rgba(233,233,239,0.98);
+  stroke-width: 2.5;
+  opacity: 0.98;
+  filter: drop-shadow(0 0 3px rgba(233,233,239,0.28));
+}
+
+.hobbyEdge.ski{ stroke: #77c0ff; stroke-dasharray: 7 5; }
+.hobbyEdge.mtb{ stroke: #8de07f; stroke-dasharray: 3 5; }
+.hobbyEdge.hiking{ stroke: #f2c57c; stroke-dasharray: 12 6; }
+.hobbyEdge.reading{ stroke: #d0b8ff; stroke-dasharray: 2 6; }
+.hobbyEdge.movies{ stroke: #ff9e8f; stroke-dasharray: 1 8; }
+.hobbyEdge.music{ stroke: #8df2d9; stroke-dasharray: 9 5; }
+.hobbyEdge.games{ stroke: #9eb3ff; stroke-dasharray: 4 7; }
+.hobbyEdge.tinkering{ stroke: #ffda8a; stroke-dasharray: 11 5; }
+.hobbyEdge.core{ stroke: rgba(233,233,239,0.86); stroke-dasharray: none; }
+
+.hobbyMap.isFiltered .hobbyEdge{
+  opacity: 0.14;
+}
+
+.hobbyMap.isFiltered .hobbyEdge.isActive{
+  opacity: 0.98;
+  stroke-width: 2.8;
+}
+
+.hobbyMap.isFiltered .hobbyEdge.terminal.isActive{
+  opacity: 1;
+  stroke-width: 3.0;
+}
+
+.hobbyMapNodes{
+  position: absolute;
+  inset: 0;
+}
+
+.hobbyNode{
+  position: absolute;
+  left: calc(var(--x) * 1%);
+  top: calc(var(--y) * 1%);
+  transform: translate(-50%, -50%);
+  min-width: 96px;
+  max-width: 176px;
+  padding: 0.45rem 0.52rem;
+  border: 1px solid rgba(233,233,239,0.2);
+  border-radius: 10px;
+  background: rgba(15,17,21,0.9);
+  color: var(--text);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.35);
+  transition: transform 140ms ease, border-color 140ms ease, box-shadow 140ms ease, background 140ms ease;
+  overflow-wrap: anywhere;
+  z-index: 2;
+}
+
+.hobbyNode:hover,
+.hobbyNode:focus-visible,
+.hobbyNode.isActive{
+  border-color: rgba(124,177,255,0.95);
+  background: rgba(18,22,32,0.95);
+  box-shadow: 0 4px 18px rgba(58,123,253,0.28);
+  transform: translate(-50%, -50%) scale(1.04);
+  z-index: 4;
+}
+
+.hobbyNode:focus-visible{
+  outline: 2px solid rgba(150,193,255,0.9);
+  outline-offset: 2px;
+}
+
+.hobbyNodeTitle{
+  font-size: 0.82rem;
+  line-height: 1.2;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.hobbyNodeDetail{
+  display: none;
+}
+
+.hobbyNode.root{
+  border-radius: 999px;
+  text-align: center;
+}
+
+.hobbyNode.engineering{
+  background: rgba(58,123,253,0.16);
+  border-color: rgba(124,177,255,0.75);
+  min-width: 172px;
+  text-align: center;
+}
+
+.hobbyNode.ski{ border-left: 3px solid #77c0ff; }
+.hobbyNode.mtb{ border-left: 3px solid #8de07f; }
+.hobbyNode.hiking{ border-left: 3px solid #f2c57c; }
+.hobbyNode.reading{ border-left: 3px solid #d0b8ff; }
+.hobbyNode.movies{ border-left: 3px solid #ff9e8f; }
+.hobbyNode.music{ border-left: 3px solid #8df2d9; }
+.hobbyNode.games{ border-left: 3px solid #9eb3ff; }
+.hobbyNode.tinkering{ border-left: 3px solid #ffda8a; }
+
+.hobbyMapInspector{
+  margin-top: 0.75rem;
+  border: 1px solid rgba(233,233,239,0.18);
+  border-radius: 10px;
+  background: rgba(8,11,18,0.86);
+  padding: 0.42rem 0.58rem;
+  min-height: 52px;
+  backdrop-filter: blur(4px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.32);
+}
+
+.hobbyMapInspectorTitle{
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: rgba(233,233,239,0.95);
+}
+
+.hobbyMapInspectorDetail{
+  margin-top: 0.15rem;
+  font-size: 0.72rem;
+  line-height: 1.25;
+  color: var(--muted);
+}
+
+.hobbyMapInspector.ski{ border-left: 3px solid #77c0ff; }
+.hobbyMapInspector.mtb{ border-left: 3px solid #8de07f; }
+.hobbyMapInspector.hiking{ border-left: 3px solid #f2c57c; }
+.hobbyMapInspector.reading{ border-left: 3px solid #d0b8ff; }
+.hobbyMapInspector.movies{ border-left: 3px solid #ff9e8f; }
+.hobbyMapInspector.music{ border-left: 3px solid #8df2d9; }
+.hobbyMapInspector.games{ border-left: 3px solid #9eb3ff; }
+.hobbyMapInspector.tinkering{ border-left: 3px solid #ffda8a; }
+.hobbyMapInspector.core{ border-left: 3px solid rgba(124,177,255,0.9); }
+
+.hobbyMapTagline{
+  margin-top: 0.85rem;
+  text-align: center;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(233,233,239,0.86);
+  padding: 0.7rem;
+  border: 1px solid rgba(233,233,239,0.2);
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(58,123,253,0.08), rgba(255,255,255,0.02), rgba(58,123,253,0.08));
+}
+
+@media (max-width: 900px){
+  .hobbyMap{
+    height: 820px;
+  }
+  .hobbyLaneBar{
+    gap: 0.35rem;
+    padding: 0.4rem;
+  }
+  .hobbyLane{
+    font-size: 0.72rem;
+    padding: 0.3rem 0.35rem;
+  }
+}
+
+@media (max-width: 520px){
+  .hobbyMap{
+    height: 980px;
+  }
+  .hobbyNode{
+    min-width: 80px;
+    max-width: 142px;
+    padding: 0.34rem 0.4rem;
+  }
+  .hobbyNodeTitle{
+    font-size: 0.73rem;
+  }
+  .hobbyLaneBar{
+    left: 0.55rem;
+    right: 0.55rem;
+    top: 0.55rem;
+    gap: 0.22rem;
+    padding: 0.28rem;
+  }
+  .hobbyLane{
+    font-size: 0.62rem;
+    padding: 0.24rem 0.2rem;
+  }
+  .hobbyMapTagline{
+    font-size: 0.82rem;
+    letter-spacing: 0.06em;
+  }
+  .hobbyMapInspector{
+    margin-top: 0.6rem;
+    padding: 0.38rem 0.48rem;
+    min-height: 48px;
+  }
+  .hobbyMapInspectorTitle{
+    font-size: 0.72rem;
+  }
+  .hobbyMapInspectorDetail{
+    font-size: 0.66rem;
+  }
+}
+
+/* Legacy trail styles kept for older pages/components */
 .trail{
   position: relative;
   padding-left: 1.25rem;

@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>kuemmerle.dev</title>
 
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="/style.css" />
 
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="alternate icon" type="image/png" href="/favicon.png">
@@ -14,34 +14,30 @@
 </head>
 <body>
 
-  <!-- TOP "SCENE" HEADER (static, shown on all pages later) -->
   <header class="sceneHeader" id="sceneHeader">
-
-    <!-- top nav -->
     <nav class="topNav" aria-label="Primary">
-      <a href="#home" class="navItem">Home</a>
-      <a href="#resume" class="navItem">Resume</a>
-      <a href="#contact" class="navItem">Contact</a>
-      <a href="#fun" class="navItem">Fun</a>
+      <a href="/" class="navItem">Home</a>
+      <a href="/resume" class="navItem">Resume</a>
+      <a href="/contact" class="navItem">Contact</a>
+      <a href="/fun" class="navItem">Fun</a>
     </nav>
 
-    <!-- placeholder "scene": 3 image boxes (Quick left, Standalone middle, Under Construction right) -->
     <section class="sceneTiles" aria-label="Section tiles">
-      <a class="tile" href="#quick" data-section="quick">
+      <a class="tile" href="/quick" data-section="quick">
         <div class="tileInner">
           <div class="tileLabel">Quick Side Quests</div>
           <div class="tileHint">Image goes here</div>
         </div>
       </a>
 
-      <a class="tile" href="#standalone" data-section="standalone">
+      <a class="tile" href="/projects" data-section="standalone">
         <div class="tileInner">
           <div class="tileLabel">Standalone Projects</div>
           <div class="tileHint">Image goes here</div>
         </div>
       </a>
 
-      <a class="tile" href="#construction" data-section="construction">
+      <a class="tile" href="/construction" data-section="construction">
         <div class="tileInner">
           <div class="tileLabel">Under Construction</div>
           <div class="tileHint">Image goes here</div>
@@ -49,7 +45,6 @@
       </a>
     </section>
 
-    <!-- Flat rule + CAD dimension name (replaces arc) -->
     <div class="cadNameWrap" aria-label="Aiden Kuemmerle">
       <div class="cadTopRule"></div>
 
@@ -59,128 +54,135 @@
           <span class="last">KUEMMERLE</span>
         </div>
 
-        <!-- Width dimension -->
         <div class="dimX" aria-hidden="true">
           <span class="tick left"></span>
           <span class="tick right"></span>
           <span class="label"><span id="dimW">0</span>px</span>
         </div>
 
-        <!-- Height dimension -->
         <div class="dimY" aria-hidden="true">
           <span class="tick top"></span>
           <span class="tick bottom"></span>
           <span class="label"><span id="dimH">0</span>px</span>
         </div>
 
-        <!-- “Sketch handles” (visual + interactive) -->
         <button class="sketchHandle tl" type="button" aria-label="Resize top-left"></button>
         <button class="sketchHandle tr" type="button" aria-label="Resize top-right"></button>
         <button class="sketchHandle bl" type="button" aria-label="Resize bottom-left"></button>
         <button class="sketchHandle br" type="button" aria-label="Resize bottom-right"></button>
       </div>
     </div>
-
   </header>
 
-  <!-- MAIN CONTENT -->
   <main id="home" class="page">
-
     <section id="about" class="contentSection">
       <h1>About me</h1>
 
-      <div class="twoCol">
-        <div class="col">
-          <p>
-            I build things at the intersection of mechanical design, embedded
-            systems, simulation, and tooling. I like projects that start as a messy
-            constraint and end as a clean system.
-          </p>
-          <p class="muted">
-            (Replace this with your real “story” when you’re ready.)
-          </p>
+      <div class="aboutText">
+        <p class="aboutIntro">
+          <strong>I'm an engineering student at UBC driven by one central question:</strong><br>
+          <strong>How do you turn complexity into something useful?</strong>
+        </p>
+
+        <aside class="card aboutPortrait aboutPortraitFloat">
+          <div class="cardTitle">Portrait</div>
+          <div class="portraitFrame">Portrait image placeholder</div>
+          <p class="muted">Reserved space for your photo.</p>
+
+          <div class="aboutSidebar">
+            <div class="aboutSidebarTitle">Quick Personal Notes</div>
+            <ul class="aboutSidebarList">
+              <li>UBC engineering student focused on practical impact</li>
+              <li>Most energized by CAD, tooling, and prototyping loops</li>
+              <li>Drawn to systems where mechanical + software overlap</li>
+            </ul>
+
+            <div class="aboutSidebarTitle">Current Focus</div>
+            <p class="aboutSidebarText">
+              Building project narratives that connect ideas, implementation,
+              and real-world outcomes.
+            </p>
+          </div>
+        </aside>
+
+        <div class="aboutBlock">
+          <h2 class="aboutBlockTitle">What I Build Toward</h2>
+          <div class="aboutBlockBody">
+            <figure class="aboutMediaItem">
+              <div class="aboutMediaFrame">Prototype + test setup</div>
+              <figcaption>Hands-on iteration loop</figcaption>
+            </figure>
+            <div class="aboutBlockCopy">
+              <p>
+                The work that energizes me most is work with visible impact: tooling that removes friction for a team, sustainable mechanical systems, infrastructure that supports a community, or simulation frameworks that make testing possible before something is ever built. I'm motivated by engineering that leaves the whiteboard.
+              </p>
+              <p>
+                I'm drawn to constrained environments where mechanical, software, and physical systems overlap. I enjoy diving into multifaceted problems and learning whatever is necessary to integrate them cleanly, whether that means mechanical design, embedded hardware, simulation, or building custom tooling to close the loop.
+              </p>
+            </div>
+          </div>
         </div>
 
-        <div class="col card">
-          <div class="cardTitle">Quick snapshot</div>
-          <ul class="bullet">
-            <li>Engineering student (UBC)</li>
-            <li>CAD / prototyping / software tools</li>
-            <li>Story-driven portfolio (“Kuemmerle Corner”)</li>
-          </ul>
+        <div class="aboutBlock">
+          <h2 class="aboutBlockTitle">How I Work</h2>
+          <div class="aboutBlockBody">
+            <figure class="aboutMediaItem">
+              <div class="aboutMediaFrame">Early CAD projects</div>
+              <figcaption>Spatial reasoning foundation</figcaption>
+            </figure>
+            <div class="aboutBlockCopy">
+              <p>
+                I have a strong inclination toward automation. If a process can be parameterized, structured, or reduced to a repeatable system, I want to build the tool that makes it scalable. From parametric CAD generation to simulation export pipelines, I'm interested not only in solving a problem once, but in designing a framework that solves it consistently.
+              </p>
+              <p>
+                My foundation in spatial reasoning and structured design began long before formal engineering training. Years of building mechanical systems and working in CAD from an early age shaped how I approach problems: define constraints clearly, use simple primitives intelligently, and iterate until the system is coherent. That mindset now carries across everything I build.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="aboutBlock">
+          <h2 class="aboutBlockTitle">Where I'm Headed</h2>
+          <div class="aboutBlockBody">
+            <figure class="aboutMediaItem">
+              <div class="aboutMediaFrame">Young me building Technic</div>
+              <figcaption>Early systems thinking</figcaption>
+            </figure>
+            <div class="aboutBlockCopy">
+              <p>
+                I'm most at home working hands-on, prototyping, testing, refining, and tightening feedback loops until something works cleanly in the real world. My goal is to contribute to high-impact engineering systems where structure, performance, and real-world usefulness intersect.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
     <section id="hobbies" class="contentSection">
-      <h1>Hobbies</h1>
+      <h1>My Hobbies Relationship Map</h1>
+      <p class="muted">The paths I took towards becoming an engineer. Hover or tap a node to expand its path.</p>
 
-      <div class="trail">
-        <div class="trailLine" aria-hidden="true"></div>
-
-        <div class="trailNode">
-          <div class="nodeDot" aria-hidden="true"></div>
-          <div class="nodeBody">
-            <h2>Outdoors</h2>
-            <p class="muted">Ski • MTB • Hiking</p>
+      <div class="hobbyMapFrame">
+        <div class="hobbyMapViewport">
+          <div class="hobbyMap" id="hobbyMap" aria-label="Hobby to engineering relationship map">
+            <div class="hobbyLaneBar" id="hobbyLaneBar" aria-label="Hobby lanes"></div>
+            <svg class="hobbyMapEdges" id="hobbyMapEdges" viewBox="0 0 1000 680" preserveAspectRatio="none" aria-hidden="true"></svg>
+            <div class="hobbyMapNodes" id="hobbyMapNodes"></div>
           </div>
         </div>
-
-        <div class="trailNode">
-          <div class="nodeDot" aria-hidden="true"></div>
-          <div class="nodeBody">
-            <h2>Creative media</h2>
-            <p class="muted">Reading • Movies • Music</p>
-          </div>
+        <div class="hobbyMapInspector" id="hobbyMapInspector" aria-live="polite">
+          <div class="hobbyMapInspectorTitle" id="hobbyMapInspectorTitle">Hover a node</div>
+          <div class="hobbyMapInspectorDetail" id="hobbyMapInspectorDetail">Select a node to preview project content and deeper context.</div>
         </div>
-
-        <div class="trailNode">
-          <div class="nodeDot" aria-hidden="true"></div>
-          <div class="nodeBody">
-            <h2>Tinkering</h2>
-            <p class="muted">LEGO • 3D printing • code • robotics</p>
-          </div>
-        </div>
+        <div class="hobbyMapTagline">All roads lead to Engineering.</div>
       </div>
     </section>
-
-    <!-- Tile targets -->
-    <section id="quick" class="contentSection anchorSection">
-      <h1>Quick Side Quests</h1>
-      <p class="muted">Small tools, experiments, and focused wins.</p>
-    </section>
-
-    <section id="standalone" class="contentSection anchorSection">
-      <h1>Standalone Projects</h1>
-      <p class="muted">This will become a full page or a deep section later.</p>
-    </section>
-
-    <section id="construction" class="contentSection anchorSection">
-      <h1>Under Construction</h1>
-      <p class="muted">Long-term WIP and “always evolving” projects.</p>
-    </section>
-
-    <section id="resume" class="contentSection anchorSection">
-      <h1>Resume</h1>
-      <p class="muted">Later: embed PDF + download link.</p>
-    </section>
-
-    <section id="contact" class="contentSection anchorSection">
-      <h1>Contact</h1>
-      <p class="muted">Later: email link + socials.</p>
-    </section>
-
-    <section id="fun" class="contentSection anchorSection">
-      <h1>Fun</h1>
-      <p class="muted">Demos, experiments, and interactive toys.</p>
-    </section>
-
   </main>
 
   <footer class="footer">
-    <div>© 2026 kuemmerle.dev</div>
+    <div>&copy; 2026 kuemmerle.dev</div>
   </footer>
 
-  <script src="main.js"></script>
+  <script src="/main.js"></script>
 </body>
 </html>
