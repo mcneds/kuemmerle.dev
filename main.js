@@ -369,7 +369,7 @@ document.querySelectorAll(".tile").forEach(tile => {
   const rootByGroup = new Map(rootNodes.map((n) => [n.theme, n]));
   const laneOrder = rootNodes.map((n) => n.theme);
   const mobileLanePageSize = 3;
-  const mobileLaneSlots = [14, 50, 86];
+  const mobileLaneSlots = [18, 50, 82];
   const mobileLanePageCount = Math.max(1, Math.ceil(laneOrder.length / mobileLanePageSize));
   const defaultMobileGroup = rootNodes[0]?.theme || null;
   let lockedGroup = null;
@@ -553,10 +553,19 @@ document.querySelectorAll(".tile").forEach(tile => {
     const pageGroups = groupsForMobilePage(mobileLanePage);
     const groupOffset = new Map();
     const mobileYShift = 8;
+    const mapRect = map.getBoundingClientRect();
     pageGroups.forEach((group, index) => {
       const root = rootByGroup.get(group);
       if (!root) return;
-      const slotX = mobileLaneSlots[Math.min(index, mobileLaneSlots.length - 1)];
+      let slotX = mobileLaneSlots[Math.min(index, mobileLaneSlots.length - 1)];
+      if (mobile && mapRect.width > 0) {
+        const laneEl = laneElsByGroup.get(group);
+        if (laneEl) {
+          const laneRect = laneEl.getBoundingClientRect();
+          const centerPx = ((laneRect.left + laneRect.right) * 0.5) - mapRect.left;
+          slotX = clamp((centerPx / mapRect.width) * 100, 10, 90);
+        }
+      }
       groupOffset.set(group, slotX - root.x);
     });
 
@@ -726,7 +735,9 @@ document.querySelectorAll(".tile").forEach(tile => {
     relaxLayout();
     if (isMobileView()) {
       nodeState.forEach((state) => {
-        state.x = state.anchorX;
+        const minX = state.w / 2 + 8;
+        const maxX = viewW - state.w / 2 - 8;
+        state.x = clamp(state.anchorX, minX, maxX);
       });
     }
     applyNodePositions();
