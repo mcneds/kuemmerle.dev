@@ -27,7 +27,7 @@ const airDragInput = document.getElementById("pkAirDrag");
 const airDragValueEl = document.getElementById("pkAirDragValue");
 const thresholdInput = document.getElementById("pkThreshold");
 const thresholdValueEl = document.getElementById("pkThresholdValue");
-const samplerMount = document.getElementById("pkSamplerViewport");
+const samplerMount = document.getElementById("pkSamplerViewport") || document.createElement("div");
 const samplerCard = document.getElementById("pkSamplerCard");
 const samplerSizeButton = document.getElementById("pkSamplerSize");
 const samplerRotateButton = document.getElementById("pkSamplerRotate");
@@ -58,11 +58,7 @@ if (
   !airDragInput ||
   !airDragValueEl ||
   !thresholdInput ||
-  !thresholdValueEl ||
-  !samplerMount ||
-  !samplerCard ||
-  !samplerSizeButton ||
-  !samplerRotateButton
+  !thresholdValueEl
 ) {
   throw new Error("Voxel parkour page is missing required UI nodes.");
 }
@@ -825,20 +821,24 @@ const applyTuningFromInputs = () => {
   input.addEventListener("input", applyTuningFromInputs);
 });
 
-samplerSizeButton.addEventListener("click", () => {
-  samplerLarge = !samplerLarge;
-  samplerCard.classList.toggle("parkourSamplerCardLarge", samplerLarge);
-  samplerSizeButton.textContent = samplerLarge ? "Smaller" : "Larger";
-  samplerSizeButton.setAttribute("aria-pressed", samplerLarge ? "true" : "false");
-  resize();
-});
+if (samplerCard && samplerSizeButton) {
+  samplerSizeButton.addEventListener("click", () => {
+    samplerLarge = !samplerLarge;
+    samplerCard.classList.toggle("parkourSamplerCardLarge", samplerLarge);
+    samplerSizeButton.textContent = samplerLarge ? "Smaller" : "Larger";
+    samplerSizeButton.setAttribute("aria-pressed", samplerLarge ? "true" : "false");
+    resize();
+  });
+}
 
-samplerRotateButton.addEventListener("click", () => {
-  samplerSpinEnabled = !samplerSpinEnabled;
-  samplerControls.autoRotate = samplerSpinEnabled;
-  samplerRotateButton.textContent = samplerSpinEnabled ? "Spin On" : "Spin Off";
-  samplerRotateButton.setAttribute("aria-pressed", samplerSpinEnabled ? "true" : "false");
-});
+if (samplerRotateButton) {
+  samplerRotateButton.addEventListener("click", () => {
+    samplerSpinEnabled = !samplerSpinEnabled;
+    samplerControls.autoRotate = samplerSpinEnabled;
+    samplerRotateButton.textContent = samplerSpinEnabled ? "Spin On" : "Spin Off";
+    samplerRotateButton.setAttribute("aria-pressed", samplerSpinEnabled ? "true" : "false");
+  });
+}
 
 fullscreenButton.addEventListener("click", async () => {
   try {
