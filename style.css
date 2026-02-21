@@ -1,0 +1,282 @@
+:root{
+  --bg: #0f1115;
+  --panel: #141824;
+  --panel2: #10131b;
+  --text: #e9e9ef;
+  --muted: rgba(233,233,239,0.68);
+  --stroke: rgba(233,233,239,0.14);
+  --accent: #3a7bfd;
+}
+
+*{ box-sizing: border-box; }
+html{ scroll-behavior: smooth; }
+
+body{
+  margin: 0;
+  font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* ====== Top Scene Header ====== */
+.sceneHeader{
+  position: relative;
+  background: linear-gradient(180deg, var(--panel2), var(--bg));
+  border-bottom: 1px solid var(--stroke);
+  overflow: hidden;
+}
+
+/* Top nav */
+.topNav{
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 1rem 1.25rem 0.25rem;
+}
+
+.navItem{
+  color: var(--muted);
+  text-decoration: none;
+  font-weight: 600;
+  padding: 0.4rem 0.65rem;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  transition: 180ms;
+}
+.navItem:hover{
+  color: var(--text);
+  border-color: var(--stroke);
+  background: rgba(255,255,255,0.03);
+}
+
+/* 3 image boxes row */
+.sceneTiles{
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  padding: 1rem 1.25rem 3.75rem;
+}
+
+.tile{
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  background: rgba(255,255,255,0.02);
+  border: 1px dashed rgba(233,233,239,0.22);
+  border-radius: 14px;
+  min-height: 160px;
+  transition: 180ms;
+  position: relative;
+}
+.tile:hover{
+  border-style: solid;
+  border-color: rgba(58,123,253,0.6);
+  transform: translateY(-2px);
+  background: rgba(58,123,253,0.06);
+}
+
+.tileInner{
+  height: 100%;
+  padding: 1rem;
+  display:flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.tileLabel{
+  font-weight: 800;
+  letter-spacing: 0.2px;
+}
+
+.tileHint{
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+/* Arc area */
+.arcWrap{
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 150px;
+  pointer-events: none; /* allow clicks only on button */
+}
+
+/* draw a subtle arc */
+.arcLine{
+  position: absolute;
+  left: -10%;
+  right: -10%;
+  bottom: -70px;
+  height: 200px;
+  border-top: 2px solid rgba(233,233,239,0.18);
+  border-radius: 999px;
+}
+
+/* hide tab button */
+.hideTab{
+  pointer-events: auto;
+  position: absolute;
+  left: 50%;
+  bottom: 66px;
+  transform: translateX(-50%);
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(233,233,239,0.20);
+  color: var(--text);
+  padding: 0.45rem 0.75rem;
+  border-radius: 999px;
+  display:flex;
+  gap: 0.6rem;
+  align-items:center;
+  cursor: pointer;
+  transition: 180ms;
+}
+.hideTab:hover{
+  border-color: rgba(58,123,253,0.7);
+  background: rgba(58,123,253,0.10);
+}
+.tabIcon{
+  font-weight: 800;
+  opacity: 0.9;
+}
+.tabText{
+  font-weight: 700;
+  color: var(--muted);
+}
+
+/* “Curved” name: we fake the look by skewing/spacing and placing it along arc */
+.curvedName{
+  position: absolute;
+  left: 50%;
+  bottom: 16px;
+  transform: translateX(-50%);
+  width: min(960px, 92vw);
+  text-align: center;
+}
+.nameText{
+  display: inline-block;
+  font-weight: 800;
+  letter-spacing: 0.42em;
+  font-size: clamp(1.35rem, 3vw, 2.1rem);
+  color: rgba(233,233,239,0.92);
+  /* “curved-ish” illusion */
+  transform: perspective(800px) rotateX(10deg);
+}
+
+/* Collapsed state */
+.sceneHeader.isCollapsed .sceneTiles{
+  display: none;
+}
+.sceneHeader.isCollapsed{
+  padding-bottom: 90px;
+}
+.sceneHeader.isCollapsed .hideTab .tabText{
+  color: var(--text);
+}
+.sceneHeader.isCollapsed .hideTab .tabText::after{
+  content: " (show)";
+}
+
+/* Responsive */
+@media (max-width: 850px){
+  .sceneTiles{
+    grid-template-columns: 1fr;
+    padding-bottom: 4.5rem;
+  }
+  .arcWrap{ height: 140px; }
+  .hideTab{ bottom: 58px; }
+  .nameText{ letter-spacing: 0.25em; }
+}
+
+/* ====== Main Content ====== */
+.page{
+  padding: 2.5rem 1.25rem 4rem;
+  width: min(1000px, 92vw);
+  margin: 0 auto;
+}
+
+.contentSection{
+  padding: 2.5rem 0;
+  border-bottom: 1px solid var(--stroke);
+}
+
+.contentSection h1{
+  margin: 0 0 1rem;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+}
+
+.muted{ color: var(--muted); }
+
+.twoCol{
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 1.25rem;
+}
+@media (max-width: 850px){
+  .twoCol{ grid-template-columns: 1fr; }
+}
+
+.card{
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--stroke);
+  border-radius: 14px;
+  padding: 1rem;
+}
+.cardTitle{
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+}
+.bullet{
+  margin: 0;
+  padding-left: 1.1rem;
+}
+.bullet li{
+  margin: 0.35rem 0;
+}
+
+/* Trail / vertical line for hobbies */
+.trail{
+  position: relative;
+  padding-left: 1.25rem;
+  margin-top: 1.25rem;
+}
+.trailLine{
+  position: absolute;
+  left: 0.35rem;
+  top: 0.2rem;
+  bottom: 0.2rem;
+  width: 2px;
+  background: rgba(233,233,239,0.18);
+  border-radius: 999px;
+}
+.trailNode{
+  display: grid;
+  grid-template-columns: 1.25rem 1fr;
+  gap: 0.75rem;
+  margin: 1.25rem 0;
+}
+.nodeDot{
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  border: 2px solid rgba(58,123,253,0.8);
+  background: rgba(58,123,253,0.15);
+  margin-top: 0.35rem;
+}
+.nodeBody h2{
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+/* Anchor spacing so the arc header doesn't hide titles */
+.anchorSection{
+  scroll-margin-top: 220px;
+}
+
+.footer{
+  padding: 2rem 1rem;
+  text-align: center;
+  color: var(--muted);
+}
