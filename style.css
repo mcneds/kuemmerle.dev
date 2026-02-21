@@ -28,18 +28,24 @@ body{
   position: relative;
   background: linear-gradient(180deg, var(--panel2), var(--bg));
   border-bottom: 1px solid var(--stroke);
-  overflow: hidden;
+  overflow: visible;
+  padding-top: 3.2rem; /* reserve space for fixed top nav */
 }
 
 /* Top nav */
 .topNav{
-  position: relative;
-  z-index: 30;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
   display: flex;
   gap: 1rem;
   align-items: center;
   justify-content: flex-end;
   padding: 1rem 1.25rem 0.25rem;
+  background: linear-gradient(180deg, rgba(16,19,27,0.96), rgba(16,19,27,0.75));
+  backdrop-filter: blur(6px);
 }
 
 .navItem{
@@ -183,7 +189,7 @@ body{
   background: var(--cadLabelBg);
   padding: 1px 10px;
   border: 1px solid rgba(233,233,239,0.10);
-  border-radius: 999px;
+  border-radius: 6px;
 }
 
 /* Dimension line (height) */
@@ -219,27 +225,67 @@ body{
   background: var(--cadLabelBg);
   padding: 1px 10px;
   border: 1px solid rgba(233,233,239,0.10);
-  border-radius: 999px;
+  border-radius: 6px;
 }
 
 /* Sketch handles */
 .sketchHandle{
   position: absolute;
-  width: 10px;
-  height: 10px;
-  border-radius: 3px;
-  background: rgba(58,123,253,0.35);
-  border: 1px solid rgba(58,123,253,0.8);
-  box-shadow: 0 0 0 2px rgba(15,17,21,0.85);
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  background: linear-gradient(180deg, rgba(58,123,253,0.35), rgba(58,123,253,0.2));
+  border: 1px solid rgba(90,155,255,0.95);
+  box-shadow: 0 0 0 2px rgba(15,17,21,0.9), 0 0 12px rgba(58,123,253,0.4);
   cursor: nwse-resize;
-  opacity: 0.85;
+  opacity: 0.95;
+  z-index: 5;
+  transform: var(--handleTransform, translate(0, 0));
+  transition: transform 120ms ease, box-shadow 120ms ease, background 120ms ease;
 }
-.sketchHandle:hover{ opacity: 1; }
+.sketchHandle::before{
+  content: "";
+  position: absolute;
+  inset: 4px;
+  border: 1px solid rgba(233,233,239,0.8);
+  border-radius: 2px;
+}
+.sketchHandle:hover{
+  transform: var(--handleTransform, translate(0, 0)) scale(1.08);
+  box-shadow: 0 0 0 2px rgba(15,17,21,0.9), 0 0 16px rgba(58,123,253,0.65);
+}
+.sketchHandle:active{
+  transform: var(--handleTransform, translate(0, 0)) scale(1.02);
+}
+.sketchHandle:focus-visible{
+  outline: 2px solid rgba(150,193,255,0.95);
+  outline-offset: 2px;
+}
 
-.sketchHandle.tl{ left: 10px; top: 10px; cursor: nwse-resize; }
-.sketchHandle.tr{ right: 10px; top: 10px; cursor: nesw-resize; }
-.sketchHandle.bl{ left: 10px; bottom: 10px; cursor: nesw-resize; }
-.sketchHandle.br{ right: 10px; bottom: 10px; cursor: nwse-resize; }
+.sketchHandle.tl{
+  left: 12px;
+  top: 12px;
+  --handleTransform: translate(-145%, -145%);
+  cursor: nwse-resize;
+}
+.sketchHandle.tr{
+  right: 12px;
+  top: 12px;
+  --handleTransform: translate(145%, -145%);
+  cursor: nesw-resize;
+}
+.sketchHandle.bl{
+  left: 12px;
+  bottom: 12px;
+  --handleTransform: translate(-145%, 145%);
+  cursor: nesw-resize;
+}
+.sketchHandle.br{
+  right: 12px;
+  bottom: 12px;
+  --handleTransform: translate(145%, 145%);
+  cursor: nwse-resize;
+}
 
 /* ====== Main Content ====== */
 .page{
