@@ -9,7 +9,7 @@
 </head>
 <body>
 
-  <!-- TOP "SCENE" HEADER (shown on all pages later) -->
+  <!-- TOP "SCENE" HEADER (static, shown on all pages later) -->
   <header class="sceneHeader" id="sceneHeader">
 
     <!-- top nav -->
@@ -20,18 +20,18 @@
       <a href="#fun" class="navItem">Fun</a>
     </nav>
 
-    <!-- placeholder "scene": 3 image boxes -->
+    <!-- placeholder "scene": 3 image boxes (Quick left, Standalone middle, Under Construction right) -->
     <section class="sceneTiles" aria-label="Section tiles">
-      <a class="tile" href="#standalone" data-section="standalone">
+      <a class="tile" href="#quick" data-section="quick">
         <div class="tileInner">
-          <div class="tileLabel">Standalone Projects</div>
+          <div class="tileLabel">Quick Side Quests</div>
           <div class="tileHint">Image goes here</div>
         </div>
       </a>
 
-      <a class="tile" href="#quick" data-section="quick">
+      <a class="tile" href="#standalone" data-section="standalone">
         <div class="tileInner">
-          <div class="tileLabel">Quick Side Quests</div>
+          <div class="tileLabel">Standalone Projects</div>
           <div class="tileHint">Image goes here</div>
         </div>
       </a>
@@ -44,18 +44,22 @@
       </a>
     </section>
 
-    <!-- curved name + hide tab -->
-    <div class="arcWrap">
-      <div class="arcLine" aria-hidden="true"></div>
-
-      <button class="hideTab" id="toggleHeader" type="button" aria-expanded="true" aria-controls="sceneHeader">
-        <span class="tabIcon" aria-hidden="true">▁▁▁</span>
-        <span class="tabText">Click to hide</span>
-      </button>
-
-      <div class="curvedName" aria-label="Site owner name">
-        <span class="nameText">AIDEN KUEMMERLE</span>
-      </div>
+    <!-- Curved arc + curved name (real curve via SVG path) -->
+    <div class="arcWrap" aria-hidden="true">
+      <svg class="arcSvg" viewBox="0 0 1000 180" preserveAspectRatio="none">
+        <!-- Arc border -->
+        <path id="arcPath"
+          d="M -80 150 Q 500 10 1080 150"
+          fill="none"
+          class="arcStroke"
+        />
+        <!-- Name on arc -->
+        <text class="arcText">
+          <textPath href="#arcPath" startOffset="50%" text-anchor="middle">
+            AIDEN KUEMMERLE
+          </textPath>
+        </text>
+      </svg>
     </div>
 
   </header>
@@ -69,9 +73,9 @@
       <div class="twoCol">
         <div class="col">
           <p>
-            I build things at the intersection of mechanical design, embedded systems,
-            simulation, and tooling. I like projects that start as a messy constraint
-            and end as a clean system.
+            I build things at the intersection of mechanical design, embedded
+            systems, simulation, and tooling. I like projects that start as a messy
+            constraint and end as a clean system.
           </p>
           <p class="muted">
             (Replace this with your real “story” when you’re ready.)
@@ -121,15 +125,15 @@
       </div>
     </section>
 
-    <!-- Placeholder sections for tile targets -->
-    <section id="standalone" class="contentSection anchorSection">
-      <h1>Standalone Projects</h1>
-      <p class="muted">This will become a full page or a deep section later.</p>
-    </section>
-
+    <!-- Tile targets -->
     <section id="quick" class="contentSection anchorSection">
       <h1>Quick Side Quests</h1>
       <p class="muted">Small tools, experiments, and focused wins.</p>
+    </section>
+
+    <section id="standalone" class="contentSection anchorSection">
+      <h1>Standalone Projects</h1>
+      <p class="muted">This will become a full page or a deep section later.</p>
     </section>
 
     <section id="construction" class="contentSection anchorSection">
