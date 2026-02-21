@@ -259,6 +259,13 @@ document.querySelectorAll(".tile").forEach(tile => {
   ];
 
   const nodeById = new Map(nodes.map((n) => [n.id, n]));
+  const nodeGroupsById = new Map();
+  edges.forEach(({ from, to, group }) => {
+    if (!nodeGroupsById.has(from)) nodeGroupsById.set(from, new Set());
+    if (!nodeGroupsById.has(to)) nodeGroupsById.set(to, new Set());
+    nodeGroupsById.get(from).add(group);
+    nodeGroupsById.get(to).add(group);
+  });
 
   const createSvg = (name, attrs) => {
     const el = document.createElementNS("http://www.w3.org/2000/svg", name);
@@ -360,6 +367,10 @@ document.querySelectorAll(".tile").forEach(tile => {
 
   const rootNodes = nodes.filter((n) => n.virtualRoot);
   const defaultMobileGroup = rootNodes[0]?.theme || null;
+  let lockedGroup = null;
+  let openNodeId = null;
+  let mobileAutoLocked = false;
+  let visibleLaneGroups = new Set();
   rootNodes.forEach((root) => {
     const lane = document.createElement("button");
     lane.type = "button";
@@ -387,7 +398,47 @@ document.querySelectorAll(".tile").forEach(tile => {
 
     lanePrev.disabled = !canPrev;
     laneNext.disabled = !canNext;
-    laneHint.textContent = canNext ? "More lanes" : (canPrev ? "Start" : "All lanes");
+    laneHint.hidden = !(canPrev || canNext);
+    laneHint.textContent = canNext ? "Swipe for more" : "Swipe back";
+  };
+
+  const updateVisibleLaneWindow = () => {
+    if (!isMobileView()) {
+      map.classList.remove("isLaneWindowed");
+      visibleLaneGroups = new Set();
+      edgeEls.forEach((el) => el.classList.remove("isWindowHidden"));
+      nodeEls.forEach((el) => el.classList.remove("isWindowHidden"));
+      if (terminalArrowEl) terminalArrowEl.classList.remove("isWindowHidden");
+      return;
+    }
+
+    const barRect = laneBar.getBoundingClientRect();
+    const nextVisible = new Set();
+    laneElsByGroup.forEach((lane, group) => {
+      const rect = lane.getBoundingClientRect();
+      const overlap = Math.min(rect.right, barRect.right) - Math.max(rect.left, barRect.left);
+      if (overlap > Math.min(rect.width, 42) * 0.45) {
+        nextVisible.add(group);
+      }
+    });
+
+    visibleLaneGroups = nextVisible;
+    map.classList.add("isLaneWindowed");
+
+    edgeEls.forEach((el) => {
+      const group = el.dataset.group || "";
+      el.classList.toggle("isWindowHidden", !visibleLaneGroups.has(group));
+    });
+
+    nodeEls.forEach((el) => {
+      const memberships = (el.dataset.groups || "").split(",").filter(Boolean);
+      const isVisible = memberships.some((group) => visibleLaneGroups.has(group));
+      el.classList.toggle("isWindowHidden", !isVisible);
+    });
+
+    if (terminalArrowEl) {
+      terminalArrowEl.classList.toggle("isWindowHidden", visibleLaneGroups.size === 0);
+    }
   };
 
   const scrollLaneBarByPage = (direction) => {
@@ -403,7 +454,10 @@ document.querySelectorAll(".tile").forEach(tile => {
     e.stopPropagation();
     scrollLaneBarByPage(1);
   });
-  laneBar.addEventListener("scroll", updateLaneNav, { passive: true });
+  laneBar.addEventListener("scroll", () => {
+    updateLaneNav();
+    updateVisibleLaneWindow();
+  }, { passive: true });
 
   nodes.forEach((node) => {
     if (node.virtualRoot) return;
@@ -414,6 +468,8 @@ document.querySelectorAll(".tile").forEach(tile => {
     button.style.setProperty("--y", node.y);
     button.dataset.id = node.id;
     button.dataset.group = node.theme === "core" ? "core" : node.theme;
+    const memberships = [...(nodeGroupsById.get(node.id) || new Set([button.dataset.group]))];
+    button.dataset.groups = memberships.join(",");
     button.innerHTML = `
       <div class="hobbyNodeTitle">${node.label}</div>
       <div class="hobbyNodeDetail">${node.detail}</div>
@@ -596,9 +652,11 @@ document.querySelectorAll(".tile").forEach(tile => {
 
   layoutAndRender();
   updateLaneNav();
+  updateVisibleLaneWindow();
   window.addEventListener("resize", () => {
     layoutAndRender();
     updateLaneNav();
+    updateVisibleLaneWindow();
     syncMobileDefaultGroup();
   });
 
@@ -611,10 +669,6 @@ document.querySelectorAll(".tile").forEach(tile => {
     });
     return ids;
   };
-
-  let lockedGroup = null;
-  let openNodeId = null;
-  let mobileAutoLocked = false;
 
   const applyOpenNode = () => {
     nodeEls.forEach((el) => {
@@ -676,6 +730,7 @@ document.querySelectorAll(".tile").forEach(tile => {
         mobileAutoLocked = true;
       }
       applyActive(lockedGroup);
+      updateVisibleLaneWindow();
       if (!openNodeId) setInspector(lockedGroup);
       return;
     }
@@ -683,6 +738,7 @@ document.querySelectorAll(".tile").forEach(tile => {
     if (mobileAutoLocked && !openNodeId) {
       lockedGroup = null;
       applyActive(null);
+      updateVisibleLaneWindow();
       setInspector(null);
     }
     mobileAutoLocked = false;
@@ -721,6 +777,7 @@ document.querySelectorAll(".tile").forEach(tile => {
       setInspector(openNodeId);
       applyOpenNode();
       applyActive(lockedGroup);
+      updateVisibleLaneWindow();
     });
   });
 
@@ -755,6 +812,7 @@ document.querySelectorAll(".tile").forEach(tile => {
       applyOpenNode();
       applyActive(lockedGroup);
       laneEl.scrollIntoView({ inline: "center", block: "nearest", behavior: "smooth" });
+      updateVisibleLaneWindow();
     });
   });
 
@@ -769,12 +827,14 @@ document.querySelectorAll(".tile").forEach(tile => {
       }
       setInspector(lockedGroup);
       applyActive(lockedGroup);
+      updateVisibleLaneWindow();
       return;
     }
     lockedGroup = null;
     mobileAutoLocked = false;
     setInspector(null);
     applyActive(null);
+    updateVisibleLaneWindow();
   });
 
   syncMobileDefaultGroup();

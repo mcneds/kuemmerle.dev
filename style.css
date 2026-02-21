@@ -595,27 +595,6 @@ body{
   scroll-behavior: smooth;
 }
 
-.hobbyLaneBar.isScrollable::before,
-.hobbyLaneBar.isScrollable::after{
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 1.3rem;
-  pointer-events: none;
-  z-index: 2;
-}
-
-.hobbyLaneBar.isScrollable::before{
-  left: 0;
-  background: linear-gradient(90deg, rgba(10,13,20,0.92), rgba(10,13,20,0));
-}
-
-.hobbyLaneBar.isScrollable::after{
-  right: 0;
-  background: linear-gradient(270deg, rgba(10,13,20,0.92), rgba(10,13,20,0));
-}
-
 .hobbyLane{
   border: 1px solid rgba(233,233,239,0.16);
   border-radius: 999px;
@@ -647,10 +626,10 @@ body{
   position: absolute;
   left: 1rem;
   right: 1rem;
-  top: 0.95rem;
+  top: 0;
   z-index: 4;
   display: none;
-  height: 2rem;
+  height: 2.2rem;
   pointer-events: none;
 }
 
@@ -679,11 +658,11 @@ body{
 }
 
 .hobbyLaneNavButton.prev{
-  left: 0.2rem;
+  left: -0.45rem;
 }
 
 .hobbyLaneNavButton.next{
-  right: 0.2rem;
+  right: -0.45rem;
 }
 
 .hobbyLaneNavButton:disabled{
@@ -692,7 +671,7 @@ body{
 
 .hobbyLaneHint{
   position: absolute;
-  top: calc(100% + 0.18rem);
+  top: -0.72rem;
   right: 0.25rem;
   pointer-events: none;
   padding: 0.18rem 0.5rem;
@@ -704,6 +683,16 @@ body{
   color: rgba(233,233,239,0.82);
   background: rgba(10,13,20,0.88);
   white-space: nowrap;
+}
+
+.hobbyEdge.isWindowHidden{
+  opacity: 0 !important;
+}
+
+.hobbyNode.isWindowHidden{
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, -50%) scale(0.97);
 }
 
 .hobbyMapEdges{
@@ -881,7 +870,7 @@ body{
     right: 0.75rem;
     top: 0.7rem;
     gap: 0.35rem;
-    padding: 0.35rem 2.35rem;
+    padding: 0.35rem 0.5rem;
     grid-template-columns: none;
     grid-auto-flow: column;
     grid-auto-columns: calc((100% - 1.05rem) / 4);
@@ -903,7 +892,7 @@ body{
   .hobbyLaneNav{
     left: 0.75rem;
     right: 0.75rem;
-    top: 0.7rem;
+    top: 0.65rem;
   }
 }
 
@@ -924,7 +913,7 @@ body{
     right: 0.5rem;
     top: 0.5rem;
     gap: 0.22rem;
-    padding: 0.28rem 2rem;
+    padding: 0.28rem 0.42rem;
     grid-auto-columns: calc((100% - 0.44rem) / 3);
   }
   .hobbyLane{
@@ -934,7 +923,7 @@ body{
   .hobbyLaneNav{
     left: 0.5rem;
     right: 0.5rem;
-    top: 0.5rem;
+    top: 0.45rem;
   }
   .hobbyLaneNavButton{
     width: 1.5rem;
