@@ -8,7 +8,6 @@ const bestEl = document.getElementById("pkBest");
 const hintEl = document.getElementById("pkHint");
 const restartButton = document.getElementById("pkRestart");
 const fullscreenButton = document.getElementById("pkFullscreen");
-const touchForwardButton = document.getElementById("pkTouchForward");
 const touchJumpButton = document.getElementById("pkTouchJump");
 const touchLookPad = document.getElementById("pkTouchLook");
 const maxSeparationEl = document.getElementById("pkMaxSeparation");
@@ -41,7 +40,6 @@ if (
   !hintEl ||
   !restartButton ||
   !fullscreenButton ||
-  !touchForwardButton ||
   !touchJumpButton ||
   !touchLookPad ||
   !maxSeparationEl ||
@@ -209,9 +207,6 @@ let pitch = -0.03;
 let cursorLocked = false;
 let jumpQueued = false;
 let mobileForwardHeld = false;
-let mobileForwardLatched = false;
-let mobileForwardPointerId = null;
-let mobileForwardDownAt = 0;
 let spawnCount = 0;
 let previousStepDelta = { dx: 0, dz: 1 };
 let repeatedHeadingCount = 0;
@@ -227,18 +222,19 @@ const moveForwardVector = new THREE.Vector3();
 const moveRightVector = new THREE.Vector3();
 const moveWorld = new THREE.Vector3();
 const WORLD_UP = new THREE.Vector3(0, 1, 0);
-const updateMobileForwardButton = () => {
-  const active = mobileForwardHeld || mobileForwardLatched;
-  touchForwardButton.classList.toggle("isActive", active);
-  touchForwardButton.textContent = active ? "Forward On" : "Forward";
+let touchLookPrimaryId = null;
+let touchLookLastX = 0;
+let touchLookLastY = 0;
+const touchLookPointers = new Map();
+const syncMobileForwardFromLookTouches = () => {
+  mobileForwardHeld = isTouchPrimary && touchLookPointers.size >= 2;
 };
 const clearTransientInput = () => {
   keys.clear();
   mobileForwardHeld = false;
-  mobileForwardLatched = false;
-  mobileForwardPointerId = null;
+  touchLookPrimaryId = null;
+  touchLookPointers.clear();
   jumpQueued = false;
-  updateMobileForwardButton();
 };
 const randomPick = (arr) => arr[Math.floor(Math.random() * arr.length)];
 const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
@@ -669,12 +665,11 @@ const restartRun = () => {
   repeatedHeadingCount = 0;
   recentSxHistory.length = 0;
   mobileForwardHeld = false;
-  mobileForwardLatched = false;
-  mobileForwardPointerId = null;
-  updateMobileForwardButton();
+  touchLookPrimaryId = null;
+  touchLookPointers.clear();
   distanceEl.textContent = "0";
   hintEl.textContent = isTouchPrimary
-    ? "Drag right side to look. Tap Forward to lock movement, then tap Jump."
+    ? "Right side: 1 finger look, 2 fingers move. Left button is jump."
     : "Click inside the viewport to lock cursor and look around.";
 };
 
@@ -704,61 +699,48 @@ document.addEventListener("mousemove", (event) => {
   applyLookDelta(event.movementX, event.movementY, desktopLookSensitivity);
 });
 
-let touchLookPointerId = null;
-let touchLookLastX = 0;
-let touchLookLastY = 0;
-
 touchLookPad.addEventListener("pointerdown", (event) => {
   if (event.pointerType !== "touch") return;
-  touchLookPointerId = event.pointerId;
-  touchLookLastX = event.clientX;
-  touchLookLastY = event.clientY;
+  touchLookPointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
+  if (touchLookPrimaryId === null) {
+    touchLookPrimaryId = event.pointerId;
+    touchLookLastX = event.clientX;
+    touchLookLastY = event.clientY;
+  }
   touchLookPad.setPointerCapture(event.pointerId);
+  syncMobileForwardFromLookTouches();
 });
 
 touchLookPad.addEventListener("pointermove", (event) => {
-  if (event.pointerId !== touchLookPointerId) return;
-  const dx = event.clientX - touchLookLastX;
-  const dy = event.clientY - touchLookLastY;
-  touchLookLastX = event.clientX;
-  touchLookLastY = event.clientY;
-  applyLookDelta(dx, dy, touchLookSensitivity);
+  if (!touchLookPointers.has(event.pointerId)) return;
+  touchLookPointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
+  if (event.pointerId === touchLookPrimaryId) {
+    const dx = event.clientX - touchLookLastX;
+    const dy = event.clientY - touchLookLastY;
+    touchLookLastX = event.clientX;
+    touchLookLastY = event.clientY;
+    applyLookDelta(dx, dy, touchLookSensitivity);
+  }
 });
 
 const endTouchLook = (event) => {
-  if (event.pointerId !== touchLookPointerId) return;
-  touchLookPointerId = null;
+  if (!touchLookPointers.has(event.pointerId)) return;
+  touchLookPointers.delete(event.pointerId);
+  if (event.pointerId === touchLookPrimaryId) {
+    const next = touchLookPointers.entries().next();
+    if (next.done) {
+      touchLookPrimaryId = null;
+    } else {
+      const [nextId, point] = next.value;
+      touchLookPrimaryId = nextId;
+      touchLookLastX = point.x;
+      touchLookLastY = point.y;
+    }
+  }
+  syncMobileForwardFromLookTouches();
 };
 touchLookPad.addEventListener("pointerup", endTouchLook);
 touchLookPad.addEventListener("pointercancel", endTouchLook);
-
-touchForwardButton.addEventListener("pointerdown", (event) => {
-  if (event.pointerType !== "touch") return;
-  mobileForwardPointerId = event.pointerId;
-  mobileForwardDownAt = performance.now();
-  mobileForwardHeld = true;
-  touchForwardButton.setPointerCapture(event.pointerId);
-  updateMobileForwardButton();
-});
-
-const releaseForwardPointer = (event) => {
-  if (mobileForwardPointerId !== null && event.pointerId !== mobileForwardPointerId) return;
-  const heldDuration = performance.now() - mobileForwardDownAt;
-  const isTapToggle = event.type === "pointerup" && heldDuration < 260;
-  mobileForwardHeld = false;
-  mobileForwardPointerId = null;
-  if (isTapToggle) {
-    mobileForwardLatched = !mobileForwardLatched;
-  }
-  updateMobileForwardButton();
-};
-
-touchForwardButton.addEventListener("pointerup", releaseForwardPointer);
-touchForwardButton.addEventListener("pointercancel", releaseForwardPointer);
-touchForwardButton.addEventListener("pointerleave", (event) => {
-  if (event.pointerType !== "touch") return;
-  releaseForwardPointer(event);
-});
 touchJumpButton.addEventListener("pointerdown", () => {
   jumpQueued = true;
 });
@@ -882,8 +864,7 @@ document.addEventListener("visibilitychange", () => {
 const updateMovement = (dt) => {
   const prevX = player.position.x;
   const prevZ = player.position.z;
-  const mobileForwardActive = mobileForwardHeld || mobileForwardLatched;
-  const forward = Number(keys.has("KeyW")) - Number(keys.has("KeyS")) + Number(mobileForwardActive);
+  const forward = Number(keys.has("KeyW")) - Number(keys.has("KeyS")) + Number(mobileForwardHeld);
   const strafe = Number(keys.has("KeyD")) - Number(keys.has("KeyA"));
   const move = new THREE.Vector2(strafe, forward);
   if (move.lengthSq() > 1) move.normalize();

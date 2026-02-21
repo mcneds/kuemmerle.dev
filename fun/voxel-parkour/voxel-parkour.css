@@ -330,11 +330,6 @@
     font-weight: 700;
   }
 
-  .parkourTouchLeft button.isActive{
-    border-color: rgba(166,209,255,0.9);
-    background: rgba(52,121,255,0.36);
-  }
-
   .parkourTouchLook{
     width: min(48%, 280px);
     margin-left: auto;
