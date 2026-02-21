@@ -55,7 +55,7 @@ body{
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1rem;
-  padding: 1rem 1.25rem 3.75rem;
+  padding: 1rem 1.25rem 4.25rem; /* extra space so arc/text is visible */
 }
 
 .tile{
@@ -94,100 +94,44 @@ body{
   font-size: 0.95rem;
 }
 
-/* Arc area */
+/* Arc + curved name */
 .arcWrap{
   position: absolute;
   left: 0;
   right: 0;
-  bottom: 0;
-  height: 150px;
-  pointer-events: none; /* allow clicks only on button */
+  bottom: -6px;      /* pull arc slightly down */
+  height: 170px;     /* controls arc depth */
+  pointer-events: none;
 }
 
-/* draw a subtle arc */
-.arcLine{
-  position: absolute;
-  left: -10%;
-  right: -10%;
-  bottom: -70px;
-  height: 200px;
-  border-top: 2px solid rgba(233,233,239,0.18);
-  border-radius: 999px;
+.arcSvg{
+  width: 100%;
+  height: 100%;
+  display: block;
 }
 
-/* hide tab button */
-.hideTab{
-  pointer-events: auto;
-  position: absolute;
-  left: 50%;
-  bottom: 66px;
-  transform: translateX(-50%);
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(233,233,239,0.20);
-  color: var(--text);
-  padding: 0.45rem 0.75rem;
-  border-radius: 999px;
-  display:flex;
-  gap: 0.6rem;
-  align-items:center;
-  cursor: pointer;
-  transition: 180ms;
-}
-.hideTab:hover{
-  border-color: rgba(58,123,253,0.7);
-  background: rgba(58,123,253,0.10);
-}
-.tabIcon{
-  font-weight: 800;
-  opacity: 0.9;
-}
-.tabText{
-  font-weight: 700;
-  color: var(--muted);
+.arcStroke{
+  stroke: rgba(233,233,239,0.22);
+  stroke-width: 2.5;
 }
 
-/* “Curved” name: we fake the look by skewing/spacing and placing it along arc */
-.curvedName{
-  position: absolute;
-  left: 50%;
-  bottom: 16px;
-  transform: translateX(-50%);
-  width: min(960px, 92vw);
-  text-align: center;
-}
-.nameText{
-  display: inline-block;
+.arcText{
+  fill: rgba(233,233,239,0.92);
   font-weight: 800;
   letter-spacing: 0.42em;
-  font-size: clamp(1.35rem, 3vw, 2.1rem);
-  color: rgba(233,233,239,0.92);
-  /* “curved-ish” illusion */
-  transform: perspective(800px) rotateX(10deg);
-}
-
-/* Collapsed state */
-.sceneHeader.isCollapsed .sceneTiles{
-  display: none;
-}
-.sceneHeader.isCollapsed{
-  padding-bottom: 90px;
-}
-.sceneHeader.isCollapsed .hideTab .tabText{
-  color: var(--text);
-}
-.sceneHeader.isCollapsed .hideTab .tabText::after{
-  content: " (show)";
+  font-size: 44px;
 }
 
 /* Responsive */
-@media (max-width: 850px){
+@media (max-width: 900px){
   .sceneTiles{
     grid-template-columns: 1fr;
-    padding-bottom: 4.5rem;
+    padding-bottom: 5rem;
   }
-  .arcWrap{ height: 140px; }
-  .hideTab{ bottom: 58px; }
-  .nameText{ letter-spacing: 0.25em; }
+  .arcText{
+    letter-spacing: 0.26em;
+    font-size: 38px;
+  }
 }
 
 /* ====== Main Content ====== */
@@ -270,7 +214,7 @@ body{
   font-size: 1.1rem;
 }
 
-/* Anchor spacing so the arc header doesn't hide titles */
+/* Anchor spacing so the top header doesn't hide titles */
 .anchorSection{
   scroll-margin-top: 220px;
 }
