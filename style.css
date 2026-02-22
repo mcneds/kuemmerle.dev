@@ -479,7 +479,7 @@ body{
 }
 
 .projectCrossSection{
-  font-size: 0.76rem;
+  font-size: 0.72rem;
   color: rgba(233,233,239,0.64);
 }
 
@@ -501,7 +501,7 @@ body{
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  gap: 0.9rem;
+  gap: clamp(0.45rem, 0.8vw, 0.72rem);
 }
 
 .projectEntryTitle{
@@ -518,6 +518,7 @@ body{
 }
 
 .projectEntryBadge{
+  display: none;
   flex-shrink: 0;
   padding: 0.26rem 0.52rem;
   border-radius: 999px;
@@ -530,6 +531,7 @@ body{
 }
 
 .projectEntry--detail .projectEntryBadge{
+  display: none;
   border-color: rgba(124,177,255,0.7);
   color: rgba(205,224,255,0.95);
 }
@@ -618,6 +620,299 @@ body{
 .projectEntryPanel li{
   margin: 0 0 0.35rem;
   line-height: 1.45;
+}
+
+ul.gearList{
+  list-style: none;
+  padding-left: 0;
+}
+
+ul.gearList > li{
+  position: relative;
+  padding-left: 1.45rem;
+}
+
+ul.gearList > li::before{
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.18rem;
+  width: 0.9rem;
+  height: 0.9rem;
+  background: url("/assets/images/Gear%20Icon.png") no-repeat center / contain;
+}
+
+.leafWalkerWhyLayout{
+  margin-top: 0.65rem;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: clamp(0.45rem, 0.8vw, 0.72rem);
+  align-items: start;
+}
+
+.leafWalkerWhyIcons{
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding-top: 0.18rem;
+}
+
+.leafWalkerWhyIcons img{
+  width: clamp(3.2rem, 6vw, 4.4rem);
+  height: auto;
+  display: block;
+}
+
+ul.gearList.gearList--poster{
+  margin-top: 0;
+  padding-left: 0.22rem;
+}
+
+@media (max-width: 620px){
+  .leafWalkerWhyLayout{
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  .leafWalkerWhyIcons{
+    justify-content: flex-start;
+  }
+}
+
+.leafWalkerPathCompare{
+  margin-top: 0.9rem;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.85rem;
+}
+
+.leafWalkerPathCard{
+  margin: 0;
+  border: 1px solid rgba(233,233,239,0.16);
+  border-radius: 12px;
+  overflow: hidden;
+  background: rgba(8,10,14,0.76);
+  position: relative;
+}
+
+.leafWalkerPathCard img{
+  width: 100%;
+  height: 100%;
+  min-height: 180px;
+  display: block;
+  object-fit: cover;
+}
+
+.leafWalkerPathCard figcaption{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: min(38%, 210px);
+  display: grid;
+  align-content: center;
+  padding: 0.75rem;
+  margin: 0;
+  font-size: clamp(0.9rem, 0.45vw + 0.8rem, 1.08rem);
+  line-height: 1.35;
+  color: rgba(245,247,252,0.95);
+  text-shadow: 0 2px 8px rgba(0,0,0,0.7);
+  background: linear-gradient(90deg, rgba(10,12,18,0.86), rgba(10,12,18,0.45));
+}
+
+.leafWalkerPathCard:first-child figcaption{
+  left: 0;
+}
+
+.leafWalkerPathCard:last-child figcaption{
+  right: 0;
+  text-align: right;
+  background: linear-gradient(270deg, rgba(10,12,18,0.86), rgba(10,12,18,0.45));
+}
+
+@media (max-width: 900px){
+  .leafWalkerPathCompare{
+    grid-template-columns: 1fr;
+  }
+
+  .leafWalkerPathCard img{
+    min-height: 0;
+  }
+}
+
+.leafWalkerHowSection{
+  margin-top: 1rem;
+}
+
+.leafWalkerHowSection h2{
+  margin: 0 0 0.65rem;
+}
+
+.leafWalkerHowTop{
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  gap: 0.72rem;
+  align-items: start;
+}
+
+.leafWalkerHowBottom{
+  margin-top: 0.56rem;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.56rem;
+}
+
+.leafWalkerHowCard{
+  margin: 0;
+  border: 1px solid rgba(233,233,239,0.16);
+  border-radius: 12px;
+  overflow: hidden;
+  background: transparent;
+}
+
+.leafWalkerHowCard img,
+.leafWalkerHowCard video{
+  width: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.leafWalkerHowCard--hero img{
+  aspect-ratio: 16 / 9;
+  object-position: center 52%;
+}
+
+.leafWalkerHowCard--gif img,
+.leafWalkerHowCard--video video{
+  aspect-ratio: 16 / 9;
+}
+
+.leafWalkerHowCard figcaption{
+  margin: 0;
+  padding: 0.42rem 0.56rem 0.48rem;
+  font-size: 0.76rem;
+  color: rgba(233,233,239,0.72);
+}
+
+.leafWalkerHowText p{
+  margin: 0 0 0.75rem;
+  line-height: 1.55;
+  color: rgba(233,233,239,0.92);
+}
+
+.leafWalkerHowText p:last-child{
+  margin-bottom: 0;
+}
+
+@media (max-width: 1050px){
+  .leafWalkerHowTop{
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 900px){
+  .leafWalkerHowBottom{
+    grid-template-columns: 1fr;
+  }
+}
+
+.leafWalkerSolveSection{
+  margin-top: 1rem;
+}
+
+.leafWalkerSolveSection h2{
+  margin: 0 0 0.5rem;
+}
+
+.leafWalkerSolveIntro,
+.leafWalkerSolveSummary{
+  margin: 0;
+  color: rgba(233,233,239,0.9);
+  line-height: 1.55;
+}
+
+.leafWalkerSolveSummary{
+  margin-top: 0.7rem;
+  font-weight: 600;
+}
+
+.leafWalkerSolveGrid{
+  margin-top: 0.7rem;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.65rem;
+}
+
+.leafWalkerSolveCard{
+  border: 1px solid rgba(233,233,239,0.16);
+  border-radius: 12px;
+  padding: 0.62rem;
+  background: rgba(8,10,14,0.62);
+}
+
+.leafWalkerSolveMedia{
+  margin: 0 0 0.55rem;
+  border: 1px solid rgba(233,233,239,0.14);
+  border-radius: 10px;
+  overflow: hidden;
+  background: rgba(0,0,0,0.2);
+}
+
+.leafWalkerSolveMedia img{
+  width: 100%;
+  display: block;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+.leafWalkerSolveCard h3{
+  margin: 0 0 0.35rem;
+  font-size: 0.95rem;
+}
+
+.leafWalkerSolveCard p{
+  margin: 0 0 0.45rem;
+  color: rgba(233,233,239,0.9);
+  line-height: 1.46;
+}
+
+.leafWalkerSolveCard p:last-child{
+  margin-bottom: 0;
+}
+
+.leafWalkerSolveStrip{
+  margin-top: 0.7rem;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.6rem;
+}
+
+.leafWalkerSolveStripItem{
+  margin: 0;
+  border: 1px solid rgba(233,233,239,0.16);
+  border-radius: 10px;
+  overflow: hidden;
+  background: rgba(8,10,14,0.58);
+}
+
+.leafWalkerSolveStripItem img{
+  width: 100%;
+  display: block;
+  aspect-ratio: 16 / 8;
+  object-fit: cover;
+}
+
+.leafWalkerSolveStripItem figcaption{
+  margin: 0;
+  padding: 0.35rem 0.5rem 0.42rem;
+  font-size: 0.75rem;
+  color: rgba(233,233,239,0.72);
+}
+
+@media (max-width: 980px){
+  .leafWalkerSolveGrid,
+  .leafWalkerSolveStrip{
+    grid-template-columns: 1fr;
+  }
 }
 
 .projectDiagramSection{
@@ -860,6 +1155,7 @@ body{
 }
 
 .projectMetaDetails{
+  display: none;
   border: 1px solid rgba(233,233,239,0.16);
   border-radius: 12px;
   background: rgba(9,12,18,0.55);
@@ -2034,3 +2330,19 @@ body{
     width: 100%;
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

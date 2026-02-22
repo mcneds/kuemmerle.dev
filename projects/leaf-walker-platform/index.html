@@ -53,20 +53,20 @@
           <span class="projectEntryBadge">Detailed</span>
         </div>
         <figure class="projectEntryHero">
-          <img src="/assets/images/CISE/Project%20board(2).png" alt="Leaf Walker presentation poster">
+          <img src="/assets/images/leafwalker/leafwalkerWalking.jpg" alt="Leaf Walker presentation poster">
         </figure>
         <div class="projectEntryBody">
           <section class="projectEntryPanel">
             <h3>Problem Definition</h3>
             <p>A forestry machine aiming to be more efficient when pathing through the forest and damaging the ground less while doing so.</p>
-            <ul>
+            <ul class="gearList">
               <li>How can a new steering system be created to lessen the effect the current designs have on the ground?</li>
               <li>How can pathing be made more efficient?</li>
             </ul>
           </section>
           <section class="projectEntryPanel">
             <h3>Solution and Outcome</h3>
-            <ul>
+            <ul class="gearList">
               <li>An independent virtual pivot steering system and bogey lift mechanism is employed to solve these issues.</li>
               <li>The end result is an immensely capable platform with a feasible path to a real world implementation.</li>
               <li>Overall, this project completely revolutionizes current forestry transport and harvesting methods.</li>
@@ -74,30 +74,101 @@
           </section>
         </div>
         <section class="projectPosterSection" aria-label="Leaf Walker in-depth project context">
-          <h3>In-Depth Context</h3>
-          <p class="projectPosterCopy">This page uses the full presentation poster as the primary in-depth reference for the project narrative, including the why/how/what/so-what/what-next structure.</p>
-        </section>
-        <section class="projectDiagramSection" aria-label="Leaf Walker design diagrams">
-          <h3>Leaf Walker Diagrams</h3>
-          <div class="projectDiagramGrid">
-            <figure class="projectDiagramCard">
-              <img src="/assets/images/leafwalker/renders/4ws%20standard.svg" alt="Leaf Walker standard steering top-down diagram">
-              <figcaption>Standard steering layout reference.</figcaption>
+          <h2>Why?</h2>
+          <p class="projectPosterCopy">This all started nearly five years ago when two events happened around the same time. First, I saw some really large machines in my friend's backyard, and they completely tore up their lawn. Then not too long after, those same machines tore up the local biking pump track... so I was then motivated to solve this issue of inefficient pathing and steering in any way possible. This project benefits the environment in various ways:</p>
+          <div class="leafWalkerWhyLayout">
+            <div class="leafWalkerWhyIcons" aria-hidden="true">
+              <img src="/assets/images/leafwalker/renders/forwarder.png" alt="">
+              <img src="/assets/images/leafwalker/renders/mult%20dir.png" alt="">
+            </div>
+            <ul class="gearList gearList--poster">
+              <li>Less ground disturbance: soil is not compacted as much, allowing for regrowth.</li>
+              <li>Efficient pathing: less fuel is used, having a directly positive environmental impact.</li>
+              <li>Safer operation: bogey lift suspension keeps the entire vehicle level on nearly any terrain, keeping the entire structure stable when loading and cutting on slopes.</li>
+            </ul>
+          </div>
+          <div class="leafWalkerPathCompare" aria-label="Pathing comparison">
+            <figure class="leafWalkerPathCard">
+              <img src="/assets/images/leafwalker/renders/articulated%20steer%20path.svg" alt="Articulated steer path showing broader turning arc and larger disturbed area.">
+              <figcaption>The inefficient placement of the standard articulated design with the pivot point behind the cabin creates a huge arc, unnecessarily destroying the ground.</figcaption>
             </figure>
-            <figure class="projectDiagramCard">
-              <img src="/assets/images/leafwalker/renders/entrance%20angle.svg" alt="Leaf Walker steering envelope and entry angle diagram">
-              <figcaption>Turning envelope and pivot arc.</figcaption>
-            </figure>
-            <figure class="projectDiagramCard">
-              <img src="/assets/images/leafwalker/renders/pivot%20point%20explanation.svg" alt="Leaf Walker pivot point explanation diagram">
-              <figcaption>Virtual pivot geometry detail.</figcaption>
-            </figure>
-            <figure class="projectDiagramCard">
-              <img src="/assets/images/leafwalker/renders/levelling.svg" alt="Leaf Walker levelling system diagram">
-              <figcaption>Bogey levelling and chassis stabilization.</figcaption>
+            <figure class="leafWalkerPathCard">
+              <img src="/assets/images/leafwalker/renders/virtual%20pivot%20steer%20path.svg" alt="Virtual pivot steer path showing tighter turning and more efficient pathing envelope.">
+              <figcaption>The virtual pivot setup solves this issue, localizing the tire drag to between the wheels whilst also enabling more efficient pathing.</figcaption>
             </figure>
           </div>
         </section>
+        <section class="leafWalkerHowSection" aria-label="Leaf Walker how section">
+          <h2>How?</h2>
+          <div class="leafWalkerHowTop">
+            <figure class="leafWalkerHowCard leafWalkerHowCard--hero">
+              <img src="/assets/images/leafwalker/renders/transverse%20terr.svg" alt="Leaf Walker traversing terrain with bogey lift suspension engaged.">
+              <figcaption>Bogey lift suspension keeping the vehicle level on uneven terrain.</figcaption>
+            </figure>
+            <div class="leafWalkerHowText">
+              <p>The platform replaces conventional articulated steering with a modified virtual pivot. Instead of turning around a point behind the cab, each wheel hub rides on a circular carriage so the effective pivot sits between the wheels, reducing turning arc and ground disturbance.</p>
+              <p>Each hub can operate as a free-spinning bogey for suspension travel or lock and drive when traction and control are needed, giving the machine a wider operating envelope across uneven terrain.</p>
+              <p>The design has been iterated for five years through documented LEGO-based prototypes. Each revision was tested for rigidity and off-road capability on the same obstacle course at full charge, with failures logged and fed back into the next build.</p>
+            </div>
+          </div>
+          <div class="leafWalkerHowBottom">
+            <figure class="leafWalkerHowCard leafWalkerHowCard--gif">
+              <img src="/assets/images/leafwalker/renders/Leaf%20Walker%20Suspension%20Demo.gif" alt="Animated demo of Leaf Walker suspension articulation.">
+              <figcaption>Bogey lift suspension freedom of movement.</figcaption>
+            </figure>
+            <figure class="leafWalkerHowCard leafWalkerHowCard--video">
+              <video src="/assets/images/leafwalker/Testing%20lego%20technic%20bogey%20lift%20suspension-compressed.mp4" controls autoplay muted loop preload="metadata" playsinline></video>
+              <figcaption>Bogey lift suspension test cycle</figcaption>
+            </figure>
+          </div>
+        </section>
+
+        <section class="leafWalkerSolveSection" aria-label="Leaf Walker issues and solutions summary">
+          <h2>What Changed</h2>
+          <p class="leafWalkerSolveIntro">Three constraints drove the redesign: oversized steering arcs, limited terrain clearance from a long wheelbase, and reduced stability under load. The final architecture pairs virtual pivot steering with lockable, powerable bogeys to improve efficiency, access, and chassis control.</p>
+          <div class="leafWalkerSolveGrid">
+            <article class="leafWalkerSolveCard">
+              <figure class="leafWalkerSolveMedia">
+                <img src="/assets/images/leafwalker/renders/pivot%20point%20explanation.png" alt="Pivot point geometry showing virtual pivot location between wheels.">
+              </figure>
+              <h3>Steering Arc and Tire Drag</h3>
+              <p>Conventional articulation pivots behind the cab, creating large drag arcs that disturb more ground and waste path length.</p>
+              <p><strong>Fix:</strong> A virtual pivot moves the turning center between the wheels, enabling conventional, all-wheel, diagonal, and zero-point steering while keeping disturbance localized to contact patches.</p>
+            </article>
+            <article class="leafWalkerSolveCard">
+              <figure class="leafWalkerSolveMedia">
+                <img src="/assets/images/leafwalker/renders/bogey%20lift%20entrance%20angle.png" alt="Bogey lift entrance and exit angle improvement reference.">
+              </figure>
+              <h3>Long Chassis Terrain Limits</h3>
+              <p>Vehicle length reduced approach and breakover performance, forcing detours and extra fuel/time cost.</p>
+              <p><strong>Fix:</strong> Selective front/rear ride-height adjustment via powered, lockable bogeys improves slope entry/exit and lowers high-centering risk.</p>
+            </article>
+            <article class="leafWalkerSolveCard">
+              <figure class="leafWalkerSolveMedia">
+                <img src="/assets/images/leafwalker/renders/levelling.png" alt="Chassis levelling concept for loaded slope operation.">
+              </figure>
+              <h3>Loaded Stability on Slopes</h3>
+              <p>A high center of gravity under load restricted safe traversable terrain and increased routing constraints.</p>
+              <p><strong>Fix:</strong> Per-wheel bogey adjustment levels the chassis to slope shape/angle, preserving operator stability and expanding safe operating envelopes.</p>
+            </article>
+          </div>
+          <div class="leafWalkerSolveStrip" aria-label="Additional development visuals">
+            <figure class="leafWalkerSolveStripItem">
+              <img src="/assets/images/leafwalker/renders/4ws.png" alt="All-wheel steering configuration reference.">
+              <figcaption>All-wheel steering mode</figcaption>
+            </figure>
+            <figure class="leafWalkerSolveStripItem">
+              <img src="/assets/images/leafwalker/renders/Tankk%20steering.png" alt="Alternative steering mode test reference.">
+              <figcaption>Alternative steering geometry</figcaption>
+            </figure>
+            <figure class="leafWalkerSolveStripItem">
+              <img src="/assets/images/leafwalker/renders/bogey%20lift%20traverse.png" alt="Bogey traverse and suspension travel reference.">
+              <figcaption>Powered bogey traverse</figcaption>
+            </figure>
+          </div>
+          <p class="leafWalkerSolveSummary">Result: the platform cuts pathing waste, reduces soil damage, climbs and exits steeper terrain, and remains stable under load while preserving articulated-system flexibility through a more efficient pivot strategy.</p>
+        </section>
+
         <div class="projectEntryMeta projectDetailMeta">
           <details class="projectMetaDetails">
             <summary>
@@ -144,3 +215,14 @@
   <script src="/main.js"></script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+

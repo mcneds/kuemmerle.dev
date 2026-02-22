@@ -1084,6 +1084,19 @@ document.querySelectorAll(".tile").forEach(tile => {
       skills: ["C++", "Python", "Serial communications", "GUI implementation", "Debug workflow"]
     },
     {
+      id: "standalone-leaf-walker-platform",
+      category: "standalone",
+      type: "detail",
+      detailUrl: "/projects/leaf-walker-platform/",
+      title: "Leaf Walker: A Better Forestry Platform",
+      hero: "/assets/images/leafwalker/leafwalkerWalking.jpg",
+      alt: "Leaf Walker forestry platform prototype",
+      problem: "How can a new steering system be created to lessen the effect current designs have on the ground, while making pathing through forests more efficient?",
+      solution: "An independent virtual pivot steering system and bogey lift mechanism solve these issues, producing an immensely capable platform with a feasible path to real-world implementation.",
+      tags: ["Forestry platform", "Virtual pivot steering", "Sustainability", "Ground-impact reduction", "Pathing efficiency"],
+      skills: ["Mechanical engineering", "Automotive steering geometry", "Prototype testing", "Iterative design", "Engineering communication"]
+    },
+    {
       id: "standalone-arduino-line-follower",
       category: "standalone",
       type: "single",
@@ -1126,6 +1139,9 @@ document.querySelectorAll(".tile").forEach(tile => {
       id: "standalone-solidworks-sketch-exporter",
       category: "standalone",
       type: "single",
+      actionUrl: "/projects/solidworks-sketch-viewer/",
+      actionLabel: "Open viewer test page",
+      actionNewTab: true,
       title: "SOLIDWORKS 3D Sketch Exporter and 2D Previewer",
       hero: "/assets/images/solidworks3DSketchExp.webp",
       alt: "SolidWorks add-in exporter and previewer interface concept",
@@ -1281,19 +1297,6 @@ document.querySelectorAll(".tile").forEach(tile => {
       skills: ["Fusion 360", "JavaScript", "Python", "Process design", "Project leadership"]
     },
     {
-      id: "standalone-leaf-walker-platform",
-      category: "standalone",
-      type: "detail",
-      detailUrl: "/projects/leaf-walker-platform/",
-      title: "Leaf Walker: A Better Forestry Platform",
-      hero: "/assets/images/leafwalker/leafwalkerWalking.jpg",
-      alt: "Leaf Walker forestry platform prototype",
-      problem: "How can a new steering system be created to lessen the effect current designs have on the ground, while making pathing through forests more efficient?",
-      solution: "An independent virtual pivot steering system and bogey lift mechanism solve these issues, producing an immensely capable platform with a feasible path to real-world implementation.",
-      tags: ["Forestry platform", "Virtual pivot steering", "Sustainability", "Ground-impact reduction", "Pathing efficiency"],
-      skills: ["Mechanical engineering", "Automotive steering geometry", "Prototype testing", "Iterative design", "Engineering communication"]
-    },
-    {
       id: "construction-modulus-drawer-system",
       category: "construction",
       type: "detail",
@@ -1391,8 +1394,23 @@ document.querySelectorAll(".tile").forEach(tile => {
           ></iframe>
         </div>`
       : `<img src="${escapeHtml(entry.hero)}" alt="${escapeHtml(entry.alt)}">`;
-    const linkMarkup = entry.type === "detail" && entry.detailUrl
-      ? `<a class="projectEntryLink" href="${escapeHtml(entry.detailUrl)}">Open full project page</a>`
+    const detailLink = entry.type === "detail" && entry.detailUrl
+      ? {
+          href: entry.detailUrl,
+          label: "Open full project page",
+          newTab: false
+        }
+      : null;
+    const actionLink = !detailLink && entry.actionUrl
+      ? {
+          href: entry.actionUrl,
+          label: entry.actionLabel || "Open project page",
+          newTab: Boolean(entry.actionNewTab)
+        }
+      : null;
+    const ctaLink = detailLink || actionLink;
+    const linkMarkup = ctaLink
+      ? `<a class="projectEntryLink" href="${escapeHtml(ctaLink.href)}"${ctaLink.newTab ? ' target="_blank" rel="noopener noreferrer"' : ""}>${escapeHtml(ctaLink.label)}</a>`
       : "";
 
     return `
@@ -1440,6 +1458,7 @@ document.querySelectorAll(".tile").forEach(tile => {
 
   const linkForEntry = (entry) => {
     if (entry.type === "detail" && entry.detailUrl) return entry.detailUrl;
+    if (entry.actionUrl) return entry.actionUrl;
     const sectionUrl = sectionUrlByCategory[entry.category] || "/";
     return `${sectionUrl}#project-entry-${entry.id}`;
   };
