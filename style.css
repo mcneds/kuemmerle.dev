@@ -148,12 +148,12 @@ body{
 }
 
 .tile[data-section="quick"]{
-  --tile-image: url("/assets/images/goproclip mount.png");
+  --tile-image: url("/assets/images/Misc Quick/goproclip mount.png");
   --tile-focus: center 62%;
 }
 
 .tile[data-section="standalone"]{
-  --tile-image: url("/assets/images/leafwalkerWalking.jpg");
+  --tile-image: url("/assets/images/leafwalker/leafwalkerWalking.jpg");
   --tile-focus: center 45%;
 }
 
@@ -576,6 +576,73 @@ body{
   margin: 0;
   color: rgba(233,233,239,0.9);
   line-height: 1.55;
+}
+
+.projectEntryPanel ul{
+  margin: 0.55rem 0 0;
+  padding-left: 1.1rem;
+  color: rgba(233,233,239,0.9);
+}
+
+.projectEntryPanel li{
+  margin: 0 0 0.35rem;
+  line-height: 1.45;
+}
+
+.projectDiagramSection{
+  margin-top: 0.9rem;
+}
+
+.projectPosterSection{
+  margin-top: 0.9rem;
+}
+
+.projectPosterSection h3{
+  margin: 0 0 0.5rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(233,233,239,0.7);
+}
+
+.projectPosterCopy{
+  margin: 0;
+  color: rgba(233,233,239,0.88);
+  line-height: 1.5;
+}
+
+.projectDiagramSection h3{
+  margin: 0 0 0.55rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(233,233,239,0.7);
+}
+
+.projectDiagramGrid{
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.8rem;
+}
+
+.projectDiagramCard{
+  margin: 0;
+  border: 1px solid rgba(233,233,239,0.16);
+  border-radius: 12px;
+  overflow: hidden;
+  background: rgba(8,10,14,0.76);
+}
+
+.projectDiagramCard img{
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.projectDiagramCard figcaption{
+  padding: 0.58rem 0.7rem 0.65rem;
+  font-size: 0.79rem;
+  color: rgba(233,233,239,0.86);
 }
 
 .projectEntryMeta{
@@ -1684,6 +1751,9 @@ body{
     grid-template-columns: 1fr;
   }
   .projectEntryBody{
+    grid-template-columns: 1fr;
+  }
+  .projectDiagramGrid{
     grid-template-columns: 1fr;
   }
   .projectEntryHero{
