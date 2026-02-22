@@ -543,11 +543,30 @@ body{
   background: rgba(255,255,255,0.03);
 }
 
-.projectEntryHero img{
+.projectEntryHero img,
+.projectEntryHero video{
   width: 100%;
   height: 100%;
   display: block;
   object-fit: cover;
+}
+
+.projectEntryHero iframe{
+  width: 100%;
+  height: 100%;
+  display: block;
+  border: 0;
+}
+
+.projectEntryIframeViewport{
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #000;
+}
+
+.projectEntryIframeViewport iframe{
+  transform-origin: top left;
 }
 
 .projectEntryBody{
@@ -576,6 +595,18 @@ body{
   margin: 0;
   color: rgba(233,233,239,0.9);
   line-height: 1.55;
+}
+
+.projectEntryPanel p a:link{
+  color: LinkText;
+}
+
+.projectEntryPanel p a:visited{
+  color: VisitedText;
+}
+
+.projectEntryPanel p a:active{
+  color: LinkText;
 }
 
 .projectEntryPanel ul{
@@ -623,6 +654,49 @@ body{
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 0.8rem;
+  align-items: start;
+}
+
+.projectDiagramGrid--parkour{
+  display: block;
+}
+
+.projectDiagramCard--sampler{
+  margin-bottom: 0.8rem;
+}
+
+.parkourTopPair{
+  display: flex;
+  gap: 0.8rem;
+  align-items: flex-start;
+  margin: 0 0 0.8rem;
+}
+
+.parkourTopTable{
+  width: calc(50% - 0.4rem);
+  border-collapse: collapse;
+  table-layout: fixed;
+  margin: 0;
+}
+
+.parkourTopTable td{
+  vertical-align: top;
+  padding: 0;
+}
+
+.parkourSectionTable,
+.parkourClassTable{
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0.7rem 0;
+  table-layout: fixed;
+}
+
+.parkourSectionTable td,
+.parkourClassTable td{
+  width: 50%;
+  vertical-align: top;
+  padding: 0;
 }
 
 .projectDiagramCard{
@@ -639,10 +713,144 @@ body{
   display: block;
 }
 
+.parkourSamplerStatic{
+  width: 100%;
+  aspect-ratio: 16 / 8;
+  border-bottom: 1px solid rgba(233,233,239,0.14);
+  background:
+    radial-gradient(100% 120% at 20% 0%, rgba(58,123,253,0.16), transparent 62%),
+    rgba(8,10,14,0.88);
+}
+
+.parkourSamplerStatic canvas{
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.parkourSamplerStaticControls{
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 0.5rem;
+  padding: 0.55rem 0.65rem 0.62rem;
+  border-bottom: 1px solid rgba(233,233,239,0.14);
+  background: rgba(12,16,24,0.74);
+}
+
+.parkourSamplerStaticControls label{
+  display: grid;
+  gap: 0.2rem;
+}
+
+.parkourSamplerStaticControls span{
+  font-size: 0.66rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(233,233,239,0.72);
+}
+
+.parkourSamplerStaticControls input[type="range"]{
+  width: 100%;
+}
+
+.parkourSamplerStaticControls button{
+  border: 1px solid rgba(124,177,255,0.55);
+  border-radius: 9px;
+  background: rgba(58,123,253,0.15);
+  color: rgba(233,233,239,0.92);
+  font: inherit;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+}
+
+.parkourSamplerStaticControls button:hover{
+  background: rgba(58,123,253,0.24);
+}
+
+@media (max-width: 1100px){
+  .parkourSamplerStaticControls{
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
 .projectDiagramCard figcaption{
   padding: 0.58rem 0.7rem 0.65rem;
   font-size: 0.79rem;
   color: rgba(233,233,239,0.86);
+}
+
+.parkourDocCard{
+  padding: 0.78rem;
+}
+
+.parkourDocCard h4{
+  margin: 0 0 0.45rem;
+  font-size: 0.96rem;
+}
+
+.parkourDocCard h5{
+  margin: 0.3rem 0 0.35rem;
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: rgba(233,233,239,0.78);
+}
+
+.parkourDocCard p{
+  margin: 0 0 0.58rem;
+  line-height: 1.48;
+  color: rgba(233,233,239,0.9);
+}
+
+.parkourDocLinkGrid{
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.32rem 0.55rem;
+  margin-top: 0.45rem;
+}
+
+.parkourDocLinkGrid a{
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.parkourDocList{
+  margin: 0 0 0.72rem;
+  padding-left: 1.15rem;
+}
+
+.parkourDocList li{
+  margin: 0 0 0.26rem;
+  line-height: 1.38;
+}
+
+.parkourDocDefs{
+  margin: 0;
+}
+
+.parkourDocDefs dt{
+  margin: 0.55rem 0 0.2rem;
+  font-weight: 700;
+}
+
+.parkourDocDefs dd{
+  margin: 0 0 0.45rem;
+  color: rgba(233,233,239,0.88);
+  line-height: 1.45;
+}
+
+.parkourDocLearned{
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.8rem;
+}
+
+.parkourDocCard :target{
+  outline: 1px solid rgba(124,177,255,0.72);
+  border-radius: 6px;
+  scroll-margin-top: 210px;
 }
 
 .projectEntryMeta{
@@ -1754,6 +1962,18 @@ body{
     grid-template-columns: 1fr;
   }
   .projectDiagramGrid{
+    grid-template-columns: 1fr;
+  }
+  .projectDiagramGrid--parkour{
+    display: block;
+  }
+  .parkourTopPair{
+    flex-direction: column;
+  }
+  .parkourTopTable{
+    width: 100%;
+  }
+  .parkourDocLearned{
     grid-template-columns: 1fr;
   }
   .projectEntryHero{

@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Walk in the Parkour Pathfinding | kuemmerle.dev</title>
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.170.0/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three@0.170.0/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <header class="sceneHeader" id="sceneHeader">
+    <nav class="topNav" aria-label="Primary">
+      <a href="/" class="navItem">Home</a>
+      <a href="/resume" class="navItem">Resume</a>
+      <a href="/contact" class="navItem">Contact</a>
+      <a href="/fun" class="navItem">Fun</a>
+    </nav>
+    <section class="sceneTiles" aria-label="Section tiles">
+      <a class="tile" href="/quick" data-section="quick">
+        <div class="tileInner">
+          <div class="tileLabel">Quick Side Quests</div>
+          <div class="tileHint">Small builds and fast experiments</div>
+        </div>
+      </a>
+      <a class="tile" href="/projects" data-section="standalone">
+        <div class="tileInner">
+          <div class="tileLabel">Standalone Projects</div>
+          <div class="tileHint">Complete systems built end to end</div>
+        </div>
+      </a>
+      <a class="tile" href="/construction" data-section="construction">
+        <div class="tileInner">
+          <div class="tileLabel">Under Construction</div>
+          <div class="tileHint">Active work currently in progress</div>
+        </div>
+      </a>
+    </section>
+  </header>
+
+  <main class="page">
+    <section class="contentSection projectDetail">
+      <p class="projectDetailBack"><a href="/projects/">Back to Standalone Projects</a></p>
+      <h1>Walk in the Parkour Pathfinding</h1>
+      <p class="muted">A pathfinding system that uses parkour-style movement to navigate complex environments in an engaging fashion, capable of obstacle avoidance.</p>
+
+      <article class="projectEntry projectEntry--detail">
+        <div class="projectEntryHead">
+          <div>
+            <h2 class="projectEntryTitle">A truly enjoyable pathfinding experience.</h2>
+            <p class="projectEntryType">Detailed project page</p>
+          </div>
+          <span class="projectEntryBadge">Detailed</span>
+        </div>
+        <figure class="projectEntryHero">
+          <video autoplay muted loop playsinline preload="metadata" aria-label="Minecraft procedural parkour demo">
+            <source src="/assets/images/parkour/Minecraft%20Procedural%20Parkour.mp4" type="video/mp4">
+          </video>
+        </figure>
+        <div class="projectEntryBody">
+          <section class="projectEntryPanel">
+            <h3>Problem Definition</h3>
+            Using simple randwalks or A* for platforming paths in a voxel environment led to unenjoyable or boring routes that didn't respect player engagement constraints.
+          </section>
+          <section class="projectEntryPanel">
+            <h3>Solution and Outcome</h3>
+            I simulated player jump constraints in sampled environments and used that state to generate procedural platforming paths in an efficient way. The resulting algorithm produced more interesting routes that respected jump feasibility and engagement considerations.
+          </section>
+        </div>
+        <section class="projectPosterSection" aria-label="Leaf Walker in-depth project context">
+          <h3>Overview of Initial Knowledge and Procedure</h3>
+        <p class="projectPosterCopy">In essence, it is a server side plugin to generate procedural parkour.
+            This is done by Utilizing the property of a minecraft jump that the player can travel 4 blocks
+            horizontally from 1 block of space and 1.25 vertically to create parabola with an extra
+            term to make it 3D. From this we obtain a volume that contains all possible jump points.
+            We then pre calculate all possible jump points into a list for fast access so that we do
+            not need to recalculate every time. When picking a new jump, we just sample from the list and add its local position to the last jump.
+        </p>
+        </section>
+        <section class="projectDiagramSection" aria-label="Leaf Walker design diagrams">
+          <h3>Generating and visualizing the jumps</h3>
+          <div class="projectDiagramGrid projectDiagramGrid--parkour">
+            <figure class="projectDiagramCard projectDiagramCard--sampler">
+              <div id="pkStaticSampler" class="parkourSamplerStatic" aria-label="Static interactive jump sampler preview"></div>
+              <div class="parkourSamplerStaticControls" aria-label="Sampler controls">
+                <label>
+                  <span>Reach</span>
+                  <input id="pkStaticReach" type="range" min="8" max="18" step="0.5" value="12.5">
+                </label>
+                <label>
+                  <span>Peak</span>
+                  <input id="pkStaticPeak" type="range" min="2.5" max="6.5" step="0.1" value="4.3">
+                </label>
+                <label>
+                  <span>Spread</span>
+                  <input id="pkStaticSpread" type="range" min="2" max="6" step="0.2" value="4">
+                </label>
+                <button id="pkStaticSpin" type="button" aria-pressed="true">Spin On</button>
+                <button id="pkStaticSample" type="button">New Sample</button>
+                <button id="pkStaticReset" type="button">Reset View</button>
+              </div>
+              <figcaption>Static sampler preview. Drag to orbit, scroll to zoom.</figcaption>
+            </figure>
+            <div class="parkourTopPair">
+              <table class="parkourTopTable" role="presentation">
+                <tbody>
+                  <tr>
+                    <td>
+                      <section class="projectDiagramCard parkourDocCard parkourDocCard--overview" aria-labelledby="project-overview-title">
+                        <h4 id="project-overview-title">Project Overview</h4>
+                        <p>This project is a 1.21 spigot plugin which runs on a spigot server and is made using their API. It was developed using a custom IntelliJ run configuration so the server could run inside the IDE, and a hotswap agent dynamically rebuilt classes without restarting the server. This dramatically improved iteration speed and made implementing pathfinding behavior much faster.</p>
+                        <div class="parkourDocLinkGrid">
+                          <a href="#commands">Commands</a>
+                          <a href="#singletons">Singletons</a>
+                          <a href="#types">Types</a>
+                          <a href="#util">Util</a>
+                          <a href="#resources">Resources</a>
+                          <a href="#class-overviews">Class Overviews</a>
+                          <a href="#what-i-learned">What I Learned</a>
+                        </div>
+                      </section>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table class="parkourTopTable" role="presentation">
+                <tbody>
+                  <tr>
+                    <td>
+                      <section class="projectDiagramCard parkourDocCard parkourDocCard--commands" aria-labelledby="commands">
+                        <h4 id="commands" class="anchorSection">Commands</h4>
+                        <p>Player-run commands in game.</p>
+                        <table class="parkourSectionTable" role="presentation">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <ul class="parkourDocList">
+                                  <li><a href="#nextjumpcommand">NextJumpCommand</a></li>
+                                  <li><a href="#placeblockcommand">PlaceBlockCommand</a></li>
+                                  <li><a href="#randomjumpscommand">RandomJumpsCommand</a></li>
+                                  <li><a href="#startparkourcommand">StartParkourCommand</a></li>
+                                  <li><a href="#testblockscommand">TestBlocksCommand</a></li>
+                                  <li><a href="#testchunkhighestheightcommand">TestChunkHighestHeightCommand</a></li>
+                                </ul>
+                                <h4 id="singletons" class="anchorSection">Singletons</h4>
+                                <p>This was one of the key concepts learned during development.</p>
+                                <ul class="parkourDocList">
+                                  <li><a href="#jumpdatamanager">JumpDataManager</a></li>
+                                  <li><a href="#jumplists">JumpLists</a></li>
+                                </ul>
+                                <h4 id="types" class="anchorSection">Types</h4>
+                                <p>Fully instantiated objects to extend in future iterations.</p>
+                                <ul class="parkourDocList">
+                                  <li><a href="#parkourjump">ParkourJump</a></li>
+                                  <li><a href="#checkpoint">Checkpoint</a></li>
+                                </ul>
+                              </td>
+                              <td>
+                                <h4 id="util" class="anchorSection">Util</h4>
+                                <p>Helper classes used across systems.</p>
+                                <ul class="parkourDocList">
+                                  <li><a href="#blockremover">BlockRemover</a></li>
+                                  <li><a href="#blocksummoner">BlockSummoner</a></li>
+                                  <li><a href="#chunkanalyzer">ChunkAnalyzer</a></li>
+                                  <li><a href="#jumplistfilters">JumpListFilters</a></li>
+                                  <li><a href="#jumplistgenerator">JumpListGenerator</a></li>
+                                  <li><a href="#locationtools">LocationTools</a></li>
+                                  <li><a href="#vectortools">VectorTools</a></li>
+                                  <li><a href="#parkour">Parkour</a></li>
+                                </ul>
+                                <h4 id="resources" class="anchorSection">Resources</h4>
+                                <ul class="parkourDocList">
+                                  <li><a href="#jumpsjson">jumps.json</a></li>
+                                </ul>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </section>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <section class="projectDiagramCard parkourDocCard parkourDocCard--classes" aria-labelledby="class-overviews">
+              <h4 id="class-overviews" class="anchorSection">Class Overviews</h4>
+              <table class="parkourClassTable" role="presentation">
+                <tbody>
+                  <tr>
+                    <td>
+                      <dl class="parkourDocDefs">
+                        <dt id="nextjumpcommand" class="anchorSection">NextJumpCommand.java</dt>
+                        <dd>A debug command that picks a random jump and places it relative to the player using <a href="#blocksummoner">BlockSummoner.java</a>.</dd>
+                        <dt id="placeblockcommand" class="anchorSection">PlaceBlockCommand.java</dt>
+                        <dd>A debug command that places a block at the player with animation using <a href="#blocksummoner">BlockSummoner.java</a>.</dd>
+                        <dt id="randomjumpscommand" class="anchorSection">RandomJumpsCommand.java</dt>
+                        <dd>The current main game implementation, selecting random jumps from list instances supplied by <a href="#jumpdatamanager">JumpDataManager.java</a>.</dd>
+                        <dt id="startparkourcommand" class="anchorSection">StartParkourCommand.java</dt>
+                        <dd>The eventual primary implementation intended to fully execute the pathfinding algorithm.</dd>
+                        <dt id="testblockscommand" class="anchorSection">TestBlocksCommand.java</dt>
+                        <dd>A debug command that places all blocks at a chosen Y level from the jump list, relative to the player.</dd>
+                        <dt id="testchunkhighestheightcommand" class="anchorSection">TestChunkHighestHeightCommand.java</dt>
+                        <dd>Teleports the player to the highest block in the current chunk via methods from <a href="#chunkanalyzer">ChunkAnalyzer.java</a>.</dd>
+                        <dt id="jumpdatamanager" class="anchorSection">JumpDataManager.java</dt>
+                        <dd>Singleton access point for jump-list instances so systems can share data without expensive re-instantiation.</dd>
+                        <dt id="jumplists" class="anchorSection">JumpLists.java</dt>
+                        <dd>Provides pre-sorted jump lists generated from source data for pathfinding logic.</dd>
+                        <dt id="parkourjump" class="anchorSection">ParkourJump.java</dt>
+                        <dd>Main jump data object; designed for future feature extension.</dd>
+                        <dt id="checkpoint" class="anchorSection">Checkpoint.java</dt>
+                        <dd>Early checkpoint and death-detection support.</dd>
+                      </dl>
+                    </td>
+                    <td>
+                      <dl class="parkourDocDefs">
+                        <dt id="blockremover" class="anchorSection">BlockRemover.java</dt>
+                        <dd>Animates block removal by translating and transforming downward.</dd>
+                        <dt id="blocksummoner" class="anchorSection">BlockSummoner.java</dt>
+                        <dd>Animates block placement by transforming from an offset position into world position.</dd>
+                        <dt id="chunkanalyzer" class="anchorSection">ChunkAnalyzer.java</dt>
+                        <dd>Provides methods to evaluate chunk height characteristics and highest points.</dd>
+                        <dt id="jumplistfilters" class="anchorSection">JumpListFilters.java</dt>
+                        <dd>Filters jump candidates using heuristics from the pathfinding algorithm.</dd>
+                        <dt id="jumplistgenerator" class="anchorSection">JumpListGenerator.java</dt>
+                        <dd>Recursively builds jump sequences across n pathfinding iterations using prior outputs as seeds.</dd>
+                        <dt id="locationtools" class="anchorSection">LocationTools.java</dt>
+                        <dd>Utility methods for Spigot <code>Location</code> handling.</dd>
+                        <dt id="vectortools" class="anchorSection">VectorTools.java</dt>
+                        <dd>Vector math helpers used by the pathfinding calculations.</dd>
+                        <dt id="parkour" class="anchorSection">Parkour.java</dt>
+                        <dd>Main plugin class; registers commands and hosts continuous-loop behavior.</dd>
+                        <dt id="jumpsjson" class="anchorSection">jumps.json</dt>
+                        <dd>Static jump data generated by a Python script and loaded by the plugin.</dd>
+                      </dl>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <h3 id="what-i-learned" class="anchorSection">What I Learned</h3>
+              <div class="parkourDocLearned">
+                <section>
+                  <h5>General Concepts</h5>
+                  <ul class="parkourDocList">
+                    <li>Organizing large projects into sensible packages and ownership boundaries.</li>
+                    <li>Planning features and controlling scope creep.</li>
+                    <li>Breaking complex systems into smaller, testable components.</li>
+                    <li>Debugging across multiple classes and async workflows.</li>
+                    <li>Singletons, static vs non-static objects, and why object cloning matters.</li>
+                    <li>IntelliJ run configs and hotswap workflow for rapid iteration.</li>
+                    <li>Core linear algebra concepts including <code>atan2</code>.</li>
+                    <li>JSON import, arrays, hashes, iterators, enhanced loops, and package design.</li>
+                    <li>Input streams and try/catch error handling patterns.</li>
+                  </ul>
+                </section>
+                <section>
+                  <h5>API Specific</h5>
+                  <ul class="parkourDocList">
+                    <li>Building a Spigot plugin and registering commands.</li>
+                    <li>Using interfaces and command contracts.</li>
+                    <li>Using sound and block enums effectively.</li>
+                    <li>Using Spigot scheduler tasks for asynchronous behavior.</li>
+                    <li>Working with <code>World</code>, <code>Player</code>, <code>Location</code>, <code>Block</code>, and <code>Chunk</code>.</li>
+                  </ul>
+                </section>
+              </div>
+            </section>
+          </div>
+        </section>
+        <div class="projectEntryMeta projectDetailMeta">
+          <details class="projectMetaDetails">
+            <summary>
+              <span>Tags</span>
+              <span class="projectMetaPreview">
+                <span class="projectPill">Robotics</span>
+                <span class="projectPill">Forestry platform</span>
+                <span class="projectPill">Virtual pivot steering</span>
+              </span>
+            </summary>
+            <div class="projectPills">
+              <span class="projectPill">Robotics</span>
+              <span class="projectPill">Forestry platform</span>
+              <span class="projectPill">Virtual pivot steering</span>
+              <span class="projectPill">Low-impact pathing</span>
+              <span class="projectPill">Adjustable bogey suspension</span>
+            </div>
+          </details>
+          <details class="projectMetaDetails">
+            <summary>
+              <span>Skills</span>
+              <span class="projectMetaPreview">
+                <span class="projectPill">Mechanical engineering</span>
+                <span class="projectPill">Iterative design</span>
+                <span class="projectPill">Systems testing</span>
+              </span>
+            </summary>
+            <div class="projectPills">
+              <span class="projectPill">Mechanical engineering</span>
+              <span class="projectPill">Automotive steering geometry</span>
+              <span class="projectPill">Prototype instrumentation</span>
+              <span class="projectPill">Integration testing</span>
+              <span class="projectPill">Engineering communication</span>
+            </div>
+          </details>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div>&copy; 2026 kuemmerle.dev</div>
+  </footer>
+  <script type="module" src="/projects/walk-in-the-parkour-pathfinding/parkour-sampler-static.js"></script>
+  <script src="/main.js"></script>
+</body>
+</html>

@@ -1088,7 +1088,8 @@ document.querySelectorAll(".tile").forEach(tile => {
       category: "standalone",
       type: "single",
       title: "Arduino Line Follower and Object Avoidance",
-      hero: "/assets/images/underConstruction.jpg",
+      hero: "/assets/images/line follower PID.png",
+      heroVideo: "/assets/images/line follower PID.web.mp4",
       alt: "Line follower robot testing setup",
       problem: "The robot needed to track increasingly complex line courses while handling both movable and fixed obstacles.",
       solution: "I integrated infrared sensing, line-following logic, and obstacle response tuning so the platform could complete harder tracks more consistently.",
@@ -1100,10 +1101,10 @@ document.querySelectorAll(".tile").forEach(tile => {
       category: "standalone",
       type: "single",
       title: "Grad Most Likely To Template",
-      hero: "/assets/images/underConstruction.jpg",
+      hero: "/assets/images/Most Likely To.png",
       alt: "Web template for moderated graduation voting",
       problem: "Schools needed a simple, moderated, and interactive way to run class voting without complex setup.",
-      solution: "I built a reusable web template with moderation-oriented structure so institutions can host and manage submissions quickly.",
+      solution: "I built a reusable web template with moderation-oriented structure so institutions can host and manage submissions quickly. View the repo: https://github.com/mcneds/Grad-Most-Likely-To-Template",
       tags: ["Web app", "Education", "Moderation", "Template", "Interactive forms"],
       skills: ["HTML", "CSS", "JavaScript", "API development", "Online moderation workflows"]
     },
@@ -1113,6 +1114,8 @@ document.querySelectorAll(".tile").forEach(tile => {
       type: "single",
       title: "Steganography Tool (Web)",
       hero: "/assets/images/underConstruction.jpg",
+      heroIframe: "https://mcneds.github.io/steganography/",
+      heroAspect: "4 / 3",
       alt: "Web-based steganography interface",
       problem: "I wanted a browser-based way to hide files in images with flexible unlock options beyond a single password model.",
       solution: "I rebuilt an earlier high-school concept into a web tool that supports keys, files, or passphrases for extraction workflows.",
@@ -1124,22 +1127,24 @@ document.querySelectorAll(".tile").forEach(tile => {
       category: "standalone",
       type: "single",
       title: "SOLIDWORKS 3D Sketch Exporter and 2D Previewer",
-      hero: "/assets/images/Misc%20Quick/e30%20rim%20front.png",
+      hero: "/assets/images/solidworks3DSketchExp.webp",
       alt: "SolidWorks add-in exporter and previewer interface concept",
-      problem: "The BeamNG pipeline required controlled sketch export tooling, but native workflows were not streamlined for rapid iteration.",
-      solution: "I built a custom C# SolidWorks add-in supporting multi-select export, construction filtering, axis remapping, and destination controls.",
+      problem: "My BeamNG simulation pipeline tooling (WIP) required 3D sketch export, but native workflows were not streamlined for rapid iteration.",
+      solution: "I built a custom C# SolidWorks add-in supporting multi-select export, construction filtering, axis remapping, and destination controls. A simple prokection viewer validated results and supported quick checks without leaving the CAD environment.",
       tags: ["SOLIDWORKS", "Add-in", "Automation", "BeamNG pipeline", "Engineering tools"],
       skills: ["C#", "SOLIDWORKS API", "Tool architecture", "Export workflows", "User-focused tooling"]
     },
     {
       id: "standalone-parkour-pathfinding-demo",
       category: "standalone",
-      type: "single",
+      type: "detail",
+      detailUrl: "/projects/walk-in-the-parkour-pathfinding/",
       title: "Walk in the Parkour Pathfinding Algorithm Demo",
       hero: "/assets/images/parkourdemo.png",
+      heroVideo: "/assets/images/parkour/Minecraft Procedural Parkour.mp4",
       alt: "Voxel parkour pathfinding demonstration",
-      problem: "Typical grid movement looked rigid, so I wanted pathfinding that wandered with more continuous, believable motion in voxel spaces.",
-      solution: "I simulated player jump constraints in sampled environments and used that state to generate procedural platforming paths in a Minecraft-like context.",
+      problem: "Using simple randwalks or A* for platforming paths in a voxel environment led to unenjoyable or boring routes that didn't respect player engagement constraints.",
+      solution: "I simulated player jump constraints in sampled environments and used that state to generate procedural platforming paths in an efficient way. The resulting algorithm produced more interesting routes that respected jump feasibility and engagement considerations.",
       tags: ["Path finding", "Voxel systems", "Procedural generation", "Game tooling", "Simulation"],
       skills: ["Algorithm design", "C++", "Java", "Python", "Systems simulation"]
     },
@@ -1329,6 +1334,20 @@ document.querySelectorAll(".tile").forEach(tile => {
       .replace(/"/g, "&quot;")
       .replace(/'/g, "&#39;");
 
+  const renderLinkedText = (value) => {
+    const normalized = String(value || "")
+      .replace(/<a\b[^>]*href=(["'])(https?:\/\/[^"'<>\s]+)\1[^>]*>[\s\S]*?<\/a>/gi, "$2")
+      .replace(/<\/?a\b[^>]*>/gi, "")
+      .replace(/&lt;a\b[^&]*href=&quot;(https?:\/\/[^&\s]+)&quot;[^&]*&gt;[\s\S]*?&lt;\/a&gt;/gi, "$1")
+      .replace(/&lt;a\b[^&]*href=&#39;(https?:\/\/[^&\s]+)&#39;[^&]*&gt;[\s\S]*?&lt;\/a&gt;/gi, "$1")
+      .replace(/&lt;\/?a\b[^&]*&gt;/gi, "");
+    return escapeHtml(normalized)
+      .replace(/(https?:\/\/[^\s<"']+)/g, (url) =>
+        `<a href="${url}" target="_blank" rel="noopener noreferrer">${url}</a>`
+      )
+      .replace(/\n/g, "<br>");
+  };
+
   const renderPills = (items) =>
     items.map((item) => `<span class="projectPill">${escapeHtml(item)}</span>`).join("");
 
@@ -1349,6 +1368,29 @@ document.querySelectorAll(".tile").forEach(tile => {
     const typeLabel = entry.type === "detail" ? "Detailed project page" : "Single-entry snapshot";
     const previewTags = entry.tags.slice(0, 3);
     const previewSkills = entry.skills.slice(0, 3);
+    const heroStyle = entry.heroAspect ? ` style="aspect-ratio: ${escapeHtml(entry.heroAspect)};"` : "";
+    const heroMarkup = entry.heroVideo
+      ? `<video
+          src="${escapeHtml(entry.heroVideo)}"
+          poster="${escapeHtml(entry.hero)}"
+          autoplay
+          muted
+          loop
+          playsinline
+          preload="metadata"
+          aria-label="${escapeHtml(entry.alt)}"
+          onerror="this.outerHTML='&lt;img src=&quot;${escapeHtml(entry.hero)}&quot; alt=&quot;${escapeHtml(entry.alt)}&quot;&gt;'"
+        ></video>`
+      : entry.heroIframe
+      ? `<div class="projectEntryIframeViewport">
+          <iframe
+            src="${escapeHtml(entry.heroIframe)}"
+            title="${escapeHtml(entry.alt)}"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
+        </div>`
+      : `<img src="${escapeHtml(entry.hero)}" alt="${escapeHtml(entry.alt)}">`;
     const linkMarkup = entry.type === "detail" && entry.detailUrl
       ? `<a class="projectEntryLink" href="${escapeHtml(entry.detailUrl)}">Open full project page</a>`
       : "";
@@ -1362,8 +1404,8 @@ document.querySelectorAll(".tile").forEach(tile => {
           </div>
           <span class="projectEntryBadge">${escapeHtml(badge)}</span>
         </div>
-        <figure class="projectEntryHero">
-          <img src="${escapeHtml(entry.hero)}" alt="${escapeHtml(entry.alt)}">
+        <figure class="projectEntryHero"${heroStyle}>
+          ${heroMarkup}
         </figure>
         <div class="projectEntryBody">
           <section class="projectEntryPanel">
@@ -1372,7 +1414,7 @@ document.querySelectorAll(".tile").forEach(tile => {
           </section>
           <section class="projectEntryPanel">
             <h3>Problem Solution</h3>
-            <p>${escapeHtml(entry.solution)}</p>
+            <p>${renderLinkedText(entry.solution)}</p>
           </section>
         </div>
         <div class="projectEntryMeta">
