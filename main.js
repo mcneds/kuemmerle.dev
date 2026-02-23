@@ -1287,7 +1287,7 @@ document.querySelectorAll(".tile").forEach(tile => {
       type: "detail",
       detailUrl: "/construction/timberline-trail-system/",
       title: "Timberline Trail System",
-      hero: "/assets/images/timberline/Wallride progress 75.jpg",
+      hero: "/assets/images/Timberline/Wallride%20progress%2075.jpg",
       heroPositionY: "60%",
       alt: "Timberline trail system field work",
       problem: "Local trail usage needed ongoing routing, upkeep, and build decisions that respected terrain and long-term sustainability.",
