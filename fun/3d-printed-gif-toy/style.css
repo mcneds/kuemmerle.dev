@@ -1,0 +1,212 @@
+:root {
+  --bg: #0e1117;
+  --panel: rgba(14, 18, 24, 0.8);
+  --ink: #e9eef6;
+  --muted: #9cb0ca;
+  --stroke: rgba(233, 238, 246, 0.18);
+  --accent: #62f0ba;
+  --accent-2: #6da8ff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  color: var(--ink);
+  background:
+    radial-gradient(1200px 550px at 8% -10%, rgba(109, 168, 255, 0.28), transparent 72%),
+    radial-gradient(900px 480px at 100% 0%, rgba(98, 240, 186, 0.15), transparent 72%),
+    linear-gradient(135deg, #090c11 0%, #121823 45%, #0b0f17 100%);
+}
+
+.app {
+  width: min(1220px, 100% - 1.6rem);
+  margin: 0 auto;
+  padding: 0.4rem 0 1.2rem;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  align-items: start;
+}
+
+.toySection {
+  position: relative;
+}
+
+.toyBack {
+  margin: 0 0 0.8rem;
+}
+
+.toyBack a {
+  color: #93c7ff;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.toyBack a:hover {
+  text-decoration: underline;
+}
+
+.stageWrap {
+  position: relative;
+  border: 1px solid var(--stroke);
+  border-radius: 18px;
+  padding: 0.85rem;
+  background: rgba(7, 11, 17, 0.5);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03), 0 24px 48px rgba(0, 0, 0, 0.35);
+}
+
+.toyHeader h1 {
+  margin: 0;
+  font: 800 clamp(1.8rem, 3.4vw, 2.4rem) "Inter", system-ui, sans-serif;
+  letter-spacing: 0;
+}
+
+.toyHeader p {
+  margin: 0.3rem 0 0.75rem;
+  color: var(--muted);
+}
+
+.dropZone {
+  position: relative;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.11);
+  cursor: pointer;
+  background: linear-gradient(180deg, rgba(16, 24, 35, 0.9), rgba(12, 17, 24, 0.9));
+}
+
+.dropZone.dragActive {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+#toyCanvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 10;
+  max-height: 72vh;
+}
+
+.dropOverlay {
+  position: absolute;
+  inset: auto 0 0 0;
+  display: grid;
+  gap: 0.2rem;
+  padding: 0.55rem 0.75rem 0.75rem;
+  justify-items: center;
+  background: linear-gradient(180deg, transparent, rgba(3, 5, 8, 0.82));
+  color: #d7e5f9;
+  text-align: center;
+  pointer-events: none;
+}
+
+.dropOverlay strong {
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+}
+
+.dropOverlay span {
+  color: #9db2cc;
+  font-size: 0.8rem;
+}
+
+.hiddenInput {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.panel {
+  position: sticky;
+  top: 0.8rem;
+  width: 100%;
+  max-height: calc(100vh - 1.6rem);
+  overflow: auto;
+  border: 1px solid var(--stroke);
+  border-radius: 14px;
+  padding: 0.8rem;
+  backdrop-filter: blur(8px);
+  background: var(--panel);
+}
+
+.panelRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.control {
+  display: grid;
+  gap: 0.35rem;
+  margin-bottom: 0.45rem;
+}
+
+.control span {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #d6e3f8;
+  font-size: 0.84rem;
+}
+
+.control output {
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+
+input[type="range"] {
+  width: 100%;
+}
+
+input[type="color"],
+select,
+.pill {
+  width: 100%;
+  min-height: 2rem;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: var(--ink);
+  background: rgba(22, 30, 43, 0.95);
+}
+
+.pill {
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.pill.primary {
+  background: linear-gradient(135deg, rgba(98, 240, 186, 0.18), rgba(109, 168, 255, 0.2));
+}
+
+.status {
+  min-height: 1rem;
+  margin: 0.35rem 0 0;
+  color: #9ec8ff;
+  font-size: 0.82rem;
+}
+
+@media (max-width: 900px) {
+  .app {
+    grid-template-columns: 1fr;
+    padding-right: 0;
+  }
+
+  .panel {
+    position: static;
+    width: 100%;
+    max-height: none;
+  }
+}

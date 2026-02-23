@@ -1,0 +1,134 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>3D Printed GIF Toy | kuemmerle.dev</title>
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="stylesheet" href="./style.css" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="sceneHeader" id="sceneHeader">
+    <nav class="topNav" aria-label="Primary">
+      <a href="/" class="navItem">Home</a>
+      <a href="/resume" class="navItem">Resume</a>
+      <a href="/contact" class="navItem">Contact</a>
+      <a href="/fun" class="navItem">Fun</a>
+    </nav>
+    <section class="sceneTiles" aria-label="Section tiles">
+      <a class="tile" href="/quick" data-section="quick">
+        <div class="tileInner">
+          <div class="tileLabel">Quick Side Quests</div>
+          <div class="tileHint">Small builds and fast experiments</div>
+        </div>
+      </a>
+      <a class="tile" href="/projects" data-section="standalone">
+        <div class="tileInner">
+          <div class="tileLabel">Standalone Projects</div>
+          <div class="tileHint">Complete systems built end to end</div>
+        </div>
+      </a>
+      <a class="tile" href="/construction" data-section="construction">
+        <div class="tileInner">
+          <div class="tileLabel">Under Construction</div>
+          <div class="tileHint">Active work currently in progress</div>
+        </div>
+      </a>
+    </section>
+  </header>
+
+  <main class="page">
+    <section class="contentSection toySection">
+      <p class="toyBack"><a href="/fun/">Back to Fun</a></p>
+      <div class="app">
+        <section class="stageWrap">
+          <header class="toyHeader">
+            <h1>3D Printed GIF Toy</h1>
+            <p>Watch an image perform as a print animation.</p>
+          </header>
+
+          <div class="dropZone" id="dropZone" role="button" tabindex="0" aria-label="Upload image by dropping or clicking">
+            <canvas id="toyCanvas" width="960" height="600" aria-label="3D print animation canvas"></canvas>
+            <div class="dropOverlay" id="dropOverlay">
+              <strong>Drop image or click to upload</strong>
+              <span>PNG, JPG, WebP, GIF</span>
+            </div>
+          </div>
+          <input id="fileInput" class="hiddenInput" type="file" accept="image/*" />
+        </section>
+
+        <aside class="panel" id="controlPanel" aria-label="Animation controls">
+          <div class="panelRow">
+            <button id="togglePlay" class="pill">Pause</button>
+            <button id="resetAnim" class="pill">Restart</button>
+          </div>
+
+          <label class="control">
+            <span>FPS <output id="fpsOut"></output></span>
+            <input id="fps" type="range" min="5" max="60" step="1" />
+          </label>
+
+          <label class="control">
+            <span>Layer Height <output id="layerHeightOut"></output></span>
+            <input id="layerHeight" type="range" min="1" max="12" step="1" />
+          </label>
+
+          <label class="control">
+            <span>Extrusion Width <output id="extrusionWidthOut"></output></span>
+            <input id="extrusionWidth" type="range" min="1" max="8" step="1" />
+          </label>
+
+          <label class="control">
+            <span>Print Speed <output id="printSpeedOut"></output></span>
+            <input id="printSpeed" type="range" min="80" max="900" step="10" />
+          </label>
+
+          <label class="control">
+            <span>Background Color</span>
+            <input id="backgroundColor" type="color" />
+          </label>
+
+          <label class="control">
+            <span>Extruder Color Mode</span>
+            <select id="colorMode">
+              <option value="original">Original image colors</option>
+              <option value="single">Single filament color</option>
+              <option value="dual">Dual-color alternating</option>
+            </select>
+          </label>
+
+          <label class="control">
+            <span>Filament Color</span>
+            <input id="filamentColor" type="color" />
+          </label>
+
+          <label class="control">
+            <span>Print Imperfection <output id="imperfectionOut"></output></span>
+            <input id="imperfection" type="range" min="0" max="1" step="0.01" />
+          </label>
+
+          <label class="control">
+            <span>Time Warp <output id="timeWarpOut"></output></span>
+            <input id="timeWarp" type="range" min="0.35" max="2.4" step="0.01" />
+          </label>
+
+          <div class="panelRow">
+            <button id="exportGif" class="pill primary">Export GIF</button>
+            <button id="exportMp4" class="pill primary">Export MP4</button>
+          </div>
+          <p id="status" class="status" aria-live="polite"></p>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div>&copy; 2026 kuemmerle.dev</div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/gif.js.optimized/dist/gif.js"></script>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>
