@@ -1270,16 +1270,43 @@ document.querySelectorAll(".tile").forEach(tile => {
       skills: ["Mechanical engineering", "Packaging", "Iterative design", "Modeling", "System integration"]
     },
     {
+      id: "standalone-minecraft-servers",
+      category: "standalone",
+      type: "single",
+      title: "Minecraft Server Operations",
+      hero: "/assets/images/minecraftgroup.png",
+      alt: "Minecraft server operation and moderation",
+      problem: "Running community servers required reliable hosting and clear moderation during complex player disputes. Develpment of new engaging features was also needed to keep the community active and growing.",
+      solution: "I managed local and VPS deployments while handling moderation and conflict resolution to keep the community stable and active.",
+      tags: ["Server management", "Community operations", "Moderation", "VPS", "Live service"],
+      skills: ["Oracle Cloud", "Linux server ops", "Conflict resolution", "Team leadership", "Plugin development"]
+    },
+    {
       id: "construction-timberline-trail-system",
       category: "construction",
-      type: "single",
+      type: "detail",
+      detailUrl: "/construction/timberline-trail-system/",
       title: "Timberline Trail System",
-      hero: "/assets/images/testing.jpg",
+      hero: "/assets/images/timberline/Wallride%20progress%2075.jpg",
+      heroPositionY: "60%",
       alt: "Timberline trail system field work",
       problem: "Local trail usage needed ongoing routing, upkeep, and build decisions that respected terrain and long-term sustainability.",
       solution: "I contribute to planning and building a local mountain bike trail system with sustainable design choices and maintenance-focused execution.",
       tags: ["Trail building", "Sustainability", "Mountain biking", "Land stewardship", "Operations"],
       skills: ["Project management", "Path finding", "Skilled labor", "Team leadership", "Environmental awareness"]
+    },
+    {
+      id: "construction-modulus-drawer-system",
+      category: "construction",
+      type: "detail",
+      detailUrl: "/construction/modulus-drawer-system/",
+      title: "Modulus Drawers",
+      hero: "/assets/images/modulus%20drawers/Clipped_image_20250312_200150.png",
+      alt: "Modulus drawer system concept branding",
+      problem: "Storage modules were growing ad hoc, so dimensions, labeling, and attachment methods were inconsistent, which made scaling and maintenance harder over time.",
+      solution: "I am formalizing a parameterized module standard with shared interfaces and naming rules so additions remain compatible and easier to fabricate.",
+      tags: ["Modular system", "Workshop tooling", "Scalability", "Standardization", "In progress"],
+      skills: ["Parametric design", "Configuration planning", "Process design", "Fabrication workflow", "Versioned iteration"]
     },
     {
       id: "construction-litholamps-pg",
@@ -1292,32 +1319,9 @@ document.querySelectorAll(".tile").forEach(tile => {
       solution: "I continue refining CAD, electronics, and web tooling workflows to make Litholamps more repeatable for production and customer delivery.",
       tags: ["Lighting product", "Productization", "E-commerce", "3D printing", "Automation"],
       skills: ["Fusion 360", "JavaScript", "Python", "Process design", "Project leadership"]
-    },
-    {
-      id: "construction-modulus-drawer-system",
-      category: "construction",
-      type: "detail",
-      detailUrl: "/construction/modulus-drawer-system/",
-      title: "Modulus Drawers",
-      hero: "/assets/images/modulus%20drawers/modulus_drawer_logo-removebg.png",
-      alt: "Modulus drawer system concept branding",
-      problem: "Storage modules were growing ad hoc, so dimensions, labeling, and attachment methods were inconsistent, which made scaling and maintenance harder over time.",
-      solution: "I am formalizing a parameterized module standard with shared interfaces and naming rules so additions remain compatible and easier to fabricate.",
-      tags: ["Modular system", "Workshop tooling", "Scalability", "Standardization", "In progress"],
-      skills: ["Parametric design", "Configuration planning", "Process design", "Fabrication workflow", "Versioned iteration"]
-    },
-    {
-      id: "standalone-minecraft-servers",
-      category: "standalone",
-      type: "single",
-      title: "Minecraft Server Operations",
-      hero: "/assets/images/minecraftgroup.png",
-      alt: "Minecraft server operation and moderation",
-      problem: "Running community servers required reliable hosting and clear moderation during complex player disputes. Develpment of new engaging features was also needed to keep the community active and growing.",
-      solution: "I managed local and VPS deployments while handling moderation and conflict resolution to keep the community stable and active.",
-      tags: ["Server management", "Community operations", "Moderation", "VPS", "Live service"],
-      skills: ["Oracle Cloud", "Linux server ops", "Conflict resolution", "Team leadership", "Plugin development"]
     }
+    
+    
   ];
 
   const normalize = (value) =>
@@ -1369,18 +1373,19 @@ document.querySelectorAll(".tile").forEach(tile => {
     const previewTags = entry.tags.slice(0, 3);
     const previewSkills = entry.skills.slice(0, 3);
     const heroStyle = entry.heroAspect ? ` style="aspect-ratio: ${escapeHtml(entry.heroAspect)};"` : "";
+    const heroMediaStyle = entry.heroPositionY ? ` style="object-position: 50% ${escapeHtml(entry.heroPositionY)};"` : "";
     const heroMarkup = entry.heroVideo
       ? `<video
           src="${escapeHtml(entry.heroVideo)}"
-          poster="${escapeHtml(entry.hero)}"
           autoplay
           muted
           loop
           playsinline
           preload="metadata"
+          ${heroMediaStyle}
           aria-label="${escapeHtml(entry.alt)}"
-          onerror="this.outerHTML='&lt;img src=&quot;${escapeHtml(entry.hero)}&quot; alt=&quot;${escapeHtml(entry.alt)}&quot;&gt;'"
-        ></video>`
+          onerror="this.outerHTML='&lt;div class=&quot;projectEntryVideoFallback&quot;&gt;${escapeHtml(entry.alt)}&lt;/div&gt;'"
+        >${escapeHtml(entry.alt)}</video>`
       : entry.heroIframe
       ? `<div class="projectEntryIframeViewport">
           <iframe
@@ -1390,7 +1395,7 @@ document.querySelectorAll(".tile").forEach(tile => {
             referrerpolicy="no-referrer-when-downgrade"
           ></iframe>
         </div>`
-      : `<img src="${escapeHtml(entry.hero)}" alt="${escapeHtml(entry.alt)}">`;
+      : `<img src="${escapeHtml(entry.hero)}" alt="${escapeHtml(entry.alt)}"${heroMediaStyle}>`;
     const detailLink = entry.type === "detail" && entry.detailUrl
       ? {
           href: entry.detailUrl,

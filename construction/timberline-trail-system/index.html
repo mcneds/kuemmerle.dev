@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Timberline Trail System | kuemmerle.dev</title>
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="sceneHeader" id="sceneHeader">
+    <nav class="topNav" aria-label="Primary">
+      <a href="/" class="navItem">Home</a>
+      <a href="/resume" class="navItem">Resume</a>
+      <a href="/contact" class="navItem">Contact</a>
+      <a href="/fun" class="navItem">Fun</a>
+    </nav>
+    <section class="sceneTiles" aria-label="Section tiles">
+      <a class="tile" href="/quick" data-section="quick">
+        <div class="tileInner">
+          <div class="tileLabel">Quick Side Quests</div>
+          <div class="tileHint">Small builds and fast experiments</div>
+        </div>
+      </a>
+      <a class="tile" href="/projects" data-section="standalone">
+        <div class="tileInner">
+          <div class="tileLabel">Standalone Projects</div>
+          <div class="tileHint">Complete systems built end to end</div>
+        </div>
+      </a>
+      <a class="tile" href="/construction" data-section="construction">
+        <div class="tileInner">
+          <div class="tileLabel">Under Construction</div>
+          <div class="tileHint">Active work currently in progress</div>
+        </div>
+      </a>
+    </section>
+  </header>
+
+  <main class="page">
+    <section class="contentSection projectDetail timberlineDetail">
+      <p class="projectDetailBack"><a href="/construction/">Back to Under Construction</a></p>
+      <h1>Timberline Trail System</h1>
+      <p class="muted timberlineIntro">A progressive, hands-on build log focused on sustainable trail flow, durable wooden features, and repeated field testing through real rider sessions.</p>
+
+      <article class="projectEntry projectEntry--detail timberlineEntry">
+        <div class="projectEntryHead">
+          <div>
+            <h2 class="projectEntryTitle">Build, Ride, Refine: A Living Trail Project</h2>
+            <p class="projectEntryType">Detailed project page</p>
+          </div>
+          <span class="projectEntryBadge">Detailed</span>
+        </div>
+
+        <figure class="projectEntryHero timberlineHero" style="--hero-pos-y: 60%;">
+          <img src="/assets/images/timberline/Wallride%20progress%2075.jpg" alt="Finished Timberline chair feature at night.">
+        </figure>
+
+        <div class="projectEntryBody">
+          <section class="projectEntryPanel">
+            <h3>Problem Definition</h3>
+            <p>Local trail usage needed ongoing routing, upkeep, and build decisions that respected terrain and long-term sustainability.</p>
+          </section>
+          <section class="projectEntryPanel">
+            <h3>Problem Solution</h3>
+            <p>I contribute to planning and building a local mountain bike trail system with sustainable design choices and maintenance-focused execution.</p>
+          </section>
+        </div>
+
+        <section class="timberlineSection timberlineSection--video" aria-label="Field videos">
+          <h3>Field Video Journal</h3>
+          <p class="timberlineAudioNote">These clips are intended for active watching. Use the player controls and audio to follow build decisions, ride lines, and feature behavior.</p>
+          <figure class="timberlineMediaCard timberlineMediaCard--featured">
+            <video controls playsinline preload="metadata">
+              <source src="/assets/images/timberline/Full%20Run.mp4" type="video/mp4">
+              Full run of the line after key feature completion.
+            </video>
+            <figcaption>Full run of the line after key feature completion.</figcaption>
+          </figure>
+          <div class="timberlineVideoGrid timberlineVideoGrid--landscape">
+            <figure class="timberlineMediaCard">
+              <video controls playsinline preload="metadata">
+                <source src="/assets/images/timberline/roof%20done.web.mp4" type="video/mp4">
+                <source src="/assets/images/timberline/roof%20done.mp4" type="video/mp4">
+                Roof completion during a late build session.
+              </video>
+              <figcaption>Roof completion during a late build session.</figcaption>
+            </figure>
+            <figure class="timberlineMediaCard">
+              <video controls playsinline preload="metadata">
+                <source src="/assets/images/timberline/Hut%20foundation.mp4" type="video/mp4">
+                Initial hut foundation work and setup.
+              </video>
+              <figcaption>Initial hut foundation work and setup.</figcaption>
+            </figure>
+          </div>
+          <div class="timberlineVideoGrid timberlineVideoGrid--portrait">
+            <figure class="timberlineMediaCard timberlineMediaCard--vertical">
+              <video controls playsinline preload="metadata">
+                <source src="/assets/images/timberline/running%20along%20wallride.web.mp4" type="video/mp4">
+                <source src="/assets/images/timberline/running%20along%20wallride.mp4" type="video/mp4">
+                Wallride inspection run-through before sending.
+              </video>
+              <figcaption>Wallride inspection run-through before sending.</figcaption>
+            </figure>
+            <figure class="timberlineMediaCard timberlineMediaCard--vertical">
+              <video controls playsinline preload="metadata">
+                <source src="/assets/images/timberline/wallrun%20slomo.web.mp4" type="video/mp4">
+                <source src="/assets/images/timberline/wallrun%20slomo.mp4" type="video/mp4">
+                Slow-motion wallrun pass for line tuning.
+              </video>
+              <figcaption>Slow-motion wallrun pass for line tuning.</figcaption>
+            </figure>
+            <figure class="timberlineMediaCard timberlineMediaCard--vertical">
+              <video controls playsinline preload="metadata">
+                <source src="/assets/images/timberline/Hitting%20drop%20and%20gap%20first%20time.mp4" type="video/mp4">
+                First successful drop-and-gap commit.
+              </video>
+              <figcaption>First successful drop-and-gap commit.</figcaption>
+            </figure>
+            <figure class="timberlineMediaCard timberlineMediaCard--vertical">
+              <video controls playsinline preload="metadata">
+                <source src="/assets/images/timberline/hitting%20drop%20first%20time.mp4" type="video/mp4">
+                First drop test and rider confidence check.
+              </video>
+              <figcaption>First drop test and rider confidence check.</figcaption>
+            </figure>
+            <figure class="timberlineMediaCard timberlineMediaCard--vertical">
+              <video controls playsinline preload="metadata">
+                <source src="/assets/images/timberline/hammering%20support%20peg.mp4" type="video/mp4">
+                On-site reinforcement work for long-term durability.
+              </video>
+              <figcaption>On-site reinforcement work for long-term durability.</figcaption>
+            </figure>
+            <figure class="timberlineMediaCard timberlineMediaCard--vertical">
+              <video controls playsinline preload="metadata">
+                <source src="/assets/images/timberline/hut%20vibes.mp4" type="video/mp4">
+                Night atmosphere and usability checks around the hut feature.
+              </video>
+              <figcaption>Night atmosphere and usability checks around the hut feature.</figcaption>
+            </figure>
+          </div>
+        </section>
+
+        <section class="timberlineSection" aria-label="Progressive build sequence">
+          <h3>Progressive Build Sequence</h3>
+          <div class="timberlineImageGrid timberlineImageGrid--landscape">
+            <figure class="timberlineMediaCard timberlineMediaCard--landscape">
+              <img src="/assets/images/timberline/Hut%20Foundation%20dug.jpg" alt="Hut foundation excavation at Timberline.">
+              <figcaption>Foundation dug and first build zone established.</figcaption>
+            </figure>
+            <figure class="timberlineMediaCard timberlineMediaCard--landscape">
+              <img src="/assets/images/timberline/hut%20walls%20progress.jpg" alt="Hut wall progress during construction.">
+              <figcaption>Wall framing and enclosure progression.</figcaption>
+            </figure>
+            <figure class="timberlineMediaCard timberlineMediaCard--landscape" style="--media-h: 420px;">
+              <img src="/assets/images/timberline/Wallride%20progress%2075.jpg" alt="Wallride at roughly 75 percent progress.">
+              <figcaption>Wallride structure approaching full geometry.</figcaption>
+            </figure>
+            <figure class="timberlineMediaCard timberlineMediaCard--landscape">
+              <img src="/assets/images/timberline/wallride%20surface%2090.jpg" alt="Wallride surface nearing completion.">
+              <figcaption>Surface shaping and finishing passes.</figcaption>
+            </figure>
+            <figure class="timberlineMediaCard timberlineMediaCard--landscape">
+              <img src="/assets/images/timberline/night%20wallride%20100.jpg" alt="Completed wallride at night.">
+              <figcaption>Finished wallride and night validation runs.</figcaption>
+            </figure>
+          </div>
+          <div class="timberlineImageGrid timberlineImageGrid--portrait">
+            <figure class="timberlineMediaCard timberlineMediaCard--portrait">
+              <video controls playsinline preload="metadata">
+                <source src="/assets/images/timberline/First%20arrival%20at%20trail%20site.mp4" type="video/mp4">
+                Initial site arrival and terrain read.
+              </video>
+              <figcaption>Initial site arrival and terrain read.</figcaption>
+            </figure>
+            <figure class="timberlineMediaCard timberlineMediaCard--portrait">
+              <img src="/assets/images/timberline/First%20Feature.jpg" alt="First feature during early construction.">
+              <figcaption>First feature rough-in stage.</figcaption>
+            </figure>
+            <figure class="timberlineMediaCard timberlineMediaCard--portrait">
+              <img src="/assets/images/timberline/First%20Feature%20Complete.jpg" alt="First feature completed on trail.">
+              <figcaption>First feature completed and ready for test runs.</figcaption>
+            </figure>
+          </div>
+        </section>
+
+        <div class="projectEntryMeta projectDetailMeta">
+          <details class="projectMetaDetails">
+            <summary>
+              <span>Tags</span>
+              <span class="projectMetaPreview">
+                <span class="projectPill">Trail building</span>
+                <span class="projectPill">Sustainability</span>
+                <span class="projectPill">Operations</span>
+              </span>
+            </summary>
+            <div class="projectPills">
+              <span class="projectPill">Trail building</span>
+              <span class="projectPill">Sustainability</span>
+              <span class="projectPill">Mountain biking</span>
+              <span class="projectPill">Land stewardship</span>
+              <span class="projectPill">Operations</span>
+            </div>
+          </details>
+          <details class="projectMetaDetails">
+            <summary>
+              <span>Skills</span>
+              <span class="projectMetaPreview">
+                <span class="projectPill">Project management</span>
+                <span class="projectPill">Skilled labor</span>
+                <span class="projectPill">Team leadership</span>
+              </span>
+            </summary>
+            <div class="projectPills">
+              <span class="projectPill">Project management</span>
+              <span class="projectPill">Path finding</span>
+              <span class="projectPill">Skilled labor</span>
+              <span class="projectPill">Team leadership</span>
+              <span class="projectPill">Environmental awareness</span>
+            </div>
+          </details>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div>&copy; 2026 kuemmerle.dev</div>
+  </footer>
+  <script src="/main.js"></script>
+</body>
+</html>

@@ -560,6 +560,17 @@ body{
   border: 0;
 }
 
+.projectEntryVideoFallback{
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  text-align: center;
+  color: var(--muted);
+  background: rgba(5, 8, 16, 0.9);
+}
+
 .projectEntryIframeViewport{
   width: 100%;
   height: 100%;
@@ -2444,6 +2455,105 @@ ul.gearList.gearList--poster{
   margin: 0.75rem 0 0;
 }
 
+/* Timberline detail page */
+.timberlineIntro{
+  max-width: 76ch;
+}
+.timberlineEntry{
+  --timberline-stroke: rgba(151, 186, 122, 0.3);
+}
+.timberlineHero{
+  --hero-pos-y: 50%;
+  aspect-ratio: 16 / 7.3;
+  background:
+    radial-gradient(120% 130% at 12% 8%, rgba(102, 149, 86, 0.3), transparent 52%),
+    radial-gradient(120% 120% at 84% 0%, rgba(83, 128, 67, 0.18), transparent 56%),
+    #02060d;
+}
+.timberlineHero img,
+.timberlineHero video{
+  object-position: 50% var(--hero-pos-y);
+}
+.timberlineSection{
+  margin-top: 1rem;
+  border: 1px solid var(--timberline-stroke);
+  border-radius: 14px;
+  padding: 0.9rem;
+  background: linear-gradient(145deg, rgba(10, 18, 14, 0.84), rgba(7, 13, 24, 0.9));
+}
+.timberlineSection > h3{
+  margin: 0 0 0.55rem;
+}
+.timberlineAudioNote{
+  margin: 0 0 0.75rem;
+  color: rgba(205, 224, 186, 0.9);
+}
+.timberlineVideoGrid{
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.85rem;
+}
+.timberlineVideoGrid--landscape{
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.timberlineVideoGrid--portrait{
+  margin-top: 0.85rem;
+}
+.timberlineImageGrid{
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.85rem;
+}
+.timberlineImageGrid--portrait{
+  margin-top: 0.85rem;
+}
+.timberlineMediaCard{
+  --media-h: auto;
+  --media-pos-y: 50%;
+  margin: 0;
+  border: 1px solid var(--timberline-stroke);
+  border-radius: 13px;
+  overflow: hidden;
+  background: rgba(4, 9, 9, 0.92);
+}
+.timberlineMediaCard--featured{
+  grid-column: 1 / -1;
+}
+.timberlineMediaCard img,
+.timberlineMediaCard video{
+  width: 100%;
+  height: var(--media-h);
+  display: block;
+  background: #02060b;
+  object-fit: cover;
+  object-position: 50% var(--media-pos-y);
+  aspect-ratio: 16 / 9;
+}
+.timberlineMediaCard--featured video{
+  aspect-ratio: 16 / 8;
+}
+.timberlineMediaCard--vertical video{
+  aspect-ratio: 9 / 16;
+  object-fit: contain;
+  max-height: 680px;
+}
+.timberlineMediaCard--portrait img,
+.timberlineMediaCard--portrait video{
+  aspect-ratio: 9 / 16;
+  object-fit: cover;
+  max-height: 680px;
+}
+.timberlineMediaCard--landscape img,
+.timberlineMediaCard--landscape video{
+  aspect-ratio: 16 / 9;
+}
+.timberlineMediaCard figcaption{
+  margin: 0;
+  padding: 0.55rem 0.72rem 0.6rem;
+  color: var(--muted);
+  font-size: 0.93rem;
+}
+
 /* ====== Responsive ====== */
 @media (max-width: 900px){
   .sceneTiles{
@@ -2466,6 +2576,13 @@ ul.gearList.gearList--poster{
   }
   .tieRodKpiGrid{
     grid-template-columns: 1fr;
+  }
+  .timberlineVideoGrid,
+  .timberlineImageGrid{
+    grid-template-columns: 1fr;
+  }
+  .timberlineMediaCard--featured{
+    grid-column: auto;
   }
   .projectDiagramGrid{
     grid-template-columns: 1fr;
@@ -2540,11 +2657,6 @@ ul.gearList.gearList--poster{
     width: 100%;
   }
 }
-
-
-
-
-
 
 
 
