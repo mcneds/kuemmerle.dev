@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Procedural Terrain + Suspension Car | kuemmerle.dev</title>
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="stylesheet" href="/fun/terrain-suspension/terrain-suspension.css" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.170.0/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three@0.170.0/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <header class="sceneHeader" id="sceneHeader">
+    <nav class="topNav" aria-label="Primary">
+      <a href="/" class="navItem">Home</a>
+      <a href="/resume" class="navItem">Resume</a>
+      <a href="/contact" class="navItem">Contact</a>
+      <a href="/fun" class="navItem">Fun</a>
+    </nav>
+    <section class="sceneTiles" aria-label="Section tiles">
+      <a class="tile" href="/quick" data-section="quick"><div class="tileInner"><div class="tileLabel">Quick Side Quests</div><div class="tileHint">Small builds and fast experiments</div></div></a>
+      <a class="tile" href="/projects" data-section="standalone"><div class="tileInner"><div class="tileLabel">Standalone Projects</div><div class="tileHint">Complete systems built end to end</div></div></a>
+      <a class="tile" href="/construction" data-section="construction"><div class="tileInner"><div class="tileLabel">Under Construction</div><div class="tileHint">Active work currently in progress</div></div></a>
+    </section>
+  </header>
+
+  <main class="page">
+    <section class="contentSection terrainDemoSection">
+      <p class="terrainBack"><a href="/fun/">Back to Fun</a></p>
+      <h1>Procedural Terrain + Suspension Car</h1>
+      <p class="muted">Drive across seeded noise terrain with a simple spring-damper suspension and a car-follow orbit camera.</p>
+
+      <div class="terrainShell">
+        <aside class="terrainPanel">
+          <h2>Terrain</h2>
+          <label class="terrainControlRow">
+            <span>Noise Type</span>
+            <select id="noiseType">
+              <option value="perlin">Perlin</option>
+              <option value="simplex">Simplex-ish</option>
+              <option value="value">Value</option>
+            </select>
+          </label>
+
+          <label class="terrainControlRow">
+            <span>Seed</span>
+            <input id="seedInput" type="number" value="1337" step="1">
+          </label>
+
+          <label class="terrainControlRow">
+            <span>Amplitude</span>
+            <input id="ampInput" type="range" min="2" max="22" step="0.5" value="10">
+            <strong id="ampValue">10.0</strong>
+          </label>
+
+          <label class="terrainControlRow">
+            <span>Frequency</span>
+            <input id="freqInput" type="range" min="0.006" max="0.05" step="0.001" value="0.018">
+            <strong id="freqValue">0.018</strong>
+          </label>
+
+          <button id="regenBtn" type="button">Regenerate Terrain</button>
+
+          <h2>Driving</h2>
+          <label class="terrainToggleRow">
+            <input id="autopilotToggle" type="checkbox" checked>
+            <span>Autopilot</span>
+          </label>
+
+          <label class="terrainControlRow">
+            <span>Max speed</span>
+            <input id="maxSpeedInput" type="range" min="8" max="42" step="1" value="24">
+            <strong id="maxSpeedValue">24 m/s</strong>
+          </label>
+
+          <button id="resetCameraBtn" type="button">Reset Camera</button>
+          <button id="resetCarBtn" type="button">Reset Car</button>
+
+          <div class="terrainControlsHelp">
+            <h3>Manual controls</h3>
+            <p><kbd>W / ↑</kbd> throttle</p>
+            <p><kbd>S / ↓</kbd> brake/reverse</p>
+            <p><kbd>A,D / ←,→</kbd> steer</p>
+            <p><kbd>Space</kbd> brake</p>
+            <p><kbd>R</kbd> reset car</p>
+          </div>
+
+          <div class="terrainHud" aria-live="polite">
+            <div><span>Speed</span><strong id="hudSpeed">0.0 m/s</strong></div>
+            <div><span>Seed</span><strong id="hudSeed">1337</strong></div>
+            <div><span>Noise</span><strong id="hudNoise">Perlin</strong></div>
+          </div>
+        </aside>
+
+        <section class="terrainViewportWrap">
+          <div id="terrainViewport" class="terrainViewport" aria-label="Procedural terrain with suspension car"></div>
+          <div class="terrainMobileControls" aria-label="Touch driving controls">
+            <div class="terrainMobileSteer">
+              <button id="touchLeftBtn" class="terrainMobileBtn" type="button" aria-label="Steer left">Left</button>
+              <button id="touchRightBtn" class="terrainMobileBtn" type="button" aria-label="Steer right">Right</button>
+            </div>
+            <div class="terrainMobileDrive">
+              <button id="touchForwardBtn" class="terrainMobileBtn terrainMobileBtn--accent" type="button" aria-label="Throttle">Forward</button>
+              <button id="touchBrakeBtn" class="terrainMobileBtn terrainMobileBtn--warn" type="button" aria-label="Brake">Brake</button>
+              <button id="touchBackBtn" class="terrainMobileBtn" type="button" aria-label="Reverse">Reverse</button>
+            </div>
+          </div>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer"><div>&copy; 2026 kuemmerle.dev</div></footer>
+  <script type="module" src="/fun/terrain-suspension/terrain-suspension.js"></script>
+</body>
+</html>

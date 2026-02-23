@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="Procedural terrain suspension demo">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0a1323"/>
+      <stop offset="100%" stop-color="#0f2030"/>
+    </linearGradient>
+    <linearGradient id="terrain" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#315f38"/>
+      <stop offset="100%" stop-color="#7ba56e"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <path d="M0 430 C110 350, 170 470, 290 390 C430 300, 490 470, 620 370 C730 285, 840 430, 950 345 C1040 275, 1120 360, 1200 330 L1200 630 L0 630 Z" fill="url(#terrain)"/>
+  <g transform="translate(620 320)">
+    <rect x="-145" y="-45" width="290" height="80" rx="15" fill="#3b7bfd"/>
+    <rect x="-90" y="-88" width="180" height="55" rx="12" fill="#c9d9ff"/>
+    <circle cx="-95" cy="44" r="35" fill="#151822"/>
+    <circle cx="95" cy="44" r="35" fill="#151822"/>
+  </g>
+  <text x="60" y="86" fill="#d9e7ff" font-size="48" font-family="Inter, Arial, sans-serif" font-weight="700">Procedural Terrain + Suspension Car</text>
+</svg>
