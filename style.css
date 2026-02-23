@@ -1155,7 +1155,7 @@ ul.gearList.gearList--poster{
 }
 
 .projectMetaDetails{
-  display: none;
+  display: block;
   border: 1px solid rgba(233,233,239,0.16);
   border-radius: 12px;
   background: rgba(9,12,18,0.55);
@@ -1171,6 +1171,10 @@ ul.gearList.gearList--poster{
   gap: 0.75rem;
   padding: 0.62rem 0.74rem;
   font-weight: 700;
+}
+
+.projectMetaDetails summary{
+  display: none;
 }
 
 .projectMetaDetails summary::-webkit-details-marker{
@@ -1195,15 +1199,26 @@ ul.gearList.gearList--poster{
   padding: 0 0.74rem 0.74rem;
 }
 
+.projectMetaDetails > .projectPills{
+  display: flex !important;
+  padding-top: 0.62rem;
+}
+
 .projectPill{
   display: inline-flex;
   align-items: center;
-  border: 1px solid rgba(233,233,239,0.18);
-  border-radius: 999px;
-  padding: 0.17rem 0.5rem;
+  border: 0;
+  border-radius: 0;
+  padding: 0;
   font-size: 0.74rem;
   color: rgba(233,233,239,0.88);
-  background: rgba(255,255,255,0.04);
+  background: transparent;
+}
+
+.projectPill:not(:last-child)::after{
+  content: " •";
+  color: rgba(233,233,239,0.5);
+  margin: 0 0.35rem 0 0.1rem;
 }
 
 .projectEntryLink{
@@ -1239,6 +1254,69 @@ ul.gearList.gearList--poster{
 
 .projectDetailMeta{
   margin-top: 0.85rem;
+}
+
+.bridgeIntro{
+  margin: 0 0 0.85rem;
+}
+
+.bridgeHero{
+  aspect-ratio: 16 / 7;
+}
+
+.bridgeMediaSection,
+.bridgeReportSection{
+  margin-top: 0.9rem;
+}
+
+.bridgeMediaSection h3,
+.bridgeReportSection h3{
+  margin: 0 0 0.55rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(233,233,239,0.7);
+}
+
+.bridgeMediaGrid{
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.65rem;
+}
+
+.bridgeMediaCard{
+  margin: 0;
+  border: 1px solid rgba(233,233,239,0.16);
+  border-radius: 10px;
+  overflow: hidden;
+  background: rgba(8,10,14,0.74);
+}
+
+.bridgeMediaCard img{
+  width: 100%;
+  display: block;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+}
+
+.bridgeMediaCard figcaption{
+  margin: 0;
+  padding: 0.38rem 0.5rem 0.44rem;
+  font-size: 0.74rem;
+  color: rgba(233,233,239,0.72);
+}
+
+.bridgeReportCopy{
+  margin: 0 0 0.55rem;
+  color: rgba(233,233,239,0.88);
+}
+
+.bridgeReportFrame{
+  width: 100%;
+  min-height: 74vh;
+  border: 1px solid rgba(233,233,239,0.16);
+  border-radius: 10px;
+  background: rgba(8,10,14,0.76);
 }
 
 /* Resume module */
@@ -2249,12 +2327,144 @@ ul.gearList.gearList--poster{
   color: var(--muted);
 }
 
+/* Tie Rod Tab detail page */
+.tieRodIntro{
+  max-width: 78ch;
+}
+.tieRodHero{
+  aspect-ratio: 16 / 8;
+}
+.tieRodMediaSection,
+.tieRodAnalysisSection,
+.tieRodReviewSection{
+  margin-top: 1rem;
+}
+.tieRodMediaSection h3,
+.tieRodAnalysisSection h3,
+.tieRodReviewSection h3{
+  margin: 0 0 0.7rem;
+}
+.tieRodAnalysisSection > h3{
+  text-align: center;
+}
+.tieRodMediaGrid{
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.85rem;
+}
+.tieRodMediaCard{
+  margin: 0;
+  border: 1px solid var(--cardStroke);
+  border-radius: 14px;
+  overflow: hidden;
+  background: rgba(6, 9, 18, 0.82);
+}
+.tieRodMediaCard--wide{
+  grid-column: 1 / -1;
+}
+.tieRodMediaCard img,
+.tieRodMediaCard video{
+  width: 100%;
+  display: block;
+  object-fit: cover;
+  aspect-ratio: 16 / 10;
+}
+.tieRodMediaCard--wide video{
+  aspect-ratio: 16 / 7.4;
+  object-position: center 83%;
+}
+.tieRodMediaCard figcaption{
+  margin: 0;
+  padding: 0.5rem 0.7rem;
+  font-size: 0.93rem;
+  color: var(--muted);
+}
+.tieRodAnalysisPanel{
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.85rem;
+  border: 1px solid var(--cardStroke);
+  border-radius: 14px;
+  overflow: hidden;
+  background: rgba(6, 9, 18, 0.82);
+}
+.tieRodAnalysisFigure{
+  margin: 0;
+  max-width: min(980px, 88%);
+  justify-self: center;
+}
+.tieRodAnalysisFigure img{
+  width: 100%;
+  display: block;
+  object-fit: contain;
+  background: rgba(3, 6, 12, 0.84);
+}
+.tieRodAnalysisFigure figcaption{
+  margin: 0;
+  padding: 0.5rem 0.7rem 0.7rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+.tieRodAnalysisCopy{
+  max-width: min(980px, 88%);
+  margin: 0 auto;
+  text-align: center;
+  padding: 0.85rem 0.95rem 0.2rem;
+}
+.tieRodAnalysisCopy p{
+  margin: 0 0 0.75rem;
+}
+.tieRodAnalysisCopy p:last-child{
+  margin-bottom: 0;
+}
+.tieRodKpiGrid{
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.85rem;
+}
+.tieRodProcessCard{
+  margin: 0.85rem 0 0;
+  border: 1px solid var(--cardStroke);
+  border-radius: 14px;
+  overflow: hidden;
+  background: rgba(6, 9, 18, 0.82);
+}
+.tieRodProcessCard img{
+  width: 100%;
+  display: block;
+  object-fit: cover;
+}
+.tieRodProcessCard figcaption{
+  margin: 0;
+  padding: 0.5rem 0.7rem;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+.tieRodDeckLink{
+  margin: 0.75rem 0 0;
+}
+
 /* ====== Responsive ====== */
 @media (max-width: 900px){
   .sceneTiles{
     grid-template-columns: 1fr;
   }
   .projectEntryBody{
+    grid-template-columns: 1fr;
+  }
+  .bridgeMediaGrid{
+    grid-template-columns: 1fr;
+  }
+  .tieRodMediaGrid{
+    grid-template-columns: 1fr;
+  }
+  .tieRodMediaCard--wide{
+    grid-column: auto;
+  }
+  .tieRodAnalysisPanel{
+    grid-template-columns: 1fr;
+  }
+  .tieRodKpiGrid{
     grid-template-columns: 1fr;
   }
   .projectDiagramGrid{
@@ -2330,10 +2540,6 @@ ul.gearList.gearList--poster{
     width: 100%;
   }
 }
-
-
-
-
 
 
 

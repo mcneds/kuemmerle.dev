@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tie Rod Tab | kuemmerle.dev</title>
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="sceneHeader" id="sceneHeader">
+    <nav class="topNav" aria-label="Primary">
+      <a href="/" class="navItem">Home</a>
+      <a href="/resume" class="navItem">Resume</a>
+      <a href="/contact" class="navItem">Contact</a>
+      <a href="/fun" class="navItem">Fun</a>
+    </nav>
+    <section class="sceneTiles" aria-label="Section tiles">
+      <a class="tile" href="/quick" data-section="quick">
+        <div class="tileInner">
+          <div class="tileLabel">Quick Side Quests</div>
+          <div class="tileHint">Small builds and fast experiments</div>
+        </div>
+      </a>
+      <a class="tile" href="/projects" data-section="standalone">
+        <div class="tileInner">
+          <div class="tileLabel">Standalone Projects</div>
+          <div class="tileHint">Complete systems built end to end</div>
+        </div>
+      </a>
+      <a class="tile" href="/construction" data-section="construction">
+        <div class="tileInner">
+          <div class="tileLabel">Under Construction</div>
+          <div class="tileHint">Active work currently in progress</div>
+        </div>
+      </a>
+    </section>
+  </header>
+
+  <main class="page">
+    <section class="contentSection projectDetail">
+      <p class="projectDetailBack"><a href="/projects/">Back to Standalone Projects</a></p>
+      <h1>Tie Rod Tab (UBC Baja SAE)</h1>
+      <p class="muted tieRodIntro">A compact steering mount designed for reliable fit-up, stronger load transfer, and practical fabrication in a real race-team workflow.</p>
+
+      <article class="projectEntry projectEntry--detail">
+        <div class="projectEntryHead">
+          <div>
+            <h2 class="projectEntryTitle">From Prototype to Chassis Fitment</h2>
+            <p class="projectEntryType">Detailed project page</p>
+          </div>
+        </div>
+
+        <figure class="projectEntryHero tieRodHero">
+          <img src="/assets/images/Tie%20Rod%20Tab/on%20upright%20with%20rods.jpg" alt="Tie rod tab installed on upright with rods connected.">
+        </figure>
+
+        <div class="projectEntryBody">
+          <section class="projectEntryPanel">
+            <h3>Problem Definition</h3>
+            <p>The steering linkage needed a mounting tab that fit tight packaging, survived load cycles, and stayed fabrication-friendly for the Baja chassis process.</p>
+          </section>
+          <section class="projectEntryPanel">
+            <h3>Problem Solution</h3>
+            <p>I iterated tab geometry through CAD and prototype checks, then verified mounting and integration on the upright and car to keep the final part practical, repeatable, and structurally sensible.</p>
+          </section>
+        </div>
+
+        <section class="tieRodMediaSection" aria-label="Tie rod tab design and validation media">
+          <h3>Design and Validation</h3>
+          <div class="tieRodMediaGrid">
+            <figure class="tieRodMediaCard tieRodMediaCard--wide">
+              <video controls autoplay muted loop playsinline preload="metadata">
+                <source src="/assets/images/Tie%20Rod%20Tab/mounting%20tab%20fitment.web.mp4" type="video/mp4">
+                <source src="/assets/images/Tie%20Rod%20Tab/mounting%20tab%20fitment.mp4" type="video/mp4">
+              </video>
+              <figcaption>Fitment test cycle on real hardware (turn on sound!)</figcaption>
+            </figure>
+            <figure class="tieRodMediaCard">
+              <img src="/assets/images/Tie%20Rod%20Tab/3D%20print%20prototype%20front.jpg" alt="3D printed tie rod tab front-side prototype.">
+              <figcaption>3D-printed front prototype</figcaption>
+            </figure>
+            <figure class="tieRodMediaCard">
+              <img src="/assets/images/Tie%20Rod%20Tab/3D%20print%20prototype%20rear.jpg" alt="3D printed tie rod tab rear-side prototype.">
+              <figcaption>3D-printed rear prototype</figcaption>
+            </figure>
+            <figure class="tieRodMediaCard">
+              <img src="/assets/images/Tie%20Rod%20Tab/mount%20front.jpg" alt="Front mounting view of tie rod tab on upright.">
+              <figcaption>Front mounting view</figcaption>
+            </figure>
+            <figure class="tieRodMediaCard">
+              <img src="/assets/images/Tie%20Rod%20Tab/mount%20rear.jpg" alt="Rear mounting view of tie rod tab on upright.">
+              <figcaption>Rear mounting view</figcaption>
+            </figure>
+            <figure class="tieRodMediaCard">
+              <img src="/assets/images/Tie%20Rod%20Tab/on%20upright%20on%20car.jpg" alt="Tie rod tab mounted on upright installed on the car.">
+              <figcaption>Integrated on-car installation</figcaption>
+            </figure>
+            <figure class="tieRodMediaCard">
+              <img src="/assets/images/Tie%20Rod%20Tab/on%20upright.jpg" alt="Tie rod tab mounted on upright without full vehicle context.">
+              <figcaption>Bench-mounted upright fit check</figcaption>
+            </figure>
+            <figure class="tieRodMediaCard">
+              <img src="/assets/images/Tie%20Rod%20Tab/overseeing%20machining.jpg" alt="Overseeing machining process for tie rod tab parts.">
+              <figcaption>Manufacturing oversight during machining</figcaption>
+            </figure>
+            <figure class="tieRodMediaCard">
+              <img src="/assets/images/Tie%20Rod%20Tab/20251129_195410.jpg" alt="Tie rod tab assembly and suspension area detail.">
+              <figcaption>Final assembly detail view</figcaption>
+            </figure>
+          </div>
+        </section>
+
+        <section class="tieRodAnalysisSection" aria-label="Design checks">
+          <h3>Load-Path and Safety Check</h3>
+          <div class="tieRodAnalysisPanel">
+            <div class="tieRodAnalysisCopy">
+              <p>The design process balanced packaging constraints with manufacturability and load confidence.</p>
+              <p>Prototype prints, bench fit checks, and installed-vehicle verification were used to converge on a mount that could move from concept to team-ready hardware.</p>
+            </div>
+            <figure class="tieRodAnalysisFigure">
+              <img src="/assets/images/Tie%20Rod%20Tab/Fos%20and%20stress.png" alt="Factor of safety and stress visualization for tie rod tab concept.">
+              <figcaption>Early stress and factor-of-safety reference used to guide iteration.</figcaption>
+            </figure>
+          </div>
+        </section>
+
+        <section class="tieRodReviewSection" aria-label="Design review highlights">
+          <h3>Design Review Highlights</h3>
+          <div class="tieRodKpiGrid">
+            <article class="projectEntryPanel">
+              <h3>Targets</h3>
+              <ul>
+                <li>Minimum factor of safety target: <strong>1.2</strong></li>
+                <li>Validated minimum observed: <strong>1.657 @ 2250 lbf</strong></li>
+                <li>Weight optimization to reduce unsprung mass</li>
+              </ul>
+            </article>
+            <article class="projectEntryPanel">
+              <h3>Load Case</h3>
+              <ul>
+                <li>Design load: car + driver at 3g impact</li>
+                <li>Equivalent load basis: <strong>10 kN (2250 lbf)</strong></li>
+                <li>Load path concentrated through tie rod into tab</li>
+              </ul>
+            </article>
+            <article class="projectEntryPanel">
+              <h3>Build Constraints</h3>
+              <ul>
+                <li>In-house CNC manufacturability in tight packaging</li>
+                <li>Geometry tuned for upright assembly clearance</li>
+                <li>Complexity tradeoff balanced against robustness</li>
+              </ul>
+            </article>
+            <article class="projectEntryPanel">
+              <h3>Part Specs</h3>
+              <ul>
+                <li>Material: <strong>Al 6061-T6</strong></li>
+                <li>Part mass: <strong>0.28 lb</strong></li>
+                <li>No easy trackside replacement, so safety margin prioritized</li>
+              </ul>
+            </article>
+          </div>
+
+        
+
+          <p class="tieRodDeckLink">
+            <a class="projectEntryLink" href="/assets/images/leafwalker/renders/Tie%20Rod%20Tab%20Design%20Review.pptx" target="_blank" rel="noopener noreferrer">Open full design review deck (.pptx)</a>
+          </p>
+        </section>
+
+        <div class="projectEntryMeta projectDetailMeta">
+          <details class="projectMetaDetails">
+            <summary>
+              <span>Tags</span>
+              <span class="projectMetaPreview">
+                <span class="projectPill">Baja SAE</span>
+                <span class="projectPill">Steering hardware</span>
+                <span class="projectPill">Mount design</span>
+              </span>
+            </summary>
+            <div class="projectPills">
+              <span class="projectPill">Baja SAE</span>
+              <span class="projectPill">Steering hardware</span>
+              <span class="projectPill">Mount design</span>
+              <span class="projectPill">Prototype validation</span>
+              <span class="projectPill">Fabrication-ready CAD</span>
+            </div>
+          </details>
+          <details class="projectMetaDetails">
+            <summary>
+              <span>Skills</span>
+              <span class="projectMetaPreview">
+                <span class="projectPill">Mechanical design</span>
+                <span class="projectPill">CAD iteration</span>
+                <span class="projectPill">Fit-up validation</span>
+              </span>
+            </summary>
+            <div class="projectPills">
+              <span class="projectPill">Mechanical design</span>
+              <span class="projectPill">CAD iteration</span>
+              <span class="projectPill">Fit-up validation</span>
+              <span class="projectPill">Design for manufacturing</span>
+              <span class="projectPill">Engineering communication</span>
+            </div>
+          </details>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div>&copy; 2026 kuemmerle.dev</div>
+  </footer>
+  <script src="/main.js"></script>
+</body>
+</html>

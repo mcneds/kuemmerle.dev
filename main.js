@@ -962,31 +962,8 @@ document.querySelectorAll(".tile").forEach(tile => {
   };
 
   const projectCatalog = [
-    {
-      id: "quick-powder-cam-mount",
-      category: "quick",
-      type: "detail",
-      detailUrl: "/quick/powder-cam-mount/",
-      title: "Powder Cam Mount (Insta360 + GoPro)",
-      hero: "/assets/images/Misc%20Quick/gopro%20to%20insta360%20adapter.png",
-      alt: "Adapter concept for mounting Insta360 and GoPro systems",
-      problem: "Ski footage setup changes were too fragile: snow ingress, strap slip, and emergency zip-tie fixes were creating unreliable capture at the worst time.",
-      solution: "I designed a dual-camera adapter geometry with drainage and anti-slip contact surfaces, then validated fit and retention under repeated snowpack and glove-on handling cycles.",
-      tags: ["Camera system", "Ski context", "Ingress control", "Reliability", "Mounting"],
-      skills: ["Mechanical packaging", "Rapid validation", "User-context design", "Design for serviceability", "Tradeoff analysis"]
-    },
-    {
-      id: "quick-gopro-insta360-adapter",
-      category: "quick",
-      type: "single",
-      title: "GoPro to Insta360 Adapter",
-      hero: "/assets/images/Misc%20Quick/gopro%20to%20insta360%20adapter.png",
-      alt: "GoPro to Insta360 3D printed adapter",
-      problem: "I already had a large GoPro hardware stack, but wanted to run an Insta360 workflow without rebuilding my whole mounting ecosystem.",
-      solution: "I created a compact adapter geometry that snaps into the existing GoPro hardware set, so camera transitions are quick and existing gear remains useful.",
-      tags: ["Adapter", "Rapid build", "3D printing", "Camera hardware", "Reuse"],
-      skills: ["CAD", "Mechanical packaging", "Fit testing", "Iterative prototyping", "Design for compatibility"]
-    },
+    
+    
     {
       id: "quick-gopro-ziptie-mount",
       category: "quick",
@@ -1023,18 +1000,7 @@ document.querySelectorAll(".tile").forEach(tile => {
       tags: ["Consumer hardware", "Impact design", "Dual material", "3D printing", "Custom fit"],
       skills: ["Parametric CAD", "Material selection", "Print validation", "Iterative design", "Product development"]
     },
-    {
-      id: "quick-parametric-shop-desk",
-      category: "quick",
-      type: "single",
-      title: "Fully Parametric Shop Desk",
-      hero: "/assets/images/underConstruction.jpg",
-      alt: "Parametric desk model for plywood and dimensional lumber builds",
-      problem: "Small and large spaces needed different desk footprints, but one-off designs were time-consuming to adjust.",
-      solution: "I built a parameter-driven desk model so dimensions can be regenerated quickly for different spaces while preserving structural logic.",
-      tags: ["Woodworking", "Parametric design", "Fabrication", "Shop tooling", "Scalable layout"],
-      skills: ["Autodesk Fusion 360", "Design constraints", "Build planning", "Structural thinking", "Documentation"]
-    },
+    
     {
       id: "quick-ball-bearing-lego-hub",
       category: "quick",
@@ -1060,17 +1026,30 @@ document.querySelectorAll(".tile").forEach(tile => {
       skills: ["Mechanical adaptation", "Electrical assembly", "CAD modeling", "Hands-on fabrication", "Iteration"]
     },
     {
-      id: "quick-tie-rod-tab",
+      id: "quick-cise-award-trophy-model",
       category: "quick",
       type: "single",
-      title: "Tie Rod Tab (UBC Baja SAE)",
-      hero: "/assets/images/Tie%20Rod%20Tab/20260108_210932.jpg",
-      alt: "Tie rod tab CAD model for UBC Baja SAE",
-      problem: "The steering linkage mount required a compact tab design with clear manufacturability and load-path confidence.",
-      solution: "I designed a tab mount with geometry tuned for fit-up, fabrication practicality, and stable integration into the broader steering package.",
-      tags: ["Baja SAE", "Automotive", "Mount design", "Fabrication-ready", "CAD"],
-      skills: ["Mechanical design", "GD&T awareness", "CAD workflow", "Design review", "Iteration"]
+      title: "CISE Automotive Innovation Award Trophy Model",
+      hero: "/assets/images/CISE/CISE%20transport%20Trophy.jpg",
+      alt: "Physical CISE trophy and CAD recreation project",
+      problem: "I wanted a permanent, printable version of a temporary trophy with moving functional detail.",
+      solution: "I reverse modeled the trophy in CAD and integrated a large print-in-place bearing to preserve the signature motion element.",
+      tags: ["Reverse engineering", "CAD modeling", "Commemorative design", "3D printing", "Mechanical detail"],
+      skills: ["Fusion 360", "Surface modeling", "Design for print", "Mechanical packaging", "Iteration"]
     },
+    {
+      id: "quick-lithoplanes",
+      category: "quick",
+      type: "single",
+      title: "LithoPlanes",
+      hero: "/assets/images/lithodemo.png",
+      alt: "LithoPlanes illuminated product concept",
+      problem: "Litholamps needed a broader consumer product direction with better portability and convenience.",
+      solution: "I developed a market-ready variant with remote control and rechargeable battery integration for wider adoption.",
+      tags: ["Product design", "Lighting", "Consumer hardware", "Rechargeable", "Iteration"],
+      skills: ["Mechanical design", "Circuit design", "3D printing", "Product development", "Testing"]
+    },
+    
     {
       id: "quick-arduino-sonar-gui",
       category: "quick",
@@ -1082,6 +1061,56 @@ document.querySelectorAll(".tile").forEach(tile => {
       solution: "I connected an Arduino sonar unit to a Python GUI over serial, enabling a clear real-time display for testing and presentation.",
       tags: ["Arduino", "Sensors", "Serial", "Tkinter", "Course project"],
       skills: ["C++", "Python", "Serial communications", "GUI implementation", "Debug workflow"]
+    },
+    {
+      id: "quick-grad-most-likely-template",
+      category: "quick",
+      type: "single",
+      title: "Grad Most Likely To Template",
+      hero: "/assets/images/Most Likely To.png",
+      alt: "Web template for moderated graduation voting",
+      problem: "Schools needed a simple, moderated, and interactive way to run class voting without complex setup.",
+      solution: "I built a reusable web template with moderation-oriented structure so institutions can host and manage submissions quickly. View the repo: https://github.com/mcneds/Grad-Most-Likely-To-Template",
+      tags: ["Web app", "Education", "Moderation", "Template", "Interactive forms"],
+      skills: ["HTML", "CSS", "JavaScript", "API development", "Online moderation workflows"]
+    },
+    {
+      id: "quick-steganography-tool",
+      category: "quick",
+      type: "single",
+      title: "Steganography Tool (Web)",
+      hero: "/assets/images/underConstruction.jpg",
+      heroIframe: "https://mcneds.github.io/steganography/",
+      heroAspect: "4 / 3",
+      alt: "Web-based steganography interface",
+      problem: "I wanted a browser-based way to hide files in images with flexible unlock options beyond a single password model.",
+      solution: "I rebuilt an earlier high-school concept into a web tool that supports keys, files, or passphrases for extraction workflows.",
+      tags: ["Web application", "Steganography", "Client tooling", "Algorithms", "Security concepts"],
+      skills: ["JavaScript", "Algorithm design", "UI implementation", "File handling", "Front-end architecture"]
+    },
+    {
+      id: "quick-trigen",
+      category: "quick",
+      type: "single",
+      title: "Trigen: Whole-Number Triangle Generator",
+      hero: "/assets/images/earlyCad.JPG",
+      alt: "Trigen whole-number triangle workflow",
+      problem: "Constraint-based building systems need whole-number dimensions, but selecting valid triangle combinations manually is slow.",
+      solution: "I created a heuristic-based visual generator for whole-number triangles to speed design in systems like Lego Technic and Minecraft grids.",
+      tags: ["Math tool", "Discrete systems", "Geometry", "Heuristics", "Builder workflow"],
+      skills: ["Python", "Algorithm design", "Tkinter", "Visualization", "Constraint modeling"]
+    },
+    {
+      id: "quick-album-poster-generator",
+      category: "quick",
+      type: "single",
+      title: "Album Poster Generator",
+      hero: "/assets/images/youngPop2.JPG",
+      alt: "Generated album poster concept artwork",
+      problem: "Making stylized album posters by hand was repetitive and slow for rapid experimentation.",
+      solution: "I built a pipeline that pulls Spotify API data and formats posters with CSS-driven layouts for quick design iteration.",
+      tags: ["Creative coding", "Spotify API", "Poster design", "Web app", "Automation"],
+      skills: ["JavaScript", "CSS", "API integration", "Graphic design", "Front-end implementation"]
     },
     {
       id: "standalone-leaf-walker-platform",
@@ -1110,31 +1139,19 @@ document.querySelectorAll(".tile").forEach(tile => {
       skills: ["C++", "Sensor integration", "PID tuning", "Path behavior tuning", "Team execution"]
     },
     {
-      id: "standalone-grad-most-likely-template",
+      id: "standalone-tie-rod-tab",
       category: "standalone",
-      type: "single",
-      title: "Grad Most Likely To Template",
-      hero: "/assets/images/Most Likely To.png",
-      alt: "Web template for moderated graduation voting",
-      problem: "Schools needed a simple, moderated, and interactive way to run class voting without complex setup.",
-      solution: "I built a reusable web template with moderation-oriented structure so institutions can host and manage submissions quickly. View the repo: https://github.com/mcneds/Grad-Most-Likely-To-Template",
-      tags: ["Web app", "Education", "Moderation", "Template", "Interactive forms"],
-      skills: ["HTML", "CSS", "JavaScript", "API development", "Online moderation workflows"]
+      type: "detail",
+      detailUrl: "/projects/tie-rod-tab/",
+      title: "Tie Rod Tab (UBC Baja SAE)",
+      hero: "/assets/images/Tie%20Rod%20Tab/on upright with rods.jpg",
+      alt: "Tie rod tab CAD model for UBC Baja SAE",
+      problem: "The steering linkage mount required a compact tab design with clear manufacturability and load-path confidence.",
+      solution: "I designed a tab mount with geometry tuned for fit-up, fabrication practicality, and stable integration into the broader steering package.",
+      tags: ["Baja SAE", "Automotive", "Mount design", "Fabrication-ready", "CAD"],
+      skills: ["Mechanical design", "GD&T awareness", "CAD workflow", "Design review", "Iteration"]
     },
-    {
-      id: "standalone-steganography-tool",
-      category: "standalone",
-      type: "single",
-      title: "Steganography Tool (Web)",
-      hero: "/assets/images/underConstruction.jpg",
-      heroIframe: "https://mcneds.github.io/steganography/",
-      heroAspect: "4 / 3",
-      alt: "Web-based steganography interface",
-      problem: "I wanted a browser-based way to hide files in images with flexible unlock options beyond a single password model.",
-      solution: "I rebuilt an earlier high-school concept into a web tool that supports keys, files, or passphrases for extraction workflows.",
-      tags: ["Web application", "Steganography", "Client tooling", "Algorithms", "Security concepts"],
-      skills: ["JavaScript", "Algorithm design", "UI implementation", "File handling", "Front-end architecture"]
-    },
+    
     {
       id: "standalone-solidworks-sketch-exporter",
       category: "standalone",
@@ -1165,35 +1182,25 @@ document.querySelectorAll(".tile").forEach(tile => {
       skills: ["Algorithm design", "C++", "Java", "Python", "Systems simulation"]
     },
     {
-      id: "standalone-trigen",
+      id: "standalone-gopro-insta360-adapter",
       category: "standalone",
       type: "single",
-      title: "Trigen: Whole-Number Triangle Generator",
-      hero: "/assets/images/earlyCad.JPG",
-      alt: "Trigen whole-number triangle workflow",
-      problem: "Constraint-based building systems need whole-number dimensions, but selecting valid triangle combinations manually is slow.",
-      solution: "I created a heuristic-based visual generator for whole-number triangles to speed design in systems like Lego Technic and Minecraft grids.",
-      tags: ["Math tool", "Discrete systems", "Geometry", "Heuristics", "Builder workflow"],
-      skills: ["Python", "Algorithm design", "Tkinter", "Visualization", "Constraint modeling"]
+      title: "GoPro to Insta360 Adapter",
+      hero: "/assets/images/Misc%20Quick/tabor 1_Screenshot.jpg",
+      alt: "GoPro to Insta360 3D printed adapter",
+      problem: "I already had a large GoPro hardware stack, but wanted to run an Insta360 workflow without rebuilding my whole mounting ecosystem.",
+      solution: "I created a compact adapter geometry that snaps into the existing GoPro hardware set, so camera transitions are quick and existing gear remains useful.",
+      tags: ["Adapter", "Rapid build", "3D printing", "Camera hardware", "Reuse"],
+      skills: ["CAD", "Mechanical packaging", "Fit testing", "Iterative prototyping", "Design for compatibility"]
     },
-    {
-      id: "standalone-album-poster-generator",
-      category: "standalone",
-      type: "single",
-      title: "Album Poster Generator",
-      hero: "/assets/images/youngPop2.JPG",
-      alt: "Generated album poster concept artwork",
-      problem: "Making stylized album posters by hand was repetitive and slow for rapid experimentation.",
-      solution: "I built a pipeline that pulls Spotify API data and formats posters with CSS-driven layouts for quick design iteration.",
-      tags: ["Creative coding", "Spotify API", "Poster design", "Web app", "Automation"],
-      skills: ["JavaScript", "CSS", "API integration", "Graphic design", "Front-end implementation"]
-    },
+    
     {
       id: "standalone-elliptical-arch-bridge",
       category: "standalone",
-      type: "single",
+      type: "detail",
+      detailUrl: "/projects/standalone-elliptical-arch-bridge/",
       title: "Elliptical Arch Popsicle Bridge",
-      hero: "/assets/images/Elliptical%20Arch%20Bridge/deflection.png",
+      hero: "/assets/images/Elliptical%20Arch%20Bridge/project pictures/final/finished photos/Snapchat-1075044333.jpg",
       alt: "Popsicle-stick bridge project concept",
       problem: "The 100-stick no-modification constraint created a tight optimization problem for load path and shape selection.",
       solution: "I developed an elliptical arch layout and iterated the structure as a first-year term project to balance stiffness and material limits.",
@@ -1213,29 +1220,18 @@ document.querySelectorAll(".tile").forEach(tile => {
       skills: ["C++", "Circuit design", "Noise reduction", "System integration", "Prototype validation"]
     },
     {
-      id: "standalone-cise-award-trophy-model",
+      id: "standalone-parametric-shop-desk",
       category: "standalone",
       type: "single",
-      title: "CISE Automotive Innovation Award Trophy Model",
-      hero: "/assets/images/CISE/CISE%20transport%20Trophy.jpg",
-      alt: "Physical CISE trophy and CAD recreation project",
-      problem: "I wanted a permanent, printable version of a temporary trophy with moving functional detail.",
-      solution: "I reverse modeled the trophy in CAD and integrated a large print-in-place bearing to preserve the signature motion element.",
-      tags: ["Reverse engineering", "CAD modeling", "Commemorative design", "3D printing", "Mechanical detail"],
-      skills: ["Fusion 360", "Surface modeling", "Design for print", "Mechanical packaging", "Iteration"]
+      title: "Fully Parametric Shop Desk",
+      hero: "/assets/images/underConstruction.jpg",
+      alt: "Parametric desk model for plywood and dimensional lumber builds",
+      problem: "Small and large spaces needed different desk footprints, but one-off designs were time-consuming to adjust.",
+      solution: "I built a parameter-driven desk model so dimensions can be regenerated quickly for different spaces while preserving structural logic.",
+      tags: ["Woodworking", "Parametric design", "Fabrication", "Shop tooling", "Scalable layout"],
+      skills: ["Autodesk Fusion 360", "Design constraints", "Build planning", "Structural thinking", "Documentation"]
     },
-    {
-      id: "standalone-lithoplanes",
-      category: "standalone",
-      type: "single",
-      title: "LithoPlanes",
-      hero: "/assets/images/lithodemo.png",
-      alt: "LithoPlanes illuminated product concept",
-      problem: "Litholamps needed a broader consumer product direction with better portability and convenience.",
-      solution: "I developed a market-ready variant with remote control and rechargeable battery integration for wider adoption.",
-      tags: ["Product design", "Lighting", "Consumer hardware", "Rechargeable", "Iteration"],
-      skills: ["Mechanical design", "Circuit design", "3D printing", "Product development", "Testing"]
-    },
+    
     {
       id: "standalone-lego-drift-chassis",
       category: "standalone",
@@ -1310,8 +1306,8 @@ document.querySelectorAll(".tile").forEach(tile => {
       skills: ["Parametric design", "Configuration planning", "Process design", "Fabrication workflow", "Versioned iteration"]
     },
     {
-      id: "construction-minecraft-servers",
-      category: "construction",
+      id: "standalone-minecraft-servers",
+      category: "standalone",
       type: "single",
       title: "Minecraft Server Operations",
       hero: "/assets/images/underConstruction.jpg",
@@ -1549,6 +1545,11 @@ document.querySelectorAll(".tile").forEach(tile => {
 
     applyFilter();
   });
+
+  // Keep project meta sections visible when summaries are hidden by CSS.
+  document.querySelectorAll(".projectMetaDetails").forEach((detailsEl) => {
+    detailsEl.open = true;
+  });
 })();
 
 (() => {
@@ -1610,6 +1611,13 @@ document.querySelectorAll(".tile").forEach(tile => {
   });
 
   applyResume(resumeCatalog[0].id);
+})();
+
+(() => {
+  // Show tag/skill sections on standalone detail pages even when no project library exists.
+  document.querySelectorAll(".projectMetaDetails").forEach((detailsEl) => {
+    detailsEl.open = true;
+  });
 })();
 
 (() => {
