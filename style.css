@@ -2798,77 +2798,34 @@ ul.gearList.gearList--poster{
   color: #111111;
   border: 1px solid #d8dbe2;
   border-radius: 10px;
-  padding: 12mm;
+  padding: 10mm;
   box-shadow: 0 10px 30px rgba(0,0,0,0.25);
 }
 
-.resumePortfolioSheet a{
-  color: #111111;
-}
-
-.resumePortfolioHeader{
-  border-bottom: 1px solid #d8dbe2;
-  padding-bottom: 0.55rem;
-  margin-bottom: 0.75rem;
-}
-
-.resumePortfolioKicker{
-  margin: 0;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  font-size: 0.73rem;
-  color: #4a5568;
-  font-weight: 700;
-}
-
-.resumePortfolioHeader h3{
-  margin: 0.15rem 0 0.22rem;
-  font-size: 1.7rem;
-  line-height: 1.08;
-  color: #0f172a;
-}
-
-.resumePortfolioSubtitle{
-  margin: 0;
-  color: #1f2937;
-}
-
-.resumePortfolioMeta{
-  margin: 0.45rem 0 0;
-  display: flex;
-  gap: 0.45rem;
-  align-items: center;
-  flex-wrap: wrap;
-  font-size: 0.9rem;
-  color: #374151;
-}
-
 .resumePortfolioSheet h4{
-  margin: 0.92rem 0 0.45rem;
+  margin: 0 0 0.32rem;
   font-size: 1.02rem;
   color: #0f172a;
 }
 
 .resumePortfolioSheet p{
-  margin: 0 0 0.44rem;
-  line-height: 1.46;
+  margin: 0 0 0.26rem;
+  line-height: 1.34;
   color: #1f2937;
 }
 
 .resumePortfolioCard{
   border: 1px solid #d8dbe2;
   border-radius: 8px;
-  padding: 0.56rem 0.62rem;
-  margin-bottom: 0.5rem;
-  break-inside: avoid;
-  page-break-inside: avoid;
+  padding: 0.42rem 0.5rem;
+  margin-bottom: 0.28rem;
   background: #fcfcfd;
 }
 
 .resumePortfolioCardMedia{
   width: 100%;
   display: block;
-  margin: 0.2rem 0 0.45rem;
+  margin: 0.12rem 0 0.28rem;
   border-radius: 6px;
   border: 1px solid #d8dbe2;
   aspect-ratio: 16 / 6;
@@ -2876,63 +2833,16 @@ ul.gearList.gearList--poster{
   object-position: center;
 }
 
-.resumePortfolioCard h5,
-.resumePortfolioPanel h5,
-.resumePortfolioSkills h5{
-  margin: 0 0 0.3rem;
-  font-size: 0.96rem;
+.resumePortfolioCard h5{
+  margin: 0 0 0.2rem;
+  font-size: 0.95rem;
   color: #111827;
 }
 
 .resumePortfolioTags{
-  margin: 0.38rem 0 0;
-  font-size: 0.83rem;
+  margin: 0.18rem 0 0;
+  font-size: 0.79rem;
   color: #4b5563;
-}
-
-.resumePortfolioGrid{
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.5rem;
-}
-
-.resumePortfolioPanel{
-  border: 1px solid #d8dbe2;
-  border-radius: 8px;
-  padding: 0.54rem 0.6rem;
-  background: #fcfcfd;
-  break-inside: avoid;
-  page-break-inside: avoid;
-}
-
-.resumePortfolioSkills{
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0.55rem;
-}
-
-.resumePortfolioSkills > article{
-  border: 1px solid #d8dbe2;
-  border-radius: 8px;
-  padding: 0.52rem 0.6rem;
-  background: #fcfcfd;
-  break-inside: avoid;
-  page-break-inside: avoid;
-}
-
-.resumePortfolioSkills ul{
-  margin: 0;
-  padding-left: 1rem;
-}
-
-.resumePortfolioSkills li{
-  margin: 0 0 0.3rem;
-  color: #1f2937;
-}
-
-.resumePortfolioPageBreak{
-  break-before: page;
-  page-break-before: always;
 }
 
 @media (max-width: 900px){
@@ -2940,17 +2850,12 @@ ul.gearList.gearList--poster{
     align-items: stretch;
     flex-direction: column;
   }
-
-  .resumePortfolioGrid,
-  .resumePortfolioSkills{
-    grid-template-columns: 1fr;
-  }
 }
 
 @media print{
   @page{
     size: A4;
-    margin: 12mm;
+    margin: 10mm;
   }
 
   body{
@@ -2960,6 +2865,7 @@ ul.gearList.gearList--poster{
 
   .sceneHeader,
   .footer,
+  .resumeLibrary > h1,
   .resumeLibraryIntro,
   .resumeLibraryLayout,
   .resumePortfolioToolbar,
@@ -2992,11 +2898,38 @@ ul.gearList.gearList--poster{
     border-radius: 0;
     box-shadow: none;
     padding: 0;
+    font-size: 13px;
+  }
+
+  .resumePortfolioCard{
+    break-inside: avoid;
+    page-break-inside: avoid;
+    margin-bottom: 2.6mm;
+    padding: 2.1mm 2.4mm;
+  }
+
+  .resumePortfolioCard--page2start{
+    break-before: page;
+    page-break-before: always;
   }
 
   .resumePortfolioCardMedia{
-    aspect-ratio: 16 / 5.4;
-    max-height: 36mm;
+    height: 54mm;
+    margin: 1mm 0 1.2mm;
+    aspect-ratio: auto;
+    object-fit: cover;
+    object-position: center;
+    background: #eef1f5;
+  }
+
+  .resumePortfolioTags{
+    font-size: 0.76rem;
   }
 }
+
+
+
+
+
+
 
