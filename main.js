@@ -20,9 +20,10 @@ document.querySelectorAll(".tile").forEach(tile => {
 (() => {
   const box = document.getElementById("cadBox");
   const text = document.getElementById("cadText");
+  const svgText = document.getElementById("cadNameSvg");
   const wEl = document.getElementById("dimW");
   const hEl = document.getElementById("dimH");
-  if (!box || !text || !wEl || !hEl) return;
+  if (!box || !text || !svgText || !wEl || !hEl) return;
 
   const updateDims = () => {
     const r = box.getBoundingClientRect();
@@ -30,32 +31,90 @@ document.querySelectorAll(".tile").forEach(tile => {
     hEl.textContent = Math.round(r.height);
   };
 
-  const measureTextContent = () => {
-    const kids = [...text.children];
-    if (!kids.length) {
-      return { w: text.scrollWidth, h: text.scrollHeight };
+  const nameFirst = "AIDEN";
+  const nameLast = "KUEMMERLE";
+  const svgNs = "http://www.w3.org/2000/svg";
+  const canvas = document.createElement("canvas");
+  const ctx = canvas.getContext("2d");
+
+  const measureWord = (word, fontPx, letterSpacingPx) => {
+    if (!ctx) return fontPx * word.length * 0.62;
+    ctx.font = `900 ${fontPx}px Inter`;
+    return ctx.measureText(word).width + (Math.max(0, word.length - 1) * letterSpacingPx);
+  };
+
+  const renderNameWordmark = () => {
+    const stacked = window.matchMedia("(max-width: 520px)").matches;
+    const fontPx = 136;
+    const letterSpacing = fontPx * (stacked ? 0.1 : 0.12);
+    const padX = fontPx * 0.22;
+    const padY = fontPx * 0.16;
+    const rowGap = fontPx * 0.26;
+    const lineGap = fontPx * 0.22;
+
+    const firstW = measureWord(nameFirst, fontPx, letterSpacing);
+    const lastW = measureWord(nameLast, fontPx, letterSpacing);
+
+    let viewW;
+    let viewH;
+    let firstX;
+    let lastX;
+    let firstY;
+    let lastY;
+    let textAnchor;
+
+    if (stacked) {
+      viewW = Math.max(firstW, lastW) + padX * 2;
+      viewH = (fontPx * 2) + lineGap + padY * 2;
+      firstX = viewW / 2;
+      lastX = viewW / 2;
+      firstY = padY + fontPx;
+      lastY = firstY + fontPx + lineGap;
+      textAnchor = "middle";
+    } else {
+      viewW = firstW + lastW + rowGap + padX * 2;
+      viewH = fontPx + padY * 2;
+      firstX = padX;
+      lastX = padX + firstW + rowGap;
+      firstY = padY + fontPx;
+      lastY = firstY;
+      textAnchor = "start";
     }
 
-    const style = window.getComputedStyle(text);
-    const isRow = style.flexDirection.startsWith("row");
-    const gapRaw = parseFloat(style.columnGap || style.gap || "0");
-    const gap = Number.isFinite(gapRaw) ? gapRaw : 0;
+    svgText.setAttribute("viewBox", `0 0 ${Math.ceil(viewW)} ${Math.ceil(viewH)}`);
+    svgText.replaceChildren();
 
-    const rects = kids.map((el) => el.getBoundingClientRect());
-    if (isRow) {
-      const w = rects.reduce((sum, r) => sum + r.width, 0) + gap * Math.max(0, kids.length - 1);
-      const h = rects.reduce((mx, r) => Math.max(mx, r.height), 0);
-      return { w, h };
-    }
+    const makeWord = (word, x, y) => {
+      const wordEl = document.createElementNS(svgNs, "text");
+      wordEl.setAttribute("x", String(Math.round(x)));
+      wordEl.setAttribute("y", String(Math.round(y)));
+      wordEl.setAttribute("fill", "rgba(233,233,239,0.92)");
+      wordEl.setAttribute("font-family", "Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif");
+      wordEl.setAttribute("font-weight", "900");
+      wordEl.setAttribute("font-size", String(fontPx));
+      wordEl.setAttribute("letter-spacing", String(letterSpacing));
+      wordEl.setAttribute("text-anchor", textAnchor);
+      wordEl.textContent = word;
+      return wordEl;
+    };
 
-    const w = rects.reduce((mx, r) => Math.max(mx, r.width), 0);
-    const h = rects.reduce((sum, r) => sum + r.height, 0) + gap * Math.max(0, kids.length - 1);
-    return { w, h };
+    svgText.appendChild(makeWord(nameFirst, firstX, firstY));
+    svgText.appendChild(makeWord(nameLast, lastX, lastY));
   };
 
   // live update on load/resize
+  renderNameWordmark();
   updateDims();
-  window.addEventListener("resize", updateDims);
+  window.addEventListener("resize", () => {
+    renderNameWordmark();
+    updateDims();
+  });
+  if (document.fonts && typeof document.fonts.ready?.then === "function") {
+    document.fonts.ready.then(() => {
+      renderNameWordmark();
+      updateDims();
+    });
+  }
 
   // --- resizable handles ---
   const handles = [...box.querySelectorAll(".sketchHandle")];
@@ -70,12 +129,12 @@ document.querySelectorAll(".tile").forEach(tile => {
       x: e.clientX,
       y: e.clientY,
       w: r.width,
-      h: r.height,
-      font: parseFloat(window.getComputedStyle(text).fontSize)
+      h: r.height
     };
 
-    // lock current computed width so resizing is stable
+    // lock current computed size so resizing is stable
     box.style.width = `${Math.round(r.width)}px`;
+    box.style.height = `${Math.round(r.height)}px`;
   };
 
   const onMove = (e) => {
@@ -94,40 +153,14 @@ document.querySelectorAll(".tile").forEach(tile => {
     if (start.corner.includes("b")) newH = start.h + dy;
     if (start.corner.includes("t")) newH = start.h - dy;
 
-    // clamp to viewport limits first
+    // Resize frame; SVG stretches to match both axes.
     const maxW = window.innerWidth - 40;
-    const maxH = 220;
+    const maxH = 240;
     newW = Math.max(280, Math.min(newW, maxW));
-    newH = Math.max(90, Math.min(newH, maxH));
-
-    // Scale name by width so inward corner drags always shrink text.
-    let nextFont = Math.max(28, Math.min(start.font * (newW / start.w), 96));
-    text.style.fontSize = `${Math.round(nextFont)}px`;
-
-    // Prevent resizing smaller than the rendered title content.
-    const boxStyle = window.getComputedStyle(box);
-    const padX = parseFloat(boxStyle.paddingLeft) + parseFloat(boxStyle.paddingRight);
-    const padY = parseFloat(boxStyle.paddingTop) + parseFloat(boxStyle.paddingBottom);
-    const content = measureTextContent();
-    const minContentW = Math.ceil(content.w + padX + 2);
-    const minContentH = Math.ceil(content.h + padY + 2);
-
-    newW = Math.max(newW, minContentW);
-    newH = Math.max(newH, minContentH);
-    newW = Math.min(newW, maxW);
-    newH = Math.min(newH, maxH);
-
-    // Recompute font from final clamped width.
-    nextFont = Math.max(28, Math.min(start.font * (newW / start.w), 96));
-    text.style.fontSize = `${Math.round(nextFont)}px`;
+    newH = Math.max(52, Math.min(newH, maxH));
 
     box.style.width = `${Math.round(newW)}px`;
-    box.style.paddingTop = "1.15rem"; // keep padding consistent
-    box.style.paddingBottom = "2.25rem";
-
-    // fake the height by padding (keeps layout stable + simple)
-    // If you want true height resizing, we can do that too.
-    box.style.minHeight = `${Math.round(newH)}px`;
+    box.style.height = `${Math.round(newH)}px`;
 
     updateDims();
   };
@@ -157,7 +190,8 @@ document.querySelectorAll(".tile").forEach(tile => {
   const inspector = document.getElementById("hobbyMapInspector");
   const inspectorTitle = document.getElementById("hobbyMapInspectorTitle");
   const inspectorDetail = document.getElementById("hobbyMapInspectorDetail");
-  if (!map || !svg || !nodesHost || !laneBar || !inspector || !inspectorTitle || !inspectorDetail) return;
+  const inspectorLink = document.getElementById("hobbyMapInspectorLink");
+  if (!map || !svg || !nodesHost || !laneBar || !inspector || !inspectorTitle || !inspectorDetail || !inspectorLink) return;
 
   const viewW = 1000;
   const viewH = 680;
@@ -257,6 +291,18 @@ document.querySelectorAll(".tile").forEach(tile => {
     { from: "tink-modulus", to: "engineering", theme: "core", group: "tinkering" },
     { from: "tink-litho", to: "engineering", theme: "core", group: "tinkering" }
   ];
+
+  const projectLinkByNodeId = {
+    "ski-mount": { href: "/projects/#project-entry-standalone-gopro-insta360-adapter", label: "Related project: GoPro to Insta360 Adapter" },
+    "mtb-timber": { href: "/construction/timberline-trail-system/", label: "Related project: Timberline Trail System" },
+    "read-leaf": { href: "/projects/leaf-walker-platform/", label: "Related project: Leaf Walker Platform" },
+    cwsf: { href: "/projects/leaf-walker-platform/", label: "Related project: Leaf Walker Platform" },
+    "music-album": { href: "/quick/#project-entry-quick-album-poster-generator", label: "Related project: Album Poster Generator" },
+    "game-pathfind": { href: "/projects/walk-in-the-parkour-pathfinding/", label: "Related project: Parkour Pathfinding" },
+    "tink-car": { href: "/projects/#project-entry-standalone-lego-defender-90", label: "Related project: Land Rover Defender 90 Model" },
+    "tink-modulus": { href: "/construction/modulus-drawer-system/", label: "Related project: Modulus Drawer System" },
+    "tink-litho": { href: "/construction/#project-entry-construction-litholamps-pg", label: "Related project: Litholamps" }
+  };
 
   const nodeById = new Map(nodes.map((n) => [n.id, n]));
   const nodeGroupsById = new Map();
@@ -527,6 +573,9 @@ document.querySelectorAll(".tile").forEach(tile => {
     button.dataset.group = node.theme === "core" ? "core" : node.theme;
     const memberships = [...(nodeGroupsById.get(node.id) || new Set([button.dataset.group]))];
     button.dataset.groups = memberships.join(",");
+    if (projectLinkByNodeId[node.id]) {
+      button.classList.add("hasProjectLink");
+    }
     button.innerHTML = `
       <div class="hobbyNodeTitle">${node.label}</div>
       <div class="hobbyNodeDetail">${node.detail}</div>
@@ -787,6 +836,8 @@ document.querySelectorAll(".tile").forEach(tile => {
       inspector.className = "hobbyMapInspector";
       inspectorTitle.textContent = "Hover a node";
       inspectorDetail.textContent = "Select a node to preview project content and deeper context.";
+      inspectorLink.hidden = true;
+      inspectorLink.removeAttribute("href");
       return;
     }
 
@@ -795,6 +846,15 @@ document.querySelectorAll(".tile").forEach(tile => {
     inspector.className = `hobbyMapInspector ${node.theme}`;
     inspectorTitle.textContent = node.label;
     inspectorDetail.textContent = node.detail;
+    const projectLink = projectLinkByNodeId[node.id];
+    if (!projectLink) {
+      inspectorLink.hidden = true;
+      inspectorLink.removeAttribute("href");
+      return;
+    }
+    inspectorLink.href = projectLink.href;
+    inspectorLink.textContent = projectLink.label;
+    inspectorLink.hidden = false;
   };
 
   const applyActive = (group) => {

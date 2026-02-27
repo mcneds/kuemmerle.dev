@@ -179,43 +179,31 @@ body{
 .cadNameBox{
   position: relative;
   width: min(920px, 92vw);
+  height: 110px;
   margin: 0 auto;
-  padding: 1.15rem 2.85rem 2.25rem; /* extra bottom room for width dimension */
   user-select: none;
   touch-action: none;
 }
 
 .cadNameText{
-  display: flex;
-  justify-content: center;
-  align-items: baseline;
-  gap: 0.6rem;
-  font-weight: 900;
-  letter-spacing: 0.12em;
+  width: 100%;
+  height: 100%;
   color: rgba(233,233,239,0.92);
-  text-transform: uppercase;
-  line-height: 1.03;
-  font-size: clamp(34px, 4.2vw, 54px);
-  text-align: center;
-  white-space: nowrap;
   text-shadow: 0 1px 0 rgba(0,0,0,0.55);
 }
 
-@media (max-width: 520px){
-  .cadNameText{
-    flex-direction: column;
-    gap: 0.15rem;
-    white-space: normal;
-    letter-spacing: 0.10em;
-  }
+.cadNameSvg{
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
 /* Dimension line (width) */
 .dimX{
   position: absolute;
-  left: 12px;
-  right: 12px;
-  bottom: 2px;
+  left: 0;
+  right: 0;
+  top: calc(100% + 6px);
   height: 22px;
   pointer-events: none;
   border-top: 1px solid var(--cadLine);
@@ -233,7 +221,7 @@ body{
 /* Move label slightly DOWN so it doesn’t touch name */
 .dimX .label{
   position: absolute;
-  top: 6px;
+  top: 8px;
   left: 50%;
   transform: translateX(-50%);
   font-size: 11px;
@@ -248,9 +236,9 @@ body{
 /* Dimension line (height) */
 .dimY{
   position: absolute;
-  top: 12px;
-  bottom: 12px;
-  left: 8px;
+  top: 0;
+  bottom: 0;
+  left: -24px;
   width: 18px;
   pointer-events: none;
   border-left: 1px solid var(--cadLine);
@@ -2159,6 +2147,30 @@ ul.gearList.gearList--poster{
   text-align: center;
 }
 
+.hobbyNode.hasProjectLink{
+  border-color: rgba(233,233,239,0.28);
+}
+
+.hobbyNode.hasProjectLink::after{
+  content: "";
+  position: absolute;
+  top: 0.32rem;
+  right: 0.32rem;
+  width: 0.36rem;
+  height: 0.36rem;
+  border-radius: 999px;
+  background: rgba(124,177,255,0.8);
+  box-shadow: 0 0 0 2px rgba(10,13,20,0.9);
+  opacity: 0.7;
+}
+
+.hobbyNode.hasProjectLink .hobbyNodeTitle{
+  text-decoration: underline;
+  text-decoration-color: rgba(124,177,255,0.45);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.17rem;
+}
+
 .hobbyNode.ski{ border-left: 3px solid #77c0ff; }
 .hobbyNode.mtb{ border-left: 3px solid #8de07f; }
 .hobbyNode.hiking{ border-left: 3px solid #f2c57c; }
@@ -2191,6 +2203,37 @@ ul.gearList.gearList--poster{
   font-size: 0.72rem;
   line-height: 1.25;
   color: var(--muted);
+}
+
+.hobbyMapInspectorLink{
+  display: inline-flex;
+  align-items: center;
+  margin-top: 0.34rem;
+  padding: 0.22rem 0.5rem;
+  border-radius: 999px;
+  border: 1px solid rgba(124,177,255,0.42);
+  background: rgba(58,123,253,0.11);
+  color: rgba(202,223,255,0.96);
+  font-size: 0.68rem;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  transition: border-color 140ms ease, background 140ms ease, color 140ms ease;
+}
+
+.hobbyMapInspectorLink[hidden]{
+  display: none;
+}
+
+.hobbyMapInspectorLink:hover,
+.hobbyMapInspectorLink:focus-visible{
+  border-color: rgba(150,193,255,0.9);
+  background: rgba(58,123,253,0.2);
+  color: rgba(233,242,255,1);
+}
+
+.hobbyMapInspectorLink:focus-visible{
+  outline: 2px solid rgba(150,193,255,0.88);
+  outline-offset: 2px;
 }
 
 .hobbyMapInspector.ski{ border-left: 3px solid #77c0ff; }
