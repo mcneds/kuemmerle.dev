@@ -1324,7 +1324,7 @@ document.querySelectorAll(".tile").forEach(tile => {
       title: "Lego Technic Land Rover Defender 90 Model",
       hero: "/assets/images/Defender%2090/defender90.PNG",
       alt: "Lego Technic Defender 90 model",
-      problem: "The model goal was realistic suspension and drivetrain behavior within Lego Technic constraints, while also exploring realistic body designs for the first time.",
+      problem: "The model goal was realistic suspension and drivetrain behavior within Lego Technic constraints, while also implementing a realistic body design.",
       solution: "I built and tuned a full drivetrain and suspension implementation that balanced realism, reliability, and clean packaging, while also integrating a high torque reliable driveline.",
       tags: ["Lego Technic", "Vehicle model", "Suspension", "Drivetrain", "Mechanical systems"],
       skills: ["Mechanical engineering", "Packaging", "Iterative design", "Modeling", "System integration"]
