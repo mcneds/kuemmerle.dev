@@ -202,8 +202,11 @@
           <h3>Poster and Next Steps</h3>
           <div class="gesturePosterLayout">
             <figure class="gesturePosterFigure gesturePosterFigure--poster">
-              <img src="/assets/images/Gesture%20Link/Poster.png" alt="GestureLink design poster summarizing the concept, methods, results, and future work." loading="lazy">
+              <button type="button" class="gesturePosterTrigger" data-gesture-poster-open aria-label="Open larger poster view">
+                <img src="/assets/images/Gesture%20Link/Poster.png" alt="GestureLink design poster summarizing the concept, methods, results, and future work." loading="lazy">
+              </button>
               <figcaption>Design poster used to present the prototype, architecture, and validation results.</figcaption>
+              <button type="button" class="gesturePosterZoomButton" data-gesture-poster-open>View poster larger</button>
             </figure>
             <div class="gestureRoadmap">
               <p>The current prototype demonstrated that magnetic field-based gesture tracking is feasible in a wearable form factor, but it is still early-stage hardware. The next iteration should focus on strengthening the weak axes, increasing sampling reliability, and turning raw pose estimates into useful gestures.</p>
@@ -258,9 +261,44 @@
     </section>
   </main>
 
+  <dialog class="gesturePosterDialog" data-gesture-poster-dialog aria-label="Large GestureLink poster view">
+    <div class="gesturePosterDialogInner">
+      <button type="button" class="gesturePosterDialogClose" data-gesture-poster-close aria-label="Close larger poster view">Close</button>
+      <img class="gesturePosterDialogImage" src="/assets/images/Gesture%20Link/Poster.png" alt="Large GestureLink design poster view.">
+    </div>
+  </dialog>
+
   <footer class="footer">
     <div>&copy; 2026 kuemmerle.dev</div>
   </footer>
   <script src="/main.js"></script>
+  <script>
+    (() => {
+      const dialog = document.querySelector("[data-gesture-poster-dialog]");
+      const openButtons = document.querySelectorAll("[data-gesture-poster-open]");
+      const closeButton = document.querySelector("[data-gesture-poster-close]");
+      if (!dialog || !openButtons.length || !closeButton || typeof dialog.showModal !== "function") return;
+
+      const closeDialog = () => dialog.close();
+
+      openButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          if (!dialog.open) dialog.showModal();
+        });
+      });
+
+      closeButton.addEventListener("click", closeDialog);
+
+      dialog.addEventListener("click", (event) => {
+        const bounds = dialog.getBoundingClientRect();
+        const clickedBackdrop =
+          event.clientX < bounds.left ||
+          event.clientX > bounds.right ||
+          event.clientY < bounds.top ||
+          event.clientY > bounds.bottom;
+        if (clickedBackdrop) closeDialog();
+      });
+    })();
+  </script>
 </body>
 </html>
