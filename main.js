@@ -1356,7 +1356,7 @@ document.querySelectorAll(".tile").forEach(tile => {
     },
     {
       id: "construction-timberline-trail-system",
-      category: "construction",
+      category: "standalone",
       type: "detail",
       detailUrl: "/construction/timberline-trail-system/",
       title: "Timberline Trail System",
@@ -1484,21 +1484,35 @@ document.querySelectorAll(".tile").forEach(tile => {
         }
       : null;
     const ctaLink = detailLink || actionLink;
-    const linkMarkup = ctaLink
-      ? `<a class="projectEntryLink" href="${escapeHtml(ctaLink.href)}"${ctaLink.newTab ? ' target="_blank" rel="noopener noreferrer"' : ""}>${escapeHtml(ctaLink.label)}</a>`
+    const linkAttrs = ctaLink
+      ? ` href="${escapeHtml(ctaLink.href)}"${ctaLink.newTab ? ' target="_blank" rel="noopener noreferrer"' : ""}`
       : "";
+    const linkMarkup = ctaLink
+      ? `<a class="projectEntryLink"${linkAttrs}>${escapeHtml(ctaLink.label)}</a>`
+      : "";
+    const headingMarkup = ctaLink
+      ? `<a class="projectEntryHeadingLink"${linkAttrs}>
+            <h2 class="projectEntryTitle">${escapeHtml(entry.title)}</h2>
+            <p class="projectEntryType">${escapeHtml(typeLabel)}</p>
+          </a>`
+      : `<h2 class="projectEntryTitle">${escapeHtml(entry.title)}</h2>
+          <p class="projectEntryType">${escapeHtml(typeLabel)}</p>`;
+    const heroContentMarkup = ctaLink && !entry.heroIframe
+      ? `<a class="projectEntryHeroLink"${linkAttrs} aria-label="${escapeHtml(ctaLink.label)}: ${escapeHtml(entry.title)}">
+          ${heroMarkup}
+        </a>`
+      : heroMarkup;
 
     return `
       <article id="project-entry-${escapeHtml(entry.id)}" class="projectEntry${entry.type === "detail" ? " projectEntry--detail" : ""}" data-project-entry data-entry-id="${escapeHtml(entry.id)}">
         <div class="projectEntryHead">
           <div>
-            <h2 class="projectEntryTitle">${escapeHtml(entry.title)}</h2>
-            <p class="projectEntryType">${escapeHtml(typeLabel)}</p>
+            ${headingMarkup}
           </div>
           <span class="projectEntryBadge">${escapeHtml(badge)}</span>
         </div>
         <figure class="projectEntryHero"${heroStyle}>
-          ${heroMarkup}
+          ${heroContentMarkup}
         </figure>
         <div class="projectEntryBody">
           <section class="projectEntryPanel">
