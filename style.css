@@ -2735,9 +2735,41 @@ ul.gearList.gearList--poster{
   background: rgba(255,255,255,0.03);
 }
 
+.gesturePosterTrigger{
+  width: 100%;
+  display: block;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: zoom-in;
+}
+
 .gesturePosterFigure img{
   width: 100%;
   display: block;
+}
+
+.gesturePosterTrigger:hover img{
+  filter: brightness(1.02);
+}
+
+.gesturePosterZoomButton{
+  margin: 0 0.64rem 0.72rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  border: 1px solid rgba(124,177,255,0.62);
+  padding: 0.54rem 0.8rem;
+  color: rgba(214,231,255,0.96);
+  background: rgba(58,123,253,0.16);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.gesturePosterZoomButton:hover{
+  background: rgba(58,123,253,0.24);
 }
 
 .gestureMetricsGrid{
@@ -2771,6 +2803,48 @@ ul.gearList.gearList--poster{
 
 .gestureRoadmap p{
   margin: 0;
+}
+
+.gesturePosterDialog{
+  width: min(94vw, 1420px);
+  max-width: none;
+  padding: 0;
+  border: 1px solid rgba(124,177,255,0.3);
+  border-radius: 16px;
+  background: rgba(7, 12, 20, 0.96);
+  color: inherit;
+}
+
+.gesturePosterDialog::backdrop{
+  background: rgba(5, 8, 14, 0.84);
+  backdrop-filter: blur(4px);
+}
+
+.gesturePosterDialogInner{
+  padding: 0.9rem;
+}
+
+.gesturePosterDialogClose{
+  margin: 0 0 0.75rem auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  border: 1px solid rgba(233,233,239,0.22);
+  padding: 0.5rem 0.74rem;
+  color: rgba(233,233,239,0.92);
+  background: rgba(255,255,255,0.05);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.gesturePosterDialogImage{
+  width: 100%;
+  max-height: calc(100vh - 7rem);
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
 }
 
 /* Modulus Drawers detail page */
