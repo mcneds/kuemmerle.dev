@@ -2757,8 +2757,18 @@ ul.gearList.gearList--poster{
 
 /* ====== Responsive ====== */
 @media (max-width: 900px){
+  .sceneHeader{
+    display: flex;
+    flex-direction: column;
+  }
+  .cadNameWrap{
+    order: 1;
+    padding: 0.55rem 1.25rem 1rem;
+  }
   .sceneTiles{
+    order: 2;
     grid-template-columns: 1fr;
+    padding-top: 0;
   }
   .projectEntryBody{
     grid-template-columns: 1fr;
@@ -2827,12 +2837,41 @@ ul.gearList.gearList--poster{
 }
 
 @media (max-width: 520px){
+  .sceneHeader{
+    padding-top: 3rem;
+  }
   .topNav{
     gap: 0.5rem;
     padding: 0.9rem 0.9rem 0.25rem;
   }
   .navItem{
     padding: 0.35rem 0.55rem;
+  }
+  .cadNameWrap{
+    padding: 0.35rem 0.9rem 0.9rem;
+  }
+  .cadTopRule{
+    margin: 0.2rem 0 0.8rem;
+  }
+  .cadNameBox{
+    width: min(92vw, 520px);
+    height: clamp(74px, 28vw, 104px);
+  }
+  .sceneTiles{
+    padding: 0 0.9rem 1rem;
+    gap: 0.8rem;
+  }
+  .tile{
+    min-height: 138px;
+  }
+  .tileInner{
+    padding: 0.82rem;
+  }
+  .tileLabel{
+    font-size: 0.96rem;
+  }
+  .tileHint{
+    font-size: 0.9rem;
   }
   .projectSearchRow{
     flex-direction: column;
