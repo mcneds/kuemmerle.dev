@@ -1416,6 +1416,7 @@ ul.gearList.gearList--poster{
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 0.46rem;
   border-radius: 10px;
   border: 1px solid rgba(233,233,239,0.24);
   padding: 0.48rem 0.72rem;
@@ -1554,6 +1555,9 @@ ul.gearList.gearList--poster{
 }
 
 .contactSecondary{
+  display: inline-flex;
+  align-items: center;
+  gap: 0.42rem;
   color: rgba(233,233,239,0.86);
   text-decoration: none;
   border-bottom: 1px solid rgba(233,233,239,0.36);
@@ -1561,6 +1565,40 @@ ul.gearList.gearList--poster{
 
 .contactSecondary:hover{
   border-bottom-color: rgba(233,233,239,0.78);
+}
+
+.socialIcon{
+  width: 1rem;
+  height: 1rem;
+  flex: 0 0 auto;
+  display: block;
+}
+
+.footer{
+  padding: 2rem 1rem;
+  text-align: center;
+  color: var(--muted);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.footerLink{
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: rgba(233,233,239,0.9);
+  text-decoration: none;
+  border: 1px solid rgba(233,233,239,0.16);
+  border-radius: 999px;
+  padding: 0.45rem 0.72rem;
+  background: rgba(255,255,255,0.03);
+}
+
+.footerLink:hover{
+  border-color: rgba(124,177,255,0.68);
+  background: rgba(58,123,253,0.12);
 }
 
 .contactStatus{
@@ -2409,12 +2447,6 @@ ul.gearList.gearList--poster{
 /* Anchor spacing so the top header doesn't hide titles */
 .anchorSection{
   scroll-margin-top: 220px;
-}
-
-.footer{
-  padding: 2rem 1rem;
-  text-align: center;
-  color: var(--muted);
 }
 
 /* Tie Rod Tab detail page */
