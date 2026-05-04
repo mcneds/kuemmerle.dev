@@ -1281,6 +1281,19 @@ document.querySelectorAll(".tile").forEach(tile => {
       skills: ["C++", "Circuit design", "Noise reduction", "System integration", "Prototype validation"]
     },
     {
+      id: "standalone-gesture-link",
+      category: "standalone",
+      type: "detail",
+      detailUrl: "/projects/gesture-link/",
+      title: "GestureLink: Wearable Magnetic Finger Tracking",
+      hero: "/assets/images/Gesture%20Link/hub%20render.png",
+      alt: "GestureLink wearable magnetic finger-tracking hardware render",
+      problem: "Touchscreens, buttons, and camera-based finger tracking all break down in motion-heavy or line-of-sight-limited situations, while existing magnetic systems are often too bulky or inaccessible for wearable developer input.",
+      solution: "GestureLink uses a pulsed electromagnetic ring and a wrist-mounted sensor array to estimate finger pose without cameras, opening a path toward lighting-independent gesture input for XR, media control, and general-purpose interaction tooling.",
+      tags: ["Wearable input", "Magnetic tracking", "Finger pose", "XR controls", "Embedded prototype"],
+      skills: ["Sensor integration", "Electromagnetic prototyping", "Signal processing", "Embedded systems", "Hardware-software integration"]
+    },
+    {
       id: "standalone-parametric-shop-desk",
       category: "standalone",
       type: "single",

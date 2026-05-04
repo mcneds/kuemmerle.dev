@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GestureLink | kuemmerle.dev</title>
+  <meta name="description" content="GestureLink is a wearable magnetic finger-tracking prototype using a pulsed ring and wrist-mounted sensor array for camera-free input." />
+  <link rel="canonical" href="https://kuemmerle.dev/projects/gesture-link/" />
+  <meta name="robots" content="index,follow,max-image-preview:large" />
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="kuemmerle.dev">
+  <meta property="og:title" content="GestureLink | kuemmerle.dev">
+  <meta property="og:description" content="Wearable magnetic finger tracking without cameras, built as a UBC Integrated Engineering team project.">
+  <meta property="og:url" content="https://kuemmerle.dev/projects/gesture-link/">
+  <meta property="og:image" content="https://kuemmerle.dev/assets/images/Gesture%20Link/hub%20render.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="GestureLink | kuemmerle.dev">
+  <meta name="twitter:description" content="Wearable magnetic finger tracking without cameras, built as a UBC Integrated Engineering team project.">
+  <meta name="twitter:image" content="https://kuemmerle.dev/assets/images/Gesture%20Link/hub%20render.png">
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="sceneHeader" id="sceneHeader">
+    <nav class="topNav" aria-label="Primary">
+      <a href="/" class="navItem">Home</a>
+      <a href="/resume" class="navItem">Resume</a>
+      <a href="/contact" class="navItem">Contact</a>
+      <a href="/fun" class="navItem">Fun</a>
+    </nav>
+    <section class="sceneTiles" aria-label="Section tiles">
+      <a class="tile" href="/quick" data-section="quick">
+        <div class="tileInner">
+          <div class="tileLabel">Quick Side Quests</div>
+          <div class="tileHint">Small builds and fast experiments</div>
+        </div>
+      </a>
+      <a class="tile" href="/projects" data-section="standalone">
+        <div class="tileInner">
+          <div class="tileLabel">Standalone Projects</div>
+          <div class="tileHint">Complete systems built end to end</div>
+        </div>
+      </a>
+      <a class="tile" href="/construction" data-section="construction">
+        <div class="tileInner">
+          <div class="tileLabel">Under Construction</div>
+          <div class="tileHint">Active work currently in progress</div>
+        </div>
+      </a>
+    </section>
+  </header>
+
+  <main class="page">
+    <section class="contentSection projectDetail">
+      <p class="projectDetailBack"><a href="/projects/">Back to Standalone Projects</a></p>
+      <h1>GestureLink</h1>
+      <p class="muted gestureIntro">A UBC Integrated Engineering team project exploring wearable magnetic finger tracking without cameras, built around a pulsed ring, a wrist-mounted sensor array, and a lightweight real-time processing pipeline.</p>
+
+      <article class="projectEntry projectEntry--detail gestureEntry">
+        <div class="projectEntryHead">
+          <div>
+            <h2 class="projectEntryTitle">Camera-Free Finger Tracking For Real-World Input</h2>
+            <p class="projectEntryType">Detailed project page</p>
+          </div>
+        </div>
+
+        <figure class="projectEntryHero gestureHero">
+          <video controls autoplay muted loop playsinline preload="metadata" poster="/assets/images/Gesture%20Link/hub%20render.png">
+            <source src="/assets/images/Gesture%20Link/turntable.mp4" type="video/mp4">
+          </video>
+        </figure>
+
+        <div class="projectEntryBody">
+          <section class="projectEntryPanel">
+            <h3>Problem Definition</h3>
+            <p>Traditional media and interaction controls are awkward in motion-heavy environments, and vision-based tracking depends on lighting and clear line of sight. Existing magnetic approaches prove the sensing concept, but they tend to be bulky, interference-prone, or hard to access as a compact developer platform.</p>
+          </section>
+          <section class="projectEntryPanel">
+            <h3>Problem Solution</h3>
+            <p>GestureLink uses a pulsed electromagnetic ring and an array of eight tri-axial magnetometers mounted near the wrist to estimate finger pose without cameras. The prototype separates the ring signal from background fields, routes multi-sensor data through a compact acquisition stack, and pushes the processed output into a live viewer for real-time interaction experiments.</p>
+          </section>
+        </div>
+
+        <section class="gestureSection" aria-label="Project overview">
+          <h3>Where This Fits</h3>
+          <div class="gestureOverviewGrid">
+            <article class="gestureOverviewCard">
+              <h4>Why Magnetic</h4>
+              <p>No line-of-sight requirement means the system can keep working in poor lighting, partial occlusion, and movement-heavy conditions where camera tracking is less dependable.</p>
+            </article>
+            <article class="gestureOverviewCard">
+              <h4>Why Wearable</h4>
+              <p>The goal was not a lab-only tracking rig. The team pushed toward a small-form-factor input device that could plausibly live on the body and feel useful outside a desk setup.</p>
+            </article>
+            <article class="gestureOverviewCard">
+              <h4>Why It Matters</h4>
+              <p>This creates a path toward VR/AR finger tracking, slide control, hands-free media input for skiing or biking, and a more general developer-friendly gesture platform.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="gestureSection" aria-label="Prototype media">
+          <h3>Prototype Media</h3>
+          <div class="gestureMediaGrid">
+            <figure class="gestureMediaCard gestureMediaCard--portrait">
+              <video controls autoplay muted loop playsinline preload="metadata" poster="/assets/images/Gesture%20Link/hub%20proto.jpg">
+                <source src="/assets/images/Gesture%20Link/project%20demo.mp4" type="video/mp4">
+              </video>
+              <figcaption>Quick demo of the prototype tracking motion in real time through the web viewer.</figcaption>
+            </figure>
+            <figure class="gestureMediaCard gestureMediaCard--render">
+              <img src="/assets/images/Gesture%20Link/hub%20render.png" alt="GestureLink wrist module CAD render." loading="lazy">
+              <figcaption>Rendered concept of the wrist-mounted sensor hub and structural packaging.</figcaption>
+            </figure>
+            <figure class="gestureMediaCard">
+              <img src="/assets/images/Gesture%20Link/hub%20proto.jpg" alt="GestureLink physical prototype with ring coil and wired sensor assembly." loading="lazy">
+              <figcaption>Physical prototype used for real sensor collection and validation work.</figcaption>
+            </figure>
+            <figure class="gestureMediaCard gestureMediaCard--wide gestureMediaCard--render">
+              <img src="/assets/images/Gesture%20Link/mock%20mount.png" alt="Mock mounting concept for sensor array and ring alignment testing." loading="lazy">
+              <figcaption>Mounting mock-up used to reason about geometry, alignment, and wearable packaging.</figcaption>
+            </figure>
+          </div>
+        </section>
+
+        <section class="gestureSection" aria-label="System architecture">
+          <h3>System Architecture</h3>
+          <div class="gestureFlowGrid">
+            <article class="gestureFlowCard">
+              <h4>Field Generation</h4>
+              <p>A pulsed ring coil creates a controlled magnetic field signature that is easier to distinguish from background magnetic noise than a passive magnet alone.</p>
+              <ul class="gearList">
+                <li>Pulsing improves signal discrimination.</li>
+                <li>The architecture leaves room for tracking multiple rings later.</li>
+                <li>Low current requirements keep wearable power realistic.</li>
+              </ul>
+            </article>
+            <article class="gestureFlowCard">
+              <h4>Sensor Stack</h4>
+              <p>Eight tri-axial magnetometers are arranged in a layered 4-top / 4-bottom layout near the wrist to improve spatial sensitivity and reconstruct the field more reliably in 3D.</p>
+              <ul class="gearList">
+                <li>Layered geometry improves observability.</li>
+                <li>A serial multiplexer enables many sensors on limited pins.</li>
+                <li>An Arduino Nano coordinates acquisition and coil control.</li>
+              </ul>
+            </article>
+            <article class="gestureFlowCard">
+              <h4>Processing Pipeline</h4>
+              <p>After acquisition, the signal is filtered in software and pushed through a lightweight pose-estimation stage before being displayed in a live viewer.</p>
+              <ul class="gearList">
+                <li>Goertzel-based filtering isolates the pulsed response.</li>
+                <li>A small neural network was used for position estimation.</li>
+                <li>The viewer made rapid demo iteration and debugging easier.</li>
+              </ul>
+            </article>
+          </div>
+
+          <figure class="gesturePosterFigure">
+            <img src="/assets/images/Gesture%20Link/circuit.png" alt="GestureLink wiring and sensor acquisition layout." loading="lazy">
+            <figcaption>Sensor array, multiplexer, coil-driving circuit, and microcontroller wiring layout used for the working prototype.</figcaption>
+          </figure>
+        </section>
+
+        <section class="gestureSection" aria-label="Validation and results">
+          <h3>Validation and Results</h3>
+          <p class="gestureSectionLead">The team compared simulated and measured magnetic field values after global alignment to check whether the simplified field model still described real hardware behavior well enough to be useful.</p>
+          <div class="gestureMetricsGrid">
+            <article class="gestureMetricCard">
+              <h4>Pearson Correlation</h4>
+              <p><strong>r = 0.834</strong></p>
+              <p>Strong linear agreement between simulated and measured field values.</p>
+            </article>
+            <article class="gestureMetricCard">
+              <h4>Spearman Correlation</h4>
+              <p><strong>rho = 0.875</strong></p>
+              <p>Strong trend agreement even when absolute values drifted.</p>
+            </article>
+            <article class="gestureMetricCard">
+              <h4>Normalized Error</h4>
+              <p><strong>NRMSE = 0.327</strong></p>
+              <p>Moderate absolute error, but enough relative fidelity to validate the approach.</p>
+            </article>
+          </div>
+          <div class="gestureOverviewGrid gestureOverviewGrid--results">
+            <article class="gestureOverviewCard">
+              <h4>Geometry Finding</h4>
+              <p>Simulation suggested the best performance window was around a 10-12 mm ring radius.</p>
+            </article>
+            <article class="gestureOverviewCard">
+              <h4>Pulse Finding</h4>
+              <p>Lower pulse rates in the 1-3 Hz range behaved better than faster pulsing in the current prototype.</p>
+            </article>
+            <article class="gestureOverviewCard">
+              <h4>Main Limitation</h4>
+              <p>Performance was limited more by observability, sampling, and data quality than by electrical resonance.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="gestureSection" aria-label="Poster and future work">
+          <h3>Poster and Next Steps</h3>
+          <div class="gesturePosterLayout">
+            <figure class="gesturePosterFigure gesturePosterFigure--poster">
+              <img src="/assets/images/Gesture%20Link/Poster.png" alt="GestureLink design poster summarizing the concept, methods, results, and future work." loading="lazy">
+              <figcaption>Design poster used to present the prototype, architecture, and validation results.</figcaption>
+            </figure>
+            <div class="gestureRoadmap">
+              <p>The current prototype demonstrated that magnetic field-based gesture tracking is feasible in a wearable form factor, but it is still early-stage hardware. The next iteration should focus on strengthening the weak axes, increasing sampling reliability, and turning raw pose estimates into useful gestures.</p>
+              <ul class="gearList">
+                <li>Extend tracking from a strong single direction toward fuller 3D pose estimation.</li>
+                <li>Add multi-ring support so multiple fingers can be tracked in parallel.</li>
+                <li>Improve stability, calibration, and sampling reliability across cycles.</li>
+                <li>Explore a three-coil architecture to balance observability across axes.</li>
+                <li>Add a gesture-recognition layer for media, slide, and XR interaction tasks.</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <div class="projectEntryMeta projectDetailMeta">
+          <details class="projectMetaDetails">
+            <summary>
+              <span>Tags</span>
+              <span class="projectMetaPreview">
+                <span class="projectPill">Wearable input</span>
+                <span class="projectPill">Magnetic tracking</span>
+                <span class="projectPill">XR interaction</span>
+              </span>
+            </summary>
+            <div class="projectPills">
+              <span class="projectPill">Wearable input</span>
+              <span class="projectPill">Magnetic tracking</span>
+              <span class="projectPill">Finger pose estimation</span>
+              <span class="projectPill">XR interaction</span>
+              <span class="projectPill">Embedded prototype</span>
+            </div>
+          </details>
+          <details class="projectMetaDetails">
+            <summary>
+              <span>Skills</span>
+              <span class="projectMetaPreview">
+                <span class="projectPill">Sensor integration</span>
+                <span class="projectPill">Signal processing</span>
+                <span class="projectPill">Prototype packaging</span>
+              </span>
+            </summary>
+            <div class="projectPills">
+              <span class="projectPill">Sensor integration</span>
+              <span class="projectPill">Electromagnetic prototyping</span>
+              <span class="projectPill">Signal processing</span>
+              <span class="projectPill">Hardware-software integration</span>
+              <span class="projectPill">Engineering communication</span>
+            </div>
+          </details>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div>&copy; 2026 kuemmerle.dev</div>
+  </footer>
+  <script src="/main.js"></script>
+</body>
+</html>

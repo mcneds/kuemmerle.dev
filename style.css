@@ -2566,6 +2566,189 @@ ul.gearList.gearList--poster{
   margin: 0.75rem 0 0;
 }
 
+.gestureIntro{
+  margin: 0 0 0.85rem;
+}
+
+.gestureEntry{
+  --gesture-stroke: rgba(108, 176, 255, 0.28);
+}
+
+.gestureHero{
+  aspect-ratio: 16 / 8;
+}
+
+.gestureSection{
+  margin-top: 0.95rem;
+  border: 1px solid var(--gesture-stroke);
+  border-radius: 14px;
+  padding: 0.82rem;
+  background: rgba(8, 12, 20, 0.46);
+}
+
+.gestureSection > h3{
+  margin: 0 0 0.6rem;
+}
+
+.gestureSection p{
+  color: rgba(233,233,239,0.9);
+  line-height: 1.55;
+}
+
+.gestureSectionLead{
+  margin: 0 0 0.7rem;
+}
+
+.gestureOverviewGrid{
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.72rem;
+}
+
+.gestureOverviewGrid--results{
+  margin-top: 0.72rem;
+}
+
+.gestureOverviewCard,
+.gestureFlowCard,
+.gestureMetricCard{
+  border: 1px solid var(--gesture-stroke);
+  border-radius: 12px;
+  padding: 0.72rem;
+  background: rgba(255,255,255,0.03);
+}
+
+.gestureOverviewCard h4,
+.gestureFlowCard h4,
+.gestureMetricCard h4{
+  margin: 0 0 0.35rem;
+}
+
+.gestureOverviewCard p,
+.gestureFlowCard p,
+.gestureMetricCard p{
+  margin: 0;
+}
+
+.gestureFlowCard ul,
+.gestureRoadmap ul{
+  margin-top: 0.55rem;
+}
+
+.gestureMediaGrid{
+  display: grid;
+  grid-template-columns: minmax(240px, 0.88fr) repeat(2, minmax(0, 1fr));
+  grid-auto-rows: minmax(220px, auto);
+  gap: 0.72rem;
+  align-items: start;
+}
+
+.gestureMediaCard{
+  margin: 0;
+  border: 1px solid var(--gesture-stroke);
+  border-radius: 12px;
+  overflow: hidden;
+  background: rgba(4, 8, 16, 0.76);
+}
+
+.gestureMediaCard img,
+.gestureMediaCard video{
+  width: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.gestureMediaCard img,
+.gestureMediaCard video{
+  aspect-ratio: 4 / 3;
+}
+
+.gestureMediaCard--portrait{
+  grid-column: 1;
+  grid-row: 1 / span 2;
+}
+
+.gestureMediaCard--portrait video{
+  aspect-ratio: 9 / 16;
+  height: 100%;
+  max-height: 38rem;
+  background: #05070c;
+}
+
+.gestureMediaCard--wide{
+  grid-column: 2 / span 2;
+}
+
+.gestureMediaCard--wide img{
+  aspect-ratio: 16 / 8.5;
+}
+
+.gestureMediaCard--render img{
+  object-fit: contain;
+  background: rgba(220, 222, 226, 0.82);
+}
+
+.gestureMediaCard figcaption,
+.gesturePosterFigure figcaption{
+  margin: 0;
+  padding: 0.52rem 0.64rem 0.6rem;
+  color: rgba(233,233,239,0.72);
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+
+.gestureFlowGrid{
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.72rem;
+}
+
+.gesturePosterFigure{
+  margin: 0.8rem 0 0;
+  border: 1px solid var(--gesture-stroke);
+  border-radius: 12px;
+  overflow: hidden;
+  background: rgba(255,255,255,0.03);
+}
+
+.gesturePosterFigure img{
+  width: 100%;
+  display: block;
+}
+
+.gestureMetricsGrid{
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.72rem;
+}
+
+.gestureMetricCard strong{
+  font-size: 1.2rem;
+  color: rgba(220,235,255,0.96);
+}
+
+.gesturePosterLayout{
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.85fr);
+  gap: 0.8rem;
+  align-items: start;
+}
+
+.gesturePosterFigure--poster{
+  margin-top: 0;
+}
+
+.gestureRoadmap{
+  border: 1px solid var(--gesture-stroke);
+  border-radius: 12px;
+  padding: 0.78rem;
+  background: rgba(255,255,255,0.03);
+}
+
+.gestureRoadmap p{
+  margin: 0;
+}
+
 /* Modulus Drawers detail page */
 .modulusIntro{
   max-width: 80ch;
@@ -2787,6 +2970,19 @@ ul.gearList.gearList--poster{
   }
   .tieRodKpiGrid{
     grid-template-columns: 1fr;
+  }
+  .gestureOverviewGrid,
+  .gestureFlowGrid,
+  .gestureMetricsGrid,
+  .gesturePosterLayout,
+  .gestureMediaGrid{
+    grid-template-columns: 1fr;
+  }
+  .gestureMediaCard--portrait{
+    grid-row: auto;
+  }
+  .gestureMediaCard--wide{
+    grid-column: auto;
   }
   .modulusGrid--two,
   .modulusGrid--three{
