@@ -1588,6 +1588,8 @@ ul.gearList.gearList--poster{
 }
 
 .funEntryCard{
+  display: flex;
+  flex-direction: column;
   border: 1px solid rgba(233,233,239,0.18);
   border-radius: 14px;
   overflow: hidden;
@@ -1599,14 +1601,21 @@ ul.gearList.gearList--poster{
 .funEntryHero{
   margin: 0;
   border-bottom: 1px solid rgba(233,233,239,0.16);
-  height: 220px;
+  overflow: hidden;
+  height: clamp(200px, 22vw, 260px);
+  background: linear-gradient(180deg, rgba(9,20,35,0.96), rgba(11,20,34,0.98));
 }
 
 .funEntryHero img{
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
   display: block;
+}
+
+.funEntryHero--terrain img{
+  object-position: center 60%;
 }
 
 .funEntryHero img.funEntryHeroGifToy{
@@ -1622,7 +1631,14 @@ ul.gearList.gearList--poster{
   height: 100%;
 }
 
+.funEntryHero picture img{
+  width: 100%;
+  height: 100%;
+}
+
 .funEntryBody{
+  display: flex;
+  flex-direction: column;
   padding: 0.95rem;
 }
 
@@ -1664,6 +1680,13 @@ ul.gearList.gearList--poster{
 
 .funEntryLink:hover{
   background: rgba(58,123,253,0.22);
+}
+
+@media (max-width: 700px){
+  .funEntryHero{
+    height: auto;
+    aspect-ratio: 16 / 10;
+  }
 }
 
 .twoCol{
