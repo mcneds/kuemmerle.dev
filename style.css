@@ -1261,6 +1261,16 @@ ul.gearList.gearList--poster{
   background: rgba(58,123,253,0.2);
 }
 
+.projectEntryActions{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+
+.projectEntryActions .projectEntryLink{
+  margin-top: 0.85rem;
+}
+
 .projectDetailBack{
   margin: 0 0 0.8rem;
 }

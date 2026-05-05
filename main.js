@@ -1105,7 +1105,7 @@ document.querySelectorAll(".tile").forEach(tile => {
       hero: "/assets/images/lithoplane.jfif",
       alt: "LithoPlanes illuminated product concept",
       problem: "Litholamps needed a broader consumer product direction with better portability and convenience.",
-      solution: "I developed a market-ready variant with remote control and rechargeable battery integration for wider adoption. A rebuild of the renderer can be found here: https://kuemmerle.dev/fun/lithophane-renderer/",
+      solution: "I developed a market-ready variant with remote control and rechargeable battery integration for wider adoption. Related Litholamps work now lives here: https://kuemmerle.dev/construction/#project-entry-construction-litholamps-pg",
       tags: ["Product design", "Lighting", "Consumer hardware", "Rechargeable", "Iteration"],
       skills: ["Mechanical design", "Circuit design", "3D printing", "Product development", "Testing"]
     },
@@ -1391,7 +1391,13 @@ document.querySelectorAll(".tile").forEach(tile => {
       problem: "Turning custom lit prints into a consistent, scalable product required stronger process standardization across design and deployment.",
       solution: "I continue refining CAD, electronics, and web tooling workflows to make Litholamps more repeatable for production and customer delivery.",
       tags: ["Lighting product", "Productization", "E-commerce", "3D printing", "Automation"],
-      skills: ["Fusion 360", "JavaScript", "Python", "Process design", "Project leadership"]
+      skills: ["Fusion 360", "JavaScript", "Python", "Process design", "Project leadership"],
+      extraLinks: [
+        {
+          href: "/fun/lithophane-renderer/",
+          label: "Open shader demo"
+        }
+      ]
     }
     
     
@@ -1435,6 +1441,7 @@ document.querySelectorAll(".tile").forEach(tile => {
       entry.solution,
       entry.tags.join(" "),
       entry.skills.join(" "),
+      (entry.extraLinks || []).map((link) => link.label).join(" "),
       sectionLabelByCategory[entry.category] || ""
     ].join(" ");
     return { ...entry, searchText: normalize(combined) };
@@ -1484,11 +1491,23 @@ document.querySelectorAll(".tile").forEach(tile => {
         }
       : null;
     const ctaLink = detailLink || actionLink;
-    const linkAttrs = ctaLink
-      ? ` href="${escapeHtml(ctaLink.href)}"${ctaLink.newTab ? ' target="_blank" rel="noopener noreferrer"' : ""}`
-      : "";
+    const attrsForLink = (link) =>
+      ` href="${escapeHtml(link.href)}"${link.newTab ? ' target="_blank" rel="noopener noreferrer"' : ""}`;
+    const linkAttrs = ctaLink ? attrsForLink(ctaLink) : "";
     const linkMarkup = ctaLink
       ? `<a class="projectEntryLink"${linkAttrs}>${escapeHtml(ctaLink.label)}</a>`
+      : "";
+    const extraLinkMarkup = (entry.extraLinks || []).length
+      ? `<div class="projectEntryActions">
+          ${(entry.extraLinks || [])
+            .map((link) =>
+              `<a class="projectEntryLink" ${attrsForLink({
+                href: link.href,
+                newTab: Boolean(link.newTab)
+              })}>${escapeHtml(link.label)}</a>`
+            )
+            .join("")}
+        </div>`
       : "";
     const headingMarkup = ctaLink
       ? `<a class="projectEntryHeadingLink"${linkAttrs}>
@@ -1541,6 +1560,7 @@ document.querySelectorAll(".tile").forEach(tile => {
           </details>
         </div>
         ${linkMarkup}
+        ${extraLinkMarkup}
       </article>
     `;
   };
