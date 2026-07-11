@@ -1675,7 +1675,7 @@ document.querySelectorAll(".tile").forEach(tile => {
       id: "coop-1page",
       label: "Co-op Resume (1 Page)",
       audience: "Primary public version",
-      file: "/assets/resumes/coop resume 1page.pdf"
+      file: "/assets/resumes/coop resume 1page 2026.pdf"
     }
   ];
 
