@@ -3374,3 +3374,36 @@ ul.gearList.gearList--poster{
 
 
 
+
+/* BeamNG progress images keep the full frame and bracing visible. */
+.beamngDetail .projectEntryHead{
+  flex-wrap: wrap;
+}
+.beamngDetail .projectEntryBadge{
+  display: inline-block;
+}
+.beamngDetail .beamngHero{
+  aspect-ratio: auto;
+}
+.beamngDetail .beamngHero img,
+.beamngMedia img{
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.beamngHero figcaption,
+.beamngMedia figcaption{
+  padding: 0.65rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+.beamngProgress{
+  margin-top: 1.25rem;
+}
+.beamngMedia{
+  margin: 0;
+}
+.beamngDetail .projectEntryPanel li{
+  margin-bottom: 0.4rem;
+  line-height: 1.55;
+}

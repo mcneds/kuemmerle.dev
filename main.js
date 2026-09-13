@@ -1369,6 +1369,20 @@ document.querySelectorAll(".tile").forEach(tile => {
       skills: ["Project management", "Path finding", "Skilled labor", "Team leadership", "Environmental awareness"]
     },
     {
+      id: "construction-beamng-cad",
+      category: "construction",
+      type: "detail",
+      detailUrl: "/construction/beamng-cad/",
+      title: "BeamNG.cad \u2014 SolidWorks to Simulation",
+      hero: "/assets/images/BeamNG.cad/Ingame.png",
+      heroAspect: "1048 / 723",
+      alt: "SolidWorks-derived Baja SAE frame imported into BeamNG, in the foreground of the simulation scene.",
+      problem: "Our Baja SAE team needs a rapid way to set up simulations as vehicle designs evolve. Frequent member turnover makes specialist knowledge difficult to retain, and training each new generation of students to maintain a BeamNG mod requires significant knowledge transfer. Relying on always having a BeamNG modding expert makes simulation harder to sustain across team changes.",
+      solution: "I developed Python and Blender tooling to turn a SolidWorks frame model into a BeamNG simulation structure, connect the visible frame geometry to simulation nodes, and package the result as a mod. Automating these specialist steps is intended to shorten setup time and make the workflow easier for incoming team members to repeat. The frame is now in BeamNG; beam strength optimization and calibration are ongoing.",
+      tags: ["Baja SAE", "BeamNG", "In progress", "JBeam", "Automation", "Knowledge transfer"],
+      skills: ["SolidWorks", "Blender", "Python", "Geometry processing", "Simulation integration"]
+    },
+    {
       id: "construction-modulus-drawer-system",
       category: "construction",
       type: "detail",

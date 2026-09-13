@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BeamNG.cad — SolidWorks to Simulation | kuemmerle.dev</title>
+  <meta name="description" content="An automated SolidWorks-to-BeamNG frame workflow for our Baja SAE team, with beam strength optimization and calibration in progress.">
+  <link rel="canonical" href="https://kuemmerle.dev/construction/beamng-cad/" />
+  <meta name="robots" content="index,follow,max-image-preview:large" />
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="kuemmerle.dev">
+  <meta property="og:title" content="BeamNG.cad — SolidWorks to Simulation | kuemmerle.dev">
+  <meta property="og:description" content="An automated SolidWorks-to-BeamNG frame workflow for our Baja SAE team, with beam strength optimization and calibration in progress.">
+  <meta property="og:url" content="https://kuemmerle.dev/construction/beamng-cad/">
+  <meta property="og:image" content="https://kuemmerle.dev/assets/images/BeamNG.cad/Ingame.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="BeamNG.cad — SolidWorks to Simulation | kuemmerle.dev">
+  <meta name="twitter:description" content="An automated SolidWorks-to-BeamNG frame workflow for our Baja SAE team, with beam strength optimization and calibration in progress.">
+  <meta name="twitter:image" content="https://kuemmerle.dev/assets/images/BeamNG.cad/Ingame.png">
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="sceneHeader" id="sceneHeader">
+    <nav class="topNav" aria-label="Primary">
+      <a href="/" class="navItem">Home</a>
+      <a href="/resume" class="navItem">Resume</a>
+      <a href="/contact" class="navItem">Contact</a>
+      <a href="/fun" class="navItem">Fun</a>
+    </nav>
+    <section class="sceneTiles" aria-label="Section tiles">
+      <a class="tile" href="/quick" data-section="quick">
+        <div class="tileInner">
+          <div class="tileLabel">Quick Side Quests</div>
+          <div class="tileHint">Small builds and fast experiments</div>
+        </div>
+      </a>
+      <a class="tile" href="/projects" data-section="standalone">
+        <div class="tileInner">
+          <div class="tileLabel">Standalone Projects</div>
+          <div class="tileHint">Complete systems built end to end</div>
+        </div>
+      </a>
+      <a class="tile" href="/construction" data-section="construction">
+        <div class="tileInner">
+          <div class="tileLabel">Under Construction</div>
+          <div class="tileHint">Active work currently in progress</div>
+        </div>
+      </a>
+    </section>
+  </header>
+
+  <main class="page">
+    <section class="contentSection projectDetail beamngDetail">
+      <p class="projectDetailBack"><a href="/construction/">Back to Under Construction</a></p>
+      <h1>BeamNG.cad — SolidWorks to Simulation</h1>
+      <p class="muted">I’m developing a repeatable SolidWorks-to-BeamNG workflow for our Baja SAE team. The automated frame import is working, and my current focus is optimizing beam strength and calibrating the model’s structural response.</p>
+
+      <article class="projectEntry projectEntry--detail">
+        <div class="projectEntryHead">
+          <div>
+            <h2 class="projectEntryTitle">A Repeatable Simulation Workflow for Baja SAE</h2>
+            <p class="projectEntryType">Frame import working; optimization and calibration ongoing</p>
+          </div>
+          <span class="projectEntryBadge">In progress</span>
+        </div>
+
+        <figure class="projectEntryHero beamngHero">
+          <img src="/assets/images/BeamNG.cad/Ingame.png" width="1048" height="723" alt="SolidWorks-derived Baja SAE frame imported into BeamNG, in the foreground of the simulation scene.">
+          <figcaption>Frame imported into BeamNG.</figcaption>
+        </figure>
+
+        <div class="projectEntryBody">
+          <section class="projectEntryPanel">
+            <h3>Problem</h3>
+            <p>Our Baja SAE team needs a rapid way to set up simulations as vehicle designs evolve. Frequent member turnover makes specialist knowledge difficult to retain, and training each new generation of students to maintain a BeamNG mod requires significant knowledge transfer. Relying on always having a BeamNG modding expert makes simulation harder to sustain across team changes.</p>
+          </section>
+          <section class="projectEntryPanel">
+            <h3>Solution</h3>
+            <p>I developed Python and Blender tooling to turn a SolidWorks frame model into a BeamNG simulation structure, connect the visible frame geometry to simulation nodes, and package the result as a mod. Automating these specialist steps is intended to shorten setup time and make the workflow easier for incoming team members to repeat. The frame is now in BeamNG; beam strength optimization and calibration are ongoing.</p>
+          </section>
+        </div>
+
+        <div class="projectEntryBody">
+          <section class="projectEntryPanel">
+            <h3>Completed</h3>
+            <ul>
+              <li>Hull generation from the CAD-derived frame geometry.</li>
+              <li>JBeam outer shell and internal structure generation.</li>
+              <li>Mesh transform and material preparation for BeamNG.</li>
+              <li>Automatic association of visible frame meshes with simulation nodes.</li>
+              <li>Standalone mod packaging, with the frame now imported into BeamNG.</li>
+            </ul>
+          </section>
+          <section class="projectEntryPanel">
+            <h3>Current Work</h3>
+            <p>I’m optimizing beam strength and calibrating stiffness, damping, and deformation behavior. Initial material tuning scripts are implemented, and their outputs are part of this ongoing calibration work.</p>
+          </section>
+        </div>
+
+        <section class="beamngProgress" aria-labelledby="beamng-progress-title">
+          <h3 id="beamng-progress-title">Progress Gallery</h3>
+          <div class="projectEntryBody">
+            <figure class="projectEntryPanel beamngMedia">
+              <img src="/assets/images/BeamNG.cad/JBeam%20No%20Internals.png" width="777" height="653" loading="lazy" alt="Orange outer JBeam shell surrounding the black tubular Baja SAE frame in Blender.">
+              <figcaption>Outer JBeam shell around the frame.</figcaption>
+            </figure>
+            <figure class="projectEntryPanel beamngMedia">
+              <img src="/assets/images/BeamNG.cad/JBeam%20w%20Internals.png" width="632" height="620" loading="lazy" alt="Generated JBeam wireframe showing the outer shell and dense internal bracing in Blender.">
+              <figcaption>JBeam structure with internal bracing.</figcaption>
+            </figure>
+          </div>
+        </section>
+
+        <div class="projectEntryMeta projectDetailMeta">
+          <details class="projectMetaDetails">
+            <summary>
+              <span>Tags</span>
+              <span class="projectMetaPreview"><span class="projectPill">Baja SAE</span><span class="projectPill">BeamNG</span><span class="projectPill">In progress</span></span>
+            </summary>
+            <div class="projectPills"><span class="projectPill">Baja SAE</span><span class="projectPill">BeamNG</span><span class="projectPill">In progress</span><span class="projectPill">JBeam</span><span class="projectPill">Automation</span><span class="projectPill">Knowledge transfer</span></div>
+          </details>
+          <details class="projectMetaDetails">
+            <summary>
+              <span>Skills</span>
+              <span class="projectMetaPreview"><span class="projectPill">SolidWorks</span><span class="projectPill">Blender</span><span class="projectPill">Python</span></span>
+            </summary>
+            <div class="projectPills"><span class="projectPill">SolidWorks</span><span class="projectPill">Blender</span><span class="projectPill">Python</span><span class="projectPill">Geometry processing</span><span class="projectPill">Simulation integration</span></div>
+          </details>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div>&copy; 2026 kuemmerle.dev</div>
+  </footer>
+  <script src="/main.js"></script>
+</body>
+</html>
