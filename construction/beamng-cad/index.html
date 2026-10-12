@@ -3,20 +3,20 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BeamNG.cad — SolidWorks to Simulation | kuemmerle.dev</title>
-  <meta name="description" content="An automated SolidWorks-to-BeamNG frame workflow for our Baja SAE team, with beam strength optimization and calibration in progress.">
+  <title>BeamNG.cad — From SolidWorks to a Tuned Vehicle | kuemmerle.dev</title>
+  <meta name="description" content="A SolidWorks-to-BeamNG pipeline for Baja SAE, now producing a complete, tuned development vehicle with automated motion and suspension testing.">
   <link rel="canonical" href="https://kuemmerle.dev/construction/beamng-cad/" />
   <meta name="robots" content="index,follow,max-image-preview:large" />
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="kuemmerle.dev">
-  <meta property="og:title" content="BeamNG.cad — SolidWorks to Simulation | kuemmerle.dev">
-  <meta property="og:description" content="An automated SolidWorks-to-BeamNG frame workflow for our Baja SAE team, with beam strength optimization and calibration in progress.">
+  <meta property="og:title" content="BeamNG.cad — From SolidWorks to a Tuned Vehicle | kuemmerle.dev">
+  <meta property="og:description" content="A SolidWorks-to-BeamNG pipeline for Baja SAE, now producing a complete, tuned development vehicle with automated motion and suspension testing.">
   <meta property="og:url" content="https://kuemmerle.dev/construction/beamng-cad/">
-  <meta property="og:image" content="https://kuemmerle.dev/assets/images/BeamNG.cad/Ingame.png">
+  <meta property="og:image" content="https://kuemmerle.dev/assets/images/BeamNG.cad/motion-mass16-rendered-20261012.png">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="BeamNG.cad — SolidWorks to Simulation | kuemmerle.dev">
-  <meta name="twitter:description" content="An automated SolidWorks-to-BeamNG frame workflow for our Baja SAE team, with beam strength optimization and calibration in progress.">
-  <meta name="twitter:image" content="https://kuemmerle.dev/assets/images/BeamNG.cad/Ingame.png">
+  <meta name="twitter:title" content="BeamNG.cad — From SolidWorks to a Tuned Vehicle | kuemmerle.dev">
+  <meta name="twitter:description" content="A SolidWorks-to-BeamNG pipeline for Baja SAE, now producing a complete, tuned development vehicle with automated motion and suspension testing.">
+  <meta name="twitter:image" content="https://kuemmerle.dev/assets/images/BeamNG.cad/motion-mass16-rendered-20261012.png">
   <link rel="stylesheet" href="/style.css" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
@@ -54,61 +54,71 @@
   <main class="page">
     <section class="contentSection projectDetail beamngDetail">
       <p class="projectDetailBack"><a href="/construction/">Back to Under Construction</a></p>
-      <h1>BeamNG.cad — SolidWorks to Simulation</h1>
-      <p class="muted">I’m developing a repeatable SolidWorks-to-BeamNG workflow for our Baja SAE team. The automated frame import is working, and my current focus is optimizing beam strength and calibrating the model’s structural response.</p>
+      <h1>BeamNG.cad — From SolidWorks to a Tuned Vehicle</h1>
+      <p class="muted">I’m developing a repeatable SolidWorks-to-BeamNG workflow for our Baja SAE team. The pipeline now produces a complete, drivable vehicle, and we’ve reached a well-tuned development build through iterative testing of its structure, suspension, steering, and drivetrain.</p>
 
       <article class="projectEntry projectEntry--detail">
         <div class="projectEntryHead">
           <div>
             <h2 class="projectEntryTitle">A Repeatable Simulation Workflow for Baja SAE</h2>
-            <p class="projectEntryType">Frame import working; optimization and calibration ongoing</p>
+            <p class="projectEntryType">Complete vehicle generated; tuning milestone reached · October 2026</p>
           </div>
           <span class="projectEntryBadge">In progress</span>
         </div>
 
         <figure class="projectEntryHero beamngHero">
-          <img src="/assets/images/BeamNG.cad/Ingame.png" width="1048" height="723" alt="SolidWorks-derived Baja SAE frame imported into BeamNG, in the foreground of the simulation scene.">
-          <figcaption>Frame imported into BeamNG.</figcaption>
+          <img src="/assets/images/BeamNG.cad/motion-mass16-rendered-20261012.png" width="1280" height="720" alt="Complete CAD-derived Baja SAE development vehicle in BeamNG, showing the tubular frame, body panels, drivetrain, wheels, and red coilover springs.">
+          <figcaption>A complete CAD-derived development vehicle in BeamNG during the October tuning iterations.</figcaption>
         </figure>
 
         <div class="projectEntryBody">
           <section class="projectEntryPanel">
             <h3>Problem</h3>
-            <p>Our Baja SAE team needs a rapid way to set up simulations as vehicle designs evolve. Frequent member turnover makes specialist knowledge difficult to retain, and training each new generation of students to maintain a BeamNG mod requires significant knowledge transfer. Relying on always having a BeamNG modding expert makes simulation harder to sustain across team changes.</p>
+            <p>As our vehicle designs evolve, rebuilding a simulation by hand takes time and specialist knowledge. Student turnover makes that expertise difficult to retain. My goal is to make CAD-to-simulation preparation repeatable so future team members can continue using and improving the workflow.</p>
           </section>
           <section class="projectEntryPanel">
             <h3>Solution</h3>
-            <p>I developed Python and Blender tooling to turn a SolidWorks frame model into a BeamNG simulation structure, connect the visible frame geometry to simulation nodes, and package the result as a mod. Automating these specialist steps is intended to shorten setup time and make the workflow easier for incoming team members to repeat. The frame is now in BeamNG; beam strength optimization and calibration are ongoing.</p>
+            <p>I built a SolidWorks add-in in C#, supported by Python geometry, calibration, and vehicle-generation tools. It captures selected CAD components, material properties, and reviewed joint definitions, generates the BeamNG physics structure, connects the visible geometry, and packages the vehicle as a mod.</p>
+            <p>The workflow now covers the frame, suspension linkages, steering, wheels, drivetrain, and component mounts. Automated tests record vehicle motion and compare suspension behavior with the source CAD geometry, helping identify where the generated model needs refinement.</p>
           </section>
         </div>
 
         <div class="projectEntryBody">
           <section class="projectEntryPanel">
-            <h3>Completed</h3>
+            <h3>Current Milestone</h3>
+            <p>The pipeline has progressed from importing a frame to producing a tuned vehicle that can be driven and evaluated in BeamNG.</p>
             <ul>
-              <li>Hull generation from the CAD-derived frame geometry.</li>
-              <li>JBeam outer shell and internal structure generation.</li>
-              <li>Mesh transform and material preparation for BeamNG.</li>
-              <li>Automatic association of visible frame meshes with simulation nodes.</li>
-              <li>Standalone mod packaging, with the frame now imported into BeamNG.</li>
+              <li>Complete vehicle generation and standalone mod packaging from reviewed CAD inputs.</li>
+              <li>Repeated tests held 18, 36, and 54 km/h without broken beams or reported instability.</li>
+              <li>Controlled suspension loading demonstrated recovery after release, providing measurable evidence alongside driving feedback.</li>
             </ul>
           </section>
           <section class="projectEntryPanel">
-            <h3>Current Work</h3>
-            <p>I’m optimizing beam strength and calibrating stiffness, damping, and deformation behavior. Initial material tuning scripts are implemented, and their outputs are part of this ongoing calibration work.</p>
+            <h3>Next Steps</h3>
+            <p>I’m refining physical accuracy using measured shock and tire specifications, improving numerical mass and inertia, and extending validation to more demanding driving and impact conditions. The current build provides a working foundation for that development; correlation with the real vehicle remains ongoing.</p>
           </section>
         </div>
 
         <section class="beamngProgress" aria-labelledby="beamng-progress-title">
-          <h3 id="beamng-progress-title">Progress Gallery</h3>
-          <div class="projectEntryBody">
+          <h3 id="beamng-progress-title">From CAD Setup to Measured Behavior</h3>
+          <div class="beamngEvidence">
             <figure class="projectEntryPanel beamngMedia">
-              <img src="/assets/images/BeamNG.cad/JBeam%20No%20Internals.png" width="777" height="653" loading="lazy" alt="Orange outer JBeam shell surrounding the black tubular Baja SAE frame in Blender.">
-              <figcaption>Outer JBeam shell around the frame.</figcaption>
+              <a href="/assets/images/BeamNG.cad/joints-workspace.png" aria-label="View the joint-authoring interface at full size">
+                <img src="/assets/images/BeamNG.cad/joints-workspace.png" width="1100" height="740" loading="lazy" alt="Joint-authoring interface with a hardpoint list and a highlighted front-left wheel hub in the reference vehicle preview.">
+              </a>
+              <figcaption><strong>Defining the mechanism.</strong> The add-in connects reviewed CAD references to suspension and steering hardpoints. This interface example shows a test fixture awaiting CAD assignments.</figcaption>
             </figure>
             <figure class="projectEntryPanel beamngMedia">
-              <img src="/assets/images/BeamNG.cad/JBeam%20w%20Internals.png" width="632" height="620" loading="lazy" alt="Generated JBeam wireframe showing the outer shell and dense internal bracing in Blender.">
-              <figcaption>JBeam structure with internal bracing.</figcaption>
+              <a href="/assets/images/BeamNG.cad/steady-speed-summary-20261012.png" aria-label="View the steady-speed test plots at full size">
+                <img src="/assets/images/BeamNG.cad/steady-speed-summary-20261012.png" width="1820" height="560" loading="lazy" alt="Plots comparing CAD-predicted and measured front steering, toe residuals, and path curvature at 18, 36, and 54 kilometres per hour.">
+              </a>
+              <figcaption><strong>Checking motion against CAD.</strong> Two repeat recordings at each speed produced identical driving telemetry. Measured front steering closely followed the CAD prediction at the observed suspension travel; these tests also recorded the remaining curved path.</figcaption>
+            </figure>
+            <figure class="projectEntryPanel beamngMedia">
+              <a href="/assets/images/BeamNG.cad/shock-recovery-20261012.png" aria-label="View the suspension recovery plots at full size">
+                <img src="/assets/images/BeamNG.cad/shock-recovery-20261012.png" width="1400" height="980" loading="lazy" alt="Shock compression and travel-stop force over time for zero, 250, 500, and 1,000 newton front-right hub loads, showing recovery after release.">
+              </a>
+              <figcaption><strong>Loading and recovery.</strong> The front-right suspension returned to its pre-load state after controlled loads up to 1,000 N. These bounded tests demonstrate recovery in the simulation; real-vehicle correlation remains ongoing.</figcaption>
             </figure>
           </div>
         </section>
@@ -124,9 +134,9 @@
           <details class="projectMetaDetails">
             <summary>
               <span>Skills</span>
-              <span class="projectMetaPreview"><span class="projectPill">SolidWorks</span><span class="projectPill">Blender</span><span class="projectPill">Python</span></span>
+              <span class="projectMetaPreview"><span class="projectPill">SolidWorks API</span><span class="projectPill">C#/.NET</span><span class="projectPill">Python</span></span>
             </summary>
-            <div class="projectPills"><span class="projectPill">SolidWorks</span><span class="projectPill">Blender</span><span class="projectPill">Python</span><span class="projectPill">Geometry processing</span><span class="projectPill">Simulation integration</span></div>
+            <div class="projectPills"><span class="projectPill">SolidWorks API</span><span class="projectPill">C#/.NET</span><span class="projectPill">Python</span><span class="projectPill">Geometry processing</span><span class="projectPill">Vehicle simulation</span><span class="projectPill">Automated testing</span></div>
           </details>
         </div>
       </article>

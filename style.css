@@ -3375,7 +3375,7 @@ ul.gearList.gearList--poster{
 
 
 
-/* BeamNG progress images keep the full frame and bracing visible. */
+/* Keep complete vehicle screenshots and measurement plots visible. */
 .beamngDetail .projectEntryHead{
   flex-wrap: wrap;
 }
@@ -3402,6 +3402,13 @@ ul.gearList.gearList--poster{
 }
 .beamngMedia{
   margin: 0;
+}
+.beamngEvidence{
+  display: grid;
+  gap: 1rem;
+}
+.beamngMedia a{
+  display: block;
 }
 .beamngDetail .projectEntryPanel li{
   margin-bottom: 0.4rem;

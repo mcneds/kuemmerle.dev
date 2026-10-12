@@ -1372,15 +1372,17 @@ document.querySelectorAll(".tile").forEach(tile => {
       id: "construction-beamng-cad",
       category: "construction",
       type: "detail",
-      detailUrl: "/construction/beamng-cad/",
-      title: "BeamNG.cad \u2014 SolidWorks to Simulation",
-      hero: "/assets/images/BeamNG.cad/Ingame.png",
-      heroAspect: "1048 / 723",
-      alt: "SolidWorks-derived Baja SAE frame imported into BeamNG, in the foreground of the simulation scene.",
-      problem: "Our Baja SAE team needs a rapid way to set up simulations as vehicle designs evolve. Frequent member turnover makes specialist knowledge difficult to retain, and training each new generation of students to maintain a BeamNG mod requires significant knowledge transfer. Relying on always having a BeamNG modding expert makes simulation harder to sustain across team changes.",
-      solution: "I developed Python and Blender tooling to turn a SolidWorks frame model into a BeamNG simulation structure, connect the visible frame geometry to simulation nodes, and package the result as a mod. Automating these specialist steps is intended to shorten setup time and make the workflow easier for incoming team members to repeat. The frame is now in BeamNG; beam strength optimization and calibration are ongoing.",
+      detailUrl: "https://beamng-cad.mcneds.dev/",
+      detailLabel: "Open project wiki",
+      detailNewTab: true,
+      title: "BeamNG.cad \u2014 From SolidWorks to a Tuned Vehicle",
+      hero: "/assets/images/BeamNG.cad/motion-mass16-rendered-20261012.png",
+      heroAspect: "16 / 9",
+      alt: "Complete CAD-derived Baja SAE development vehicle in BeamNG, with frame, body panels, drivetrain, wheels, and coilover suspension.",
+      problem: "As our Baja SAE vehicle designs evolve, rebuilding a simulation by hand takes time and specialist knowledge. Student turnover makes that expertise difficult to retain, so the workflow needs to be repeatable for future team members.",
+      solution: "I built a C# SolidWorks add-in with Python geometry, calibration, and vehicle-generation tools. The pipeline now produces a complete, drivable vehicle, with a well-tuned development build reached through iterative testing of its structure, suspension, steering, and drivetrain. Automated tests compare motion with the source CAD geometry; physical correlation with the real vehicle remains ongoing.",
       tags: ["Baja SAE", "BeamNG", "In progress", "JBeam", "Automation", "Knowledge transfer"],
-      skills: ["SolidWorks", "Blender", "Python", "Geometry processing", "Simulation integration"]
+      skills: ["SolidWorks API", "C#/.NET", "Python", "Geometry processing", "Vehicle simulation", "Automated testing"]
     },
     {
       id: "construction-modulus-drawer-system",
@@ -1493,8 +1495,8 @@ document.querySelectorAll(".tile").forEach(tile => {
     const detailLink = entry.type === "detail" && entry.detailUrl
       ? {
           href: entry.detailUrl,
-          label: "Open full project page",
-          newTab: false
+          label: entry.detailLabel || "Open full project page",
+          newTab: Boolean(entry.detailNewTab)
         }
       : null;
     const actionLink = !detailLink && entry.actionUrl
@@ -1642,10 +1644,13 @@ document.querySelectorAll(".tile").forEach(tile => {
           crossList.innerHTML = crossMatches
             .map((entry) => {
               const href = linkForEntry(entry);
+              const newTab = entry.type === "detail" && entry.detailUrl
+                ? Boolean(entry.detailNewTab)
+                : Boolean(entry.actionUrl && entry.actionNewTab);
               const sectionLabel = sectionLabelByCategory[entry.category] || "Other";
               return `
                 <li>
-                  <a href="${escapeHtml(href)}">
+                  <a href="${escapeHtml(href)}"${newTab ? ' target="_blank" rel="noopener noreferrer"' : ""}>
                     <span>${escapeHtml(entry.title)}</span>
                     <span class="projectCrossSection">(${escapeHtml(sectionLabel)})</span>
                   </a>
