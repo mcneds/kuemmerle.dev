@@ -2,3 +2,11 @@
   Cache-Control: no-store
 /main.js
   Cache-Control: no-store
+/auth.md
+  Content-Type: text/markdown; charset=utf-8
+/.well-known/agent-skills/index.json
+  Content-Type: application/json; charset=utf-8
+  Cache-Control: no-cache
+/.well-known/agent-skills/portfolio-navigation/SKILL.md
+  Content-Type: text/markdown; charset=utf-8
+  Cache-Control: no-cache

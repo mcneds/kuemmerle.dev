@@ -1,3 +1,88 @@
+// WebMCP is optional: ordinary browsers continue using the existing controls.
+(() => {
+  const modelContext = document.modelContext || navigator.modelContext;
+  if (!modelContext || typeof modelContext.registerTool !== "function") return;
+
+  const sections = {
+    home: "/",
+    projects: "/projects/",
+    quick: "/quick/",
+    construction: "/construction/",
+    resume: "/resume/",
+    contact: "/contact/",
+    fun: "/fun/"
+  };
+  const tools = [
+    {
+      name: "navigate_portfolio",
+      description: "Open a section of Aiden Kuemmerle's portfolio in this tab. Does not submit forms. Content use remains subject to /robots.txt.",
+      inputSchema: {
+        type: "object",
+        properties: { section: { type: "string", enum: Object.keys(sections) } },
+        required: ["section"],
+        additionalProperties: false
+      },
+      execute: async ({ section } = {}) => {
+        if (!Object.hasOwn(sections, section)) throw new Error("Unknown portfolio section.");
+        window.location.assign(sections[section]);
+        return { url: sections[section] };
+      }
+    },
+    {
+      name: "search_portfolio_projects",
+      description: "Filter the visible project library by a phrase, including cross-section matches. Opens the project library when needed. An empty query clears the filter. Content use remains subject to /robots.txt.",
+      inputSchema: {
+        type: "object",
+        properties: { query: { type: "string", maxLength: 200 } },
+        required: ["query"],
+        additionalProperties: false
+      },
+      execute: async ({ query } = {}) => {
+        if (typeof query !== "string" || query.length > 200) {
+          throw new Error("Query must be a string of at most 200 characters.");
+        }
+        const input = document.querySelector("[data-project-search]");
+        if (!input) {
+          const url = `/projects/?${new URLSearchParams({ q: query })}`;
+          window.location.assign(url);
+          return { url };
+        }
+        input.value = query;
+        input.dispatchEvent(new Event("input", { bubbles: true }));
+        return { status: "Project filter updated." };
+      }
+    }
+  ];
+
+  let controller;
+  const registerTools = () => {
+    controller = new AbortController();
+    for (const tool of tools) {
+      try {
+        Promise.resolve(modelContext.registerTool(tool, { signal: controller.signal }))
+          .catch(error => console.warn(`WebMCP registration failed: ${tool.name}`, error));
+      } catch (error) {
+        console.warn(`WebMCP registration failed: ${tool.name}`, error);
+      }
+    }
+  };
+  registerTools();
+  window.addEventListener("pagehide", () => {
+    controller.abort();
+    // Support early navigator.modelContext implementations without signal cleanup.
+    if (typeof modelContext.unregisterTool === "function") {
+      for (const tool of tools) {
+        try {
+          Promise.resolve(modelContext.unregisterTool(tool.name)).catch(() => {});
+        } catch (_) { /* The signal may have already removed the tool. */ }
+      }
+    }
+  });
+  window.addEventListener("pageshow", event => {
+    if (event.persisted) registerTools();
+  });
+})();
+
 const header = document.getElementById("sceneHeader");
 const toggle = document.getElementById("toggleHeader");
 
@@ -1675,6 +1760,8 @@ document.querySelectorAll(".tile").forEach(tile => {
       });
     }
 
+    const initialQuery = new URLSearchParams(window.location.search).get("q");
+    if (initialQuery !== null) input.value = initialQuery;
     applyFilter();
   });
 

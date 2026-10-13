@@ -1,0 +1,12 @@
+{
+  "$schema": "https://schemas.agentskills.io/discovery/0.2.0/schema.json",
+  "skills": [
+    {
+      "name": "portfolio-navigation",
+      "type": "skill-md",
+      "description": "Navigate kuemmerle.dev and operate its project filters when a user asks to open a portfolio section or locate a project.",
+      "url": "https://kuemmerle.dev/.well-known/agent-skills/portfolio-navigation/SKILL.md",
+      "digest": "sha256:5c558be815e5504accac2512052dc244db119ac2c9764d98a6c37dad3f73b13e"
+    }
+  ]
+}

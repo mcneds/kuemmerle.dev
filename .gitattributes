@@ -1,0 +1,2 @@
+# Discovery digests must match the bytes served after checkout on any platform.
+/.well-known/agent-skills/** text eol=lf
