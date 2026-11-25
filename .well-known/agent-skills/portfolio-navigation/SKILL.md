@@ -32,7 +32,8 @@ further context.
 On `/fun/lithophane-renderer/`, use `get_demo_state` to read the current
 settings and limits. Use `set_demo_parameters` to change `resolutionPercent`,
 `minThicknessMm`, or `maxThicknessMm` in the open preview. The user selects
-images and downloads exports through the page controls.
+images and downloads exports through the page controls. The preview reports the
+applied resolution and mesh size when a loaded image reaches the vertex limit.
 
 ## Ordinary browser fallback
 

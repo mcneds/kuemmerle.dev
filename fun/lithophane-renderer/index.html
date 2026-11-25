@@ -54,6 +54,8 @@
       <h1>Lithophane Shader Renderer</h1>
       <p class="muted lithoIntro">Modernized from the old Netlify build with updated rendering defaults, cleaner controls, and direct OBJ export.</p>
 
+      <p id="lithoStartupError" role="alert" hidden></p>
+
       <div class="lithoLayout">
         <aside class="lithoPanel">
           <label class="lithoField">
@@ -109,6 +111,16 @@
     <div>&copy; 2026 kuemmerle.dev</div>
   </footer>
 
-  <script type="module" src="/fun/lithophane-renderer/lithophane.js"></script>
+  <script type="module">
+    import("/fun/lithophane-renderer/lithophane.js").catch((error) => {
+      const message = document.getElementById("lithoStartupError");
+      message.textContent = "The 3D preview could not start. Try a browser with WebGL enabled, then reload.";
+      message.hidden = false;
+      for (const control of document.querySelectorAll(".lithoPanel input, .lithoPanel button")) {
+        control.disabled = true;
+      }
+      console.error("Could not start the lithophane preview:", error);
+    });
+  </script>
 </body>
 </html>

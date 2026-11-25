@@ -202,19 +202,41 @@ const combineImagesHorizontally = async (files) => {
 
 const normalizedResolution = () => Math.max(5, Math.min(100, Number(resolutionInput.value || 35)));
 
-const computeSegments = () => {
-  const pct = normalizedResolution() / 100;
-  const sx = Math.max(1, Math.floor(sourceImageWidth * pct));
-  const sy = Math.max(1, Math.floor(sourceImageHeight * pct));
-  return { sx, sy };
+const MAX_MESH_VERTICES = 500_000;
+
+const computeMeshBudget = (requestedPercent) => {
+  const meshAt = (percent) => {
+    const sx = Math.max(1, Math.floor(sourceImageWidth * percent / 100));
+    const sy = Math.max(1, Math.floor(sourceImageHeight * percent / 100));
+    // BoxGeometry has a separate grid for each face, with one segment through the thickness.
+    const vertices = 2 * (sx + 1) * (sy + 1) + 4 * (sx + sy + 2);
+    return { sx, sy, vertices };
+  };
+
+  const requested = meshAt(requestedPercent);
+  if (requested.vertices <= MAX_MESH_VERTICES) {
+    return { ...requested, appliedResolutionPercent: requestedPercent, limited: false };
+  }
+
+  // Find the highest uniform resolution in hundredths of a percent that fits.
+  let low = 0;
+  let high = Math.round(requestedPercent * 100);
+  while (low < high) {
+    const midpoint = Math.ceil((low + high) / 2);
+    if (meshAt(midpoint / 100).vertices <= MAX_MESH_VERTICES) low = midpoint;
+    else high = midpoint - 1;
+  }
+  const appliedResolutionPercent = low / 100;
+  return { ...meshAt(appliedResolutionPercent), appliedResolutionPercent, limited: true };
 };
 
 const rebuildGeometry = () => {
   if (!sourceTexture) {
-    updateStats(0, 0);
+    updateStats(null);
     return;
   }
-  const { sx, sy } = computeSegments();
+  const mesh = computeMeshBudget(normalizedResolution());
+  const { sx, sy } = mesh;
   const width = sourceImageWidth * baseScale;
   const depth = sourceImageHeight * baseScale;
   const minT = Number(minThicknessInput.value || 1.2);
@@ -226,21 +248,32 @@ const rebuildGeometry = () => {
   geometryState.height = avgThickness;
   geometryState.depth = depth;
 
-  const newGeom = new THREE.BoxGeometry(width, avgThickness, depth, sx, sy, sx);
+  const newGeom = new THREE.BoxGeometry(width, avgThickness, depth, sx, 1, sy);
   lithoMesh.geometry.dispose();
   lithoMesh.geometry = newGeom;
   lithoMaterial.uniforms.minHeight.value = minT;
   lithoMaterial.uniforms.maxHeight.value = safeMax;
-  updateStats(sx, sy);
+  updateStats(mesh);
 };
 
-const updateStats = (sx, sy) => {
-  if (!sx || !sy) {
-    statsEl.innerHTML = "<div>Segments: -- x --</div><div>Vertices: --</div>";
+const updateStats = (mesh) => {
+  if (!mesh) {
+    statsEl.textContent = "Select an image to see mesh statistics.";
     return;
   }
-  const vertices = (sx + 1) * (sy + 1);
-  statsEl.innerHTML = `<div>Segments: ${sx} x ${sy}</div><div>Vertices: ${vertices.toLocaleString()}</div>`;
+  const { sx, sy, vertices, appliedResolutionPercent, limited } = mesh;
+  const resolution = limited
+    ? `Applied resolution: ${appliedResolutionPercent.toFixed(2)}% (mesh limit)`
+    : `Applied resolution: ${appliedResolutionPercent}%`;
+  statsEl.replaceChildren(...[
+    `Segments: ${sx} × ${sy}`,
+    `Vertices: ${vertices.toLocaleString()}`,
+    resolution
+  ].map((text) => {
+    const row = document.createElement("div");
+    row.textContent = text;
+    return row;
+  }));
 };
 
 const fitCameraToMesh = () => {
@@ -371,13 +404,20 @@ animate();
   const limits = Object.fromEntries(Object.entries(inputs).map(([key, input]) => [
     key, { min: Number(input.min), max: Number(input.max), step: Number(input.step) }
   ]));
-  const getState = () => ({
-    demo: "lithophane",
-    parameters: Object.fromEntries(Object.entries(inputs).map(([key, input]) => [key, Number(input.value)])),
-    limits,
-    imageLoaded: Boolean(sourceTexture),
-    segments: sourceTexture ? computeSegments() : null
-  });
+  const getState = () => {
+    const mesh = sourceTexture ? computeMeshBudget(normalizedResolution()) : null;
+    return {
+      demo: "lithophane",
+      parameters: Object.fromEntries(Object.entries(inputs).map(([key, input]) => [key, Number(input.value)])),
+      limits,
+      imageLoaded: Boolean(sourceTexture),
+      segments: mesh ? { sx: mesh.sx, sy: mesh.sy } : null,
+      vertices: mesh?.vertices ?? null,
+      appliedResolutionPercent: mesh?.appliedResolutionPercent ?? null,
+      resolutionLimited: mesh?.limited ?? false,
+      meshVertexLimit: MAX_MESH_VERTICES
+    };
+  };
 
   const tools = [
     {
