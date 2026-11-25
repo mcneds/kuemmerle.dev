@@ -16,11 +16,11 @@ When WebMCP is available, use `navigate_portfolio` with a `section` of `home`,
 `projects`, `quick`, `construction`, `resume`, `contact`, or `fun`.
 This opens the selected section in the current tab.
 
-Use `search_portfolio_projects` with a `query` of up to 200 characters to
-update the visible project filter. It searches titles, project descriptions,
-tags, and skills. Results include links to matches in other project sections.
-An empty query clears the filter. From a page without a project library,
-the tool opens `/projects/?q=<URL-encoded query>`.
+Use `search_portfolio_projects` with a `query` of up to 200 characters.
+It matches words across titles, descriptions, tags, and skills in all sections.
+The tool returns matching titles, summaries, and URLs, including related links.
+On a project library page it also updates the visible filter. An empty query
+returns the full catalog and clears the filter when present.
 
 ## Ordinary browser fallback
 
