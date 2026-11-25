@@ -1255,18 +1255,34 @@ document.querySelectorAll(".tile").forEach(tile => {
       }
     };
 
-    input.addEventListener("input", applyFilter);
+    const updateSearch = () => {
+      const query = input.value.trim();
+      const url = new URL(window.location.href);
+      if (query) url.searchParams.set("q", query);
+      else url.searchParams.delete("q");
+
+      if (url.href !== window.location.href) {
+        window.history.replaceState(window.history.state, "", url.href);
+      }
+      applyFilter();
+    };
+
+    const restoreSearch = () => {
+      input.value = new URLSearchParams(window.location.search).get("q") ?? "";
+      applyFilter();
+    };
+
+    input.addEventListener("input", updateSearch);
     if (clearButton) {
       clearButton.addEventListener("click", () => {
         input.value = "";
         input.focus();
-        applyFilter();
+        updateSearch();
       });
     }
 
-    const initialQuery = new URLSearchParams(window.location.search).get("q");
-    if (initialQuery !== null) input.value = initialQuery;
-    applyFilter();
+    window.addEventListener("popstate", restoreSearch);
+    restoreSearch();
 
     const search = input.closest(".projectSearchShell");
     if (search) search.hidden = false;
