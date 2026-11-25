@@ -79,7 +79,7 @@
           </section>
           <section class="projectEntryPanel">
             <h3>Solution</h3>
-            <p>I built a SolidWorks add-in in C#, supported by Python geometry, calibration, and vehicle-generation tools. It captures selected CAD components, material properties, and reviewed joint definitions, generates the BeamNG physics structure, connects the visible geometry, and packages the vehicle as a mod.</p>
+            <p id="contribution" data-project-fact="role">I built a SolidWorks add-in in C#, supported by Python geometry, calibration, and vehicle-generation tools. It captures selected CAD components, material properties, and reviewed joint definitions, generates the BeamNG physics structure, connects the visible geometry, and packages the vehicle as a mod.</p>
             <p>The workflow now covers the frame, suspension linkages, steering, wheels, drivetrain, and component mounts. Automated tests record vehicle motion and compare suspension behavior with the source CAD geometry, helping identify where the generated model needs refinement.</p>
           </section>
         </div>
@@ -90,13 +90,13 @@
             <p>The pipeline has progressed from importing a frame to producing a tuned vehicle that can be driven and evaluated in BeamNG.</p>
             <ul>
               <li>Complete vehicle generation and standalone mod packaging from reviewed CAD inputs.</li>
-              <li>Repeated tests held 18, 36, and 54 km/h without broken beams or reported instability.</li>
+              <li id="steady-speed-test" data-project-fact="validation">Repeated tests held 18, 36, and 54 km/h without broken beams or reported instability.</li>
               <li>Controlled suspension loading demonstrated recovery after release, providing measurable evidence alongside driving feedback.</li>
             </ul>
           </section>
           <section class="projectEntryPanel">
             <h3>Next Steps</h3>
-            <p>I’m refining physical accuracy using measured shock and tire specifications, improving numerical mass and inertia, and extending validation to more demanding driving and impact conditions. The current build provides a working foundation for that development; correlation with the real vehicle remains ongoing.</p>
+            <p id="remaining-validation" data-project-fact="limitations">I’m refining physical accuracy using measured shock and tire specifications, improving numerical mass and inertia, and extending validation to more demanding driving and impact conditions. The current build provides a working foundation for that development; correlation with the real vehicle remains ongoing.</p>
           </section>
         </div>
 
@@ -119,7 +119,7 @@
               <a href="/assets/images/BeamNG.cad/shock-recovery-20261012.png" aria-label="View the suspension recovery plots at full size">
                 <img src="/assets/images/BeamNG.cad/shock-recovery-20261012.png" width="1400" height="980" loading="lazy" alt="Shock compression and travel-stop force over time for zero, 250, 500, and 1,000 newton front-right hub loads, showing recovery after release.">
               </a>
-              <figcaption><strong>Loading and recovery.</strong> The front-right suspension returned to its pre-load state after controlled loads up to 1,000 N. These bounded tests demonstrate recovery in the simulation; real-vehicle correlation remains ongoing.</figcaption>
+              <figcaption id="load-recovery-test" data-project-fact="validation"><strong>Loading and recovery.</strong> The front-right suspension returned to its pre-load state after controlled loads up to 1,000 N. These bounded tests demonstrate recovery in the simulation; real-vehicle correlation remains ongoing.</figcaption>
             </figure>
           </div>
         </section>

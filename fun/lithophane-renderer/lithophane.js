@@ -358,3 +358,87 @@ syncThicknessLabels();
 fitCameraToMesh();
 resize();
 animate();
+
+(() => {
+  const modelContext = document.modelContext || navigator.modelContext;
+  if (typeof modelContext?.registerTool !== "function") return;
+
+  const inputs = {
+    resolutionPercent: resolutionInput,
+    minThicknessMm: minThicknessInput,
+    maxThicknessMm: maxThicknessInput
+  };
+  const limits = Object.fromEntries(Object.entries(inputs).map(([key, input]) => [
+    key, { min: Number(input.min), max: Number(input.max), step: Number(input.step) }
+  ]));
+  const getState = () => ({
+    demo: "lithophane",
+    parameters: Object.fromEntries(Object.entries(inputs).map(([key, input]) => [key, Number(input.value)])),
+    limits,
+    imageLoaded: Boolean(sourceTexture),
+    segments: sourceTexture ? computeSegments() : null
+  });
+
+  const tools = [
+    {
+      name: "get_demo_state",
+      description: "Read the lithophane preview settings, slider limits, and mesh segment counts.",
+      annotations: { readOnlyHint: true },
+      inputSchema: { type: "object", properties: {}, additionalProperties: false },
+      execute: getState
+    },
+    {
+      name: "set_demo_parameters",
+      description: "Adjust lithophane preview resolution or thickness in the current tab. Returns the applied settings.",
+      inputSchema: {
+        type: "object",
+        properties: Object.fromEntries(Object.entries(limits).map(([key, { min, max }]) => [
+          key, { type: "number", minimum: min, maximum: max }
+        ])),
+        minProperties: 1,
+        additionalProperties: false
+      },
+      execute: (requested = {}) => {
+        const updates = Object.entries(requested);
+        if (!updates.length) return { error: "Provide at least one preview parameter." };
+
+        for (const [key, value] of updates) {
+          if (!Object.hasOwn(inputs, key)) return { error: "Unknown preview parameter: " + key };
+          const { min, max, step } = limits[key];
+          const steps = (value - min) / step;
+          if (!Number.isFinite(value) || value < min || value > max || Math.abs(steps - Math.round(steps)) > 1e-7) {
+            return { error: `${key} must be between ${min} and ${max} in steps of ${step}.` };
+          }
+        }
+
+        const next = { ...getState().parameters, ...requested };
+        if (next.maxThicknessMm <= next.minThicknessMm) {
+          return { error: "Maximum thickness must exceed minimum thickness." };
+        }
+
+        for (const [key, value] of updates) inputs[key].value = String(value);
+        resolutionNumberInput.value = resolutionInput.value;
+        syncThicknessLabels();
+        return getState();
+      }
+    }
+  ];
+
+  let controller;
+  const register = () => {
+    controller = new AbortController();
+    for (const tool of tools) {
+      try {
+        Promise.resolve(modelContext.registerTool(tool, { signal: controller.signal }))
+          .catch((error) => console.warn(`WebMCP registration failed: ${tool.name}`, error));
+      } catch (error) {
+        console.warn(`WebMCP registration failed: ${tool.name}`, error);
+      }
+    }
+  };
+  register();
+  window.addEventListener("pagehide", () => controller.abort());
+  window.addEventListener("pageshow", (event) => {
+    if (event.persisted) register();
+  });
+})();

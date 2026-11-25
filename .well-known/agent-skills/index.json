@@ -6,7 +6,7 @@
       "type": "skill-md",
       "description": "Navigate kuemmerle.dev and operate its project filters when a user asks to open a portfolio section or locate a project.",
       "url": "https://kuemmerle.dev/.well-known/agent-skills/portfolio-navigation/SKILL.md",
-      "digest": "sha256:9e9e45c21924dfbbb0a50183c46458b62a140b20042c413317364ac0fe487a06"
+      "digest": "sha256:b8f262cb1780e639d50d9bd409704af346f37f25bd49a3e49d44ba51c81ebc5d"
     }
   ]
 }

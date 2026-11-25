@@ -166,7 +166,7 @@
           <h3>Validation and Results</h3>
           <p class="gestureSectionLead">The team compared simulated and measured magnetic field values after global alignment to check whether the simplified field model still described real hardware behavior well enough to be useful.</p>
           <div class="gestureMetricsGrid">
-            <article class="gestureMetricCard">
+            <article id="pearson-correlation" class="gestureMetricCard" data-project-fact="validation">
               <h4>Pearson Correlation</h4>
               <p><strong>r = 0.834</strong></p>
               <p>Strong linear agreement between simulated and measured field values.</p>
@@ -193,7 +193,7 @@
             </article>
             <article class="gestureOverviewCard">
               <h4>Main Limitation</h4>
-              <p>Performance was limited more by observability, sampling, and data quality than by electrical resonance.</p>
+              <p id="main-limitation" data-project-fact="limitations">Performance was limited more by observability, sampling, and data quality than by electrical resonance.</p>
             </article>
           </div>
         </section>
