@@ -558,6 +558,14 @@ body{
   background: rgba(255,255,255,0.03);
 }
 
+#project-entry-standalone-copper-speakers .projectEntryHero{
+  background: radial-gradient(ellipse at center, #30404b, #101923 68%);
+}
+
+#project-entry-standalone-copper-speakers .projectEntryHero img{
+  object-fit: contain;
+}
+
 .projectEntryHeroLink{
   display: block;
   width: 100%;
@@ -1707,14 +1715,6 @@ ul.gearList.gearList--poster{
 
 .funEntryHero--terrain img{
   object-position: center 60%;
-}
-
-.funEntryHero--copperSpeakers{
-  background: radial-gradient(ellipse at center, #30404b, #101923 68%);
-}
-
-.funEntryHero--copperSpeakers img{
-  object-fit: contain;
 }
 
 .funEntryHero img.funEntryHeroGifToy{

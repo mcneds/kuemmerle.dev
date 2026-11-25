@@ -737,6 +737,49 @@
           </div>
         </article>
 
+        <article id="project-entry-standalone-copper-speakers" class="projectEntry" data-project-entry data-entry-id="standalone-copper-speakers">
+          <div class="projectEntryHead">
+            <div>
+              <h2 class="projectEntryTitle">Copper Speakers</h2>
+            <p class="projectEntryType">Single-entry snapshot</p>
+            </div>
+            <span class="projectEntryBadge">Single entry</span>
+          </div>
+          <figure class="projectEntryHero">
+            <img loading="lazy" src="/assets/images/copper-speakers.png" alt="Copper Speakers project icon">
+          </figure>
+          <div class="projectEntryBody">
+            <section class="projectEntryPanel">
+              <h3>Problem Definition</h3>
+              <p>I wanted Minecraft players to wire a jukebox to speakers and hear the same disc in multiple locations, including when the wiring changed during playback.</p>
+            </section>
+            <section class="projectEntryPanel">
+              <h3>Problem Solution</h3>
+              <p>I built a server-side Fabric mod that tracks the wiring as blocks change while preserving standard jukebox, hopper, and redstone behavior.<br>To attach a speaker in the middle of a track, the server moves an already-playing sound source to it without starting the song again. Built-in discs share a decoded audio buffer to reduce startup differences between speakers. I instrumented Java client playback to measure timing and built a Geyser bundle with resource packs and mappings for Bedrock clients.</p>
+            </section>
+          </div>
+          <div class="projectEntryMeta">
+            <details class="projectMetaDetails" open>
+              <summary>
+                <span>Tags</span>
+                <span class="projectMetaPreview"><span class="projectPill">Minecraft mod</span><span class="projectPill">Positional audio</span><span class="projectPill">Java and Bedrock</span></span>
+              </summary>
+              <div class="projectPills"><span class="projectPill">Minecraft mod</span><span class="projectPill">Positional audio</span><span class="projectPill">Java and Bedrock</span></div>
+            </details>
+            <details class="projectMetaDetails" open>
+              <summary>
+                <span>Skills</span>
+                <span class="projectMetaPreview"><span class="projectPill">Java</span><span class="projectPill">Fabric</span><span class="projectPill">Graph traversal</span></span>
+              </summary>
+              <div class="projectPills"><span class="projectPill">Java</span><span class="projectPill">Fabric</span><span class="projectPill">Graph traversal</span><span class="projectPill">Audio timing instrumentation</span><span class="projectPill">Polymer and Geyser</span></div>
+            </details>
+          </div>
+
+          <div class="projectEntryActions">
+            <a class="projectEntryLink"  href="https://github.com/mcneds/Copper-Speakers" target="_blank" rel="noopener noreferrer">View Copper Speakers on GitHub</a>
+          </div>
+        </article>
+
         <article id="project-entry-construction-timberline-trail-system" class="projectEntry projectEntry--detail" data-project-entry data-entry-id="construction-timberline-trail-system">
           <div class="projectEntryHead">
             <div>
