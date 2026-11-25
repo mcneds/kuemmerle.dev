@@ -6,10 +6,9 @@ description: Navigate kuemmerle.dev and operate its project filters when a user 
 # Navigate kuemmerle.dev
 
 This public portfolio requires no login or agent registration. Access details
-are at https://kuemmerle.dev/auth.md. Content-use preferences are at
-https://kuemmerle.dev/robots.txt and apply when using these tools too;
-discovery and tool availability do not grant permission for AI training
-or AI input.
+are at https://kuemmerle.dev/auth.md. The content-use policy at
+https://kuemmerle.dev/robots.txt allows search and AI summaries of public content.
+AI training is disallowed.
 
 ## Browser navigation
 
@@ -32,5 +31,5 @@ search input and Clear button. Detailed projects have their own pages;
 smaller entries use anchors within a library. Use the displayed project
 links rather than constructing URLs from titles.
 
-The contact form sends an external message. Navigation to `/contact/`
-does not submit it, and the browser tools provide no message-sending action.
+You may open `/contact/` or draft a message for the user. Leave form
+submission to the user.
