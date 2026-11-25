@@ -1709,6 +1709,14 @@ ul.gearList.gearList--poster{
   object-position: center 60%;
 }
 
+.funEntryHero--copperSpeakers{
+  background: radial-gradient(ellipse at center, #30404b, #101923 68%);
+}
+
+.funEntryHero--copperSpeakers img{
+  object-fit: contain;
+}
+
 .funEntryHero img.funEntryHeroGifToy{
   object-fit: cover;
   object-position: center;

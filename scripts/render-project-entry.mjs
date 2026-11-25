@@ -51,7 +51,9 @@ export const renderEntry = (entry) => {
           referrerpolicy="no-referrer-when-downgrade"
         ></iframe>
       </div>`
-    : `<img loading="lazy" src="${escapeHtml(entry.hero)}" alt="${escapeHtml(entry.alt)}"${heroMediaStyle}>`;
+    : entry.hero
+    ? `<img loading="lazy" src="${escapeHtml(entry.hero)}" alt="${escapeHtml(entry.alt)}"${heroMediaStyle}>`
+    : "";
   const detailLink = entry.type === "detail" && entry.detailUrl
     ? {
         href: entry.detailUrl,
@@ -106,9 +108,9 @@ export const renderEntry = (entry) => {
         </div>
         <span class="projectEntryBadge">${escapeHtml(badge)}</span>
       </div>
-      <figure class="projectEntryHero"${heroStyle}>
+      ${heroMarkup ? `<figure class="projectEntryHero"${heroStyle}>
         ${heroContentMarkup}
-      </figure>
+      </figure>` : ""}
       <div class="projectEntryBody">
         <section class="projectEntryPanel">
           <h3>Problem Definition</h3>
