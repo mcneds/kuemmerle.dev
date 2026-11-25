@@ -464,6 +464,12 @@
       "Fit testing",
       "Iterative prototyping",
       "Design for compatibility"
+    ],
+    "extraLinks": [
+      {
+        "href": "/quick/powder-cam-mount/",
+        "label": "Read the Powder Cam Mount case study"
+      }
     ]
   },
   {
