@@ -56,7 +56,7 @@
       <h1>Under Construction</h1>
       <p class="muted projectLibraryIntro">Long-term work in progress and ideas that are still evolving. Search scans every project field: title, problem, solution, tags, and skills.</p>
 
-      <div class="projectSearchShell">
+      <div class="projectSearchShell" hidden>
         <label class="projectSearchLabel" for="projectSearchConstruction">Search all project content</label>
         <div class="projectSearchRow">
           <input id="projectSearchConstruction" class="projectSearchInput" data-project-search type="search" placeholder="Try: chassis, modular, fabrication, system">
@@ -72,7 +72,142 @@
         <ul class="projectCrossList" data-project-cross-results></ul>
       </section>
 
-      <div class="projectEntryList" data-project-entry-list></div>
+      <div class="projectEntryList" data-project-entry-list>
+        <!-- BEGIN GENERATED PROJECT CARDS -->
+        <article id="project-entry-construction-beamng-cad" class="projectEntry projectEntry--detail" data-project-entry data-entry-id="construction-beamng-cad">
+          <div class="projectEntryHead">
+            <div>
+              <a class="projectEntryHeadingLink" href="https://beamng-cad.mcneds.dev/" target="_blank" rel="noopener noreferrer">
+              <h2 class="projectEntryTitle">BeamNG.cad — From SolidWorks to a Tuned Vehicle</h2>
+              <p class="projectEntryType">Detailed project page</p>
+            </a>
+            </div>
+            <span class="projectEntryBadge">Detailed</span>
+          </div>
+          <figure class="projectEntryHero" style="aspect-ratio: 16 / 9;">
+            <a class="projectEntryHeroLink" href="https://beamng-cad.mcneds.dev/" target="_blank" rel="noopener noreferrer" aria-label="Open project wiki: BeamNG.cad — From SolidWorks to a Tuned Vehicle">
+            <img loading="lazy" src="/assets/images/BeamNG.cad/motion-mass16-rendered-20261012.png" alt="Complete CAD-derived Baja SAE development vehicle in BeamNG, with frame, body panels, drivetrain, wheels, and coilover suspension.">
+          </a>
+          </figure>
+          <div class="projectEntryBody">
+            <section class="projectEntryPanel">
+              <h3>Problem Definition</h3>
+              <p>As our Baja SAE vehicle designs evolve, rebuilding a simulation by hand takes time and specialist knowledge. Student turnover makes that expertise difficult to retain, so the workflow needs to be repeatable for future team members.</p>
+            </section>
+            <section class="projectEntryPanel">
+              <h3>Problem Solution</h3>
+              <p>I built a C# SolidWorks add-in with Python geometry, calibration, and vehicle-generation tools. The pipeline now produces a complete, drivable vehicle, with a well-tuned development build reached through iterative testing of its structure, suspension, steering, and drivetrain. Automated tests compare motion with the source CAD geometry; physical correlation with the real vehicle remains ongoing.</p>
+            </section>
+          </div>
+          <div class="projectEntryMeta">
+            <details class="projectMetaDetails" open>
+              <summary>
+                <span>Tags</span>
+                <span class="projectMetaPreview"><span class="projectPill">Baja SAE</span><span class="projectPill">BeamNG</span><span class="projectPill">In progress</span></span>
+              </summary>
+              <div class="projectPills"><span class="projectPill">Baja SAE</span><span class="projectPill">BeamNG</span><span class="projectPill">In progress</span><span class="projectPill">JBeam</span><span class="projectPill">Automation</span><span class="projectPill">Knowledge transfer</span></div>
+            </details>
+            <details class="projectMetaDetails" open>
+              <summary>
+                <span>Skills</span>
+                <span class="projectMetaPreview"><span class="projectPill">SolidWorks API</span><span class="projectPill">C#/.NET</span><span class="projectPill">Python</span></span>
+              </summary>
+              <div class="projectPills"><span class="projectPill">SolidWorks API</span><span class="projectPill">C#/.NET</span><span class="projectPill">Python</span><span class="projectPill">Geometry processing</span><span class="projectPill">Vehicle simulation</span><span class="projectPill">Automated testing</span></div>
+            </details>
+          </div>
+          <a class="projectEntryLink" href="https://beamng-cad.mcneds.dev/" target="_blank" rel="noopener noreferrer">Open project wiki</a>
+
+        </article>
+
+        <article id="project-entry-construction-modulus-drawer-system" class="projectEntry projectEntry--detail" data-project-entry data-entry-id="construction-modulus-drawer-system">
+          <div class="projectEntryHead">
+            <div>
+              <a class="projectEntryHeadingLink" href="/construction/modulus-drawer-system/">
+              <h2 class="projectEntryTitle">Modulus Drawers</h2>
+              <p class="projectEntryType">Detailed project page</p>
+            </a>
+            </div>
+            <span class="projectEntryBadge">Detailed</span>
+          </div>
+          <figure class="projectEntryHero">
+            <a class="projectEntryHeroLink" href="/construction/modulus-drawer-system/" aria-label="Open full project page: Modulus Drawers">
+            <img loading="lazy" src="/assets/images/modulus%20drawers/Clipped_image_20250312_200150.png" alt="Modulus drawer system concept branding">
+          </a>
+          </figure>
+          <div class="projectEntryBody">
+            <section class="projectEntryPanel">
+              <h3>Problem Definition</h3>
+              <p>Storage modules were growing ad hoc, so dimensions, labeling, and attachment methods were inconsistent, which made scaling and maintenance harder over time.</p>
+            </section>
+            <section class="projectEntryPanel">
+              <h3>Problem Solution</h3>
+              <p>I am formalizing a parameterized module standard with shared interfaces and naming rules so additions remain compatible and easier to fabricate.</p>
+            </section>
+          </div>
+          <div class="projectEntryMeta">
+            <details class="projectMetaDetails" open>
+              <summary>
+                <span>Tags</span>
+                <span class="projectMetaPreview"><span class="projectPill">Modular system</span><span class="projectPill">Workshop tooling</span><span class="projectPill">Scalability</span></span>
+              </summary>
+              <div class="projectPills"><span class="projectPill">Modular system</span><span class="projectPill">Workshop tooling</span><span class="projectPill">Scalability</span><span class="projectPill">Standardization</span><span class="projectPill">In progress</span></div>
+            </details>
+            <details class="projectMetaDetails" open>
+              <summary>
+                <span>Skills</span>
+                <span class="projectMetaPreview"><span class="projectPill">Parametric design</span><span class="projectPill">Configuration planning</span><span class="projectPill">Process design</span></span>
+              </summary>
+              <div class="projectPills"><span class="projectPill">Parametric design</span><span class="projectPill">Configuration planning</span><span class="projectPill">Process design</span><span class="projectPill">Fabrication workflow</span><span class="projectPill">Versioned iteration</span></div>
+            </details>
+          </div>
+          <a class="projectEntryLink" href="/construction/modulus-drawer-system/">Open full project page</a>
+
+        </article>
+
+        <article id="project-entry-construction-litholamps-pg" class="projectEntry" data-project-entry data-entry-id="construction-litholamps-pg">
+          <div class="projectEntryHead">
+            <div>
+              <h2 class="projectEntryTitle">Litholamps</h2>
+            <p class="projectEntryType">Single-entry snapshot</p>
+            </div>
+            <span class="projectEntryBadge">Single entry</span>
+          </div>
+          <figure class="projectEntryHero">
+            <img loading="lazy" src="/assets/images/lithodemo.png" alt="Litholamps project concept">
+          </figure>
+          <div class="projectEntryBody">
+            <section class="projectEntryPanel">
+              <h3>Problem Definition</h3>
+              <p>Turning custom lit prints into a consistent, scalable product required stronger process standardization across design and deployment.</p>
+            </section>
+            <section class="projectEntryPanel">
+              <h3>Problem Solution</h3>
+              <p>I continue refining CAD, electronics, and web tooling workflows to make Litholamps more repeatable for production and customer delivery.</p>
+            </section>
+          </div>
+          <div class="projectEntryMeta">
+            <details class="projectMetaDetails" open>
+              <summary>
+                <span>Tags</span>
+                <span class="projectMetaPreview"><span class="projectPill">Lighting product</span><span class="projectPill">Productization</span><span class="projectPill">E-commerce</span></span>
+              </summary>
+              <div class="projectPills"><span class="projectPill">Lighting product</span><span class="projectPill">Productization</span><span class="projectPill">E-commerce</span><span class="projectPill">3D printing</span><span class="projectPill">Automation</span></div>
+            </details>
+            <details class="projectMetaDetails" open>
+              <summary>
+                <span>Skills</span>
+                <span class="projectMetaPreview"><span class="projectPill">Fusion 360</span><span class="projectPill">JavaScript</span><span class="projectPill">Python</span></span>
+              </summary>
+              <div class="projectPills"><span class="projectPill">Fusion 360</span><span class="projectPill">JavaScript</span><span class="projectPill">Python</span><span class="projectPill">Process design</span><span class="projectPill">Project leadership</span></div>
+            </details>
+          </div>
+
+          <div class="projectEntryActions">
+            <a class="projectEntryLink"  href="/fun/lithophane-renderer/">Open shader demo</a>
+          </div>
+        </article>
+        <!-- END GENERATED PROJECT CARDS -->
+      </div>
     </section>
   </main>
 

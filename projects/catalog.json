@@ -1,0 +1,749 @@
+[
+  {
+    "id": "quick-gopro-ziptie-mount",
+    "category": "quick",
+    "type": "single",
+    "title": "GoPro Mount With Zip-Tie Holes",
+    "hero": "/assets/images/Misc%20Quick/goproclip%20mount.png",
+    "alt": "GoPro mount with tie-down holes for secondary retention",
+    "problem": "Adhesive-only camera mounts were high risk for expensive gear in vibration-heavy conditions.",
+    "solution": "I designed a low-profile mount with dedicated zip-tie retention paths so the camera is mechanically secured even if adhesive performance degrades.",
+    "tags": [
+      "Retention",
+      "Safety",
+      "3D printing",
+      "Field hardware",
+      "Camera mount"
+    ],
+    "skills": [
+      "Design for reliability",
+      "Stress-aware geometry",
+      "Rapid prototyping",
+      "User testing",
+      "Product refinement"
+    ]
+  },
+  {
+    "id": "quick-airpods-case-pro-max",
+    "category": "quick",
+    "type": "single",
+    "title": "AirPods Case Pro Max",
+    "hero": "/assets/images/Airpods%20Case%20Pro%20Max/blender%20render.png",
+    "alt": "Custom slim AirPods protective case concept",
+    "problem": "Most available cases were bulky or lacked a reliable closure when dropped.",
+    "solution": "I built a slim shell with an internal compliant mechanism that keeps the lid closed under impact while preserving daily usability.",
+    "tags": [
+      "Compliant mechanism",
+      "Consumer product",
+      "Drop resistance",
+      "Rapid design",
+      "3D printing"
+    ],
+    "skills": [
+      "CAD surfacing",
+      "Compliant design",
+      "Iteration loops",
+      "Prototype evaluation",
+      "Product design"
+    ]
+  },
+  {
+    "id": "quick-phone-case-dual-body",
+    "category": "quick",
+    "type": "single",
+    "title": "3D Printed Phone Case (Dual-Body)",
+    "hero": "/assets/images/phone.jfif",
+    "alt": "Dual-material phone case concept with TPU underbody",
+    "problem": "There were no solid case options for my phone model that balanced impact performance with printability.",
+    "solution": "I designed a two-part structure with a TPU underbody and rigid outer shell to improve shock absorption compared with a single hard body.",
+    "tags": [
+      "Consumer hardware",
+      "Impact design",
+      "Dual material",
+      "3D printing",
+      "Custom fit"
+    ],
+    "skills": [
+      "Parametric CAD",
+      "Material selection",
+      "Print validation",
+      "Iterative design",
+      "Product development"
+    ]
+  },
+  {
+    "id": "quick-ball-bearing-lego-hub",
+    "category": "quick",
+    "type": "single",
+    "title": "Ball Bearing Lego Wheel Hub",
+    "hero": "/assets/images/bearingHub.jfif",
+    "alt": "CAD concept for Lego wheel hub using skate bearings",
+    "problem": "Standard hubs were failing at higher RPM and torque during drift chassis testing.",
+    "solution": "I created a drop-in replacement hub using skateboard bearings to improve durability and rotational stability under load.",
+    "tags": [
+      "Lego Technic",
+      "High RPM",
+      "Custom part",
+      "3D printing",
+      "Drivetrain"
+    ],
+    "skills": [
+      "Mechanical design",
+      "Tolerance tuning",
+      "Iteration",
+      "Prototype testing",
+      "Design for load paths"
+    ]
+  },
+  {
+    "id": "quick-ikea-floor-lamp-conversion",
+    "category": "quick",
+    "type": "single",
+    "title": "IKEA PS 2014 Pendant to Floor Lamp Conversion",
+    "hero": "/assets/images/ikea lamp.jfif",
+    "alt": "IKEA PS 2014 conversion hardware prototype",
+    "problem": "The pendant form factor did not match my space and I wanted a daily-use floor lamp setup instead.",
+    "solution": "I built a printable conversion adapter and integrated wiring updates, creating a stable floor lamp configuration from the original pendant unit.",
+    "tags": [
+      "Home hardware",
+      "Conversion build",
+      "3D printing",
+      "Soldering",
+      "Daily-use design"
+    ],
+    "skills": [
+      "Mechanical adaptation",
+      "Electrical assembly",
+      "CAD modeling",
+      "Hands-on fabrication",
+      "Iteration"
+    ]
+  },
+  {
+    "id": "quick-cise-award-trophy-model",
+    "category": "quick",
+    "type": "single",
+    "title": "CISE Automotive Innovation Award Trophy Model",
+    "hero": "/assets/images/CISE/CISE%20transport%20Trophy.jpg",
+    "alt": "Physical CISE trophy and CAD recreation project",
+    "problem": "I wanted a permanent, printable version of a temporary trophy with moving functional detail.",
+    "solution": "I reverse modeled the trophy in CAD and integrated a large print-in-place bearing to preserve the signature motion element.",
+    "tags": [
+      "Reverse engineering",
+      "CAD modeling",
+      "Commemorative design",
+      "3D printing",
+      "Mechanical detail"
+    ],
+    "skills": [
+      "Fusion 360",
+      "Surface modeling",
+      "Design for print",
+      "Mechanical packaging",
+      "Iteration"
+    ]
+  },
+  {
+    "id": "quick-lithoplanes",
+    "category": "quick",
+    "type": "single",
+    "title": "LithoPlanes",
+    "hero": "/assets/images/lithoplane.jfif",
+    "alt": "LithoPlanes illuminated product concept",
+    "problem": "Litholamps needed a broader consumer product direction with better portability and convenience.",
+    "solution": "I developed a market-ready variant with remote control and rechargeable battery integration for wider adoption. Related Litholamps work now lives here: https://kuemmerle.dev/construction/#project-entry-construction-litholamps-pg",
+    "tags": [
+      "Product design",
+      "Lighting",
+      "Consumer hardware",
+      "Rechargeable",
+      "Iteration"
+    ],
+    "skills": [
+      "Mechanical design",
+      "Circuit design",
+      "3D printing",
+      "Product development",
+      "Testing"
+    ]
+  },
+  {
+    "id": "quick-arduino-sonar-gui",
+    "category": "quick",
+    "type": "single",
+    "title": "Arduino Sonar With Python GUI",
+    "hero": "/assets/images/Arduino%20Ultrasonic%20Radar/ultrasonic%20radar.jpg",
+    "alt": "Arduino sonar visualization interface",
+    "problem": "A class project needed live sensor feedback that was easy to read and debug during demonstrations.",
+    "solution": "I connected an Arduino sonar unit to a Python GUI over serial, enabling a clear real-time display for testing and presentation. Check out the repo here: https://github.com/mcneds/arduino-radar",
+    "tags": [
+      "Arduino",
+      "Sensors",
+      "Serial",
+      "Tkinter",
+      "Course project"
+    ],
+    "skills": [
+      "C++",
+      "Python",
+      "Serial communications",
+      "GUI implementation",
+      "Debug workflow"
+    ]
+  },
+  {
+    "id": "quick-grad-most-likely-template",
+    "category": "quick",
+    "type": "single",
+    "title": "Grad Most Likely To Template",
+    "hero": "/assets/images/Most Likely To.png",
+    "alt": "Web template for moderated graduation voting",
+    "problem": "Schools needed a simple, moderated, and interactive way to run class voting without complex setup.",
+    "solution": "I built a reusable web template with moderation-oriented structure so institutions can host and manage submissions quickly. View the repo: https://github.com/mcneds/Grad-Most-Likely-To-Template",
+    "tags": [
+      "Web app",
+      "Education",
+      "Moderation",
+      "Template",
+      "Interactive forms"
+    ],
+    "skills": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "API development",
+      "Online moderation workflows"
+    ]
+  },
+  {
+    "id": "quick-steganography-tool",
+    "category": "quick",
+    "type": "single",
+    "title": "Steganography Tool (Web)",
+    "hero": "/assets/images/underConstruction.jpg",
+    "heroIframe": "https://mcneds.github.io/steganography/",
+    "heroAspect": "4 / 3",
+    "alt": "Web-based steganography interface",
+    "problem": "I wanted a browser-based way to hide files in images with flexible unlock options beyond a single password model.",
+    "solution": "I rebuilt an earlier high-school concept into a web tool that supports keys, files, or passphrases for extraction workflows. Take a look at the repo here: https://github.com/mcneds/steganography",
+    "tags": [
+      "Web application",
+      "Steganography",
+      "Client tooling",
+      "Algorithms",
+      "Security concepts"
+    ],
+    "skills": [
+      "JavaScript",
+      "Algorithm design",
+      "UI implementation",
+      "File handling",
+      "Front-end architecture"
+    ]
+  },
+  {
+    "id": "quick-trigen",
+    "category": "quick",
+    "type": "single",
+    "title": "Trigen: Whole-Number Triangle Generator",
+    "hero": "/assets/images/trigen.png",
+    "alt": "Trigen whole-number triangle workflow",
+    "problem": "Constraint-based building systems need whole-number dimensions, but selecting valid triangle combinations manually is slow.",
+    "solution": "I created a heuristic-based visual generator for whole-number triangles to speed design in systems like Lego Technic and Minecraft grids. Take a look here: https://github.com/mcneds/Trigen",
+    "tags": [
+      "Math tool",
+      "Discrete systems",
+      "Geometry",
+      "Heuristics",
+      "Builder workflow"
+    ],
+    "skills": [
+      "Python",
+      "Algorithm design",
+      "Tkinter",
+      "Visualization",
+      "Constraint modeling"
+    ]
+  },
+  {
+    "id": "quick-album-poster-generator",
+    "category": "quick",
+    "type": "single",
+    "title": "Album Poster Generator",
+    "hero": "/assets/images/albumgen.png",
+    "alt": "Generated album poster concept artwork",
+    "problem": "Making stylized album posters by hand was repetitive and slow for rapid experimentation.",
+    "solution": "I built a pipeline that pulls Spotify API data and formats posters with CSS-driven layouts for quick design iteration. Try it here: https://mcneds.github.io/Album-Poster-Generator/",
+    "tags": [
+      "Creative coding",
+      "Spotify API",
+      "Poster design",
+      "Web app",
+      "Automation"
+    ],
+    "skills": [
+      "JavaScript",
+      "CSS",
+      "API integration",
+      "Graphic design",
+      "Front-end implementation"
+    ]
+  },
+  {
+    "id": "standalone-leaf-walker-platform",
+    "category": "standalone",
+    "type": "detail",
+    "detailUrl": "/projects/leaf-walker-platform/",
+    "title": "Leaf Walker: A Better Forestry Platform",
+    "hero": "/assets/images/leafwalker/leafwalkerWalking.jpg",
+    "alt": "Leaf Walker forestry platform prototype",
+    "problem": "How can a new steering system be created to lessen the effect current designs have on the ground, while making pathing through forests more efficient?",
+    "solution": "An independent virtual pivot steering system and bogey lift mechanism solve these issues, producing an immensely capable platform with a feasible path to real-world implementation.",
+    "tags": [
+      "Forestry platform",
+      "Virtual pivot steering",
+      "Sustainability",
+      "Ground-impact reduction",
+      "Pathing efficiency"
+    ],
+    "skills": [
+      "Mechanical engineering",
+      "Automotive steering geometry",
+      "Prototype testing",
+      "Iterative design",
+      "Engineering communication"
+    ]
+  },
+  {
+    "id": "standalone-arduino-line-follower",
+    "category": "standalone",
+    "type": "single",
+    "title": "Arduino Line Follower and Object Avoidance",
+    "hero": "/assets/images/line follower PID.png",
+    "heroVideo": "/assets/images/line follower PID.web.mp4",
+    "alt": "Line follower robot testing setup",
+    "problem": "The robot needed to track increasingly complex line courses while handling both movable and fixed obstacles.",
+    "solution": "I integrated infrared sensing, line-following logic, and obstacle response tuning so the platform could complete harder tracks more consistently.",
+    "tags": [
+      "Arduino",
+      "Line following",
+      "Obstacle handling",
+      "Controls",
+      "Autonomy"
+    ],
+    "skills": [
+      "C++",
+      "Sensor integration",
+      "PID tuning",
+      "Path behavior tuning",
+      "Team execution"
+    ]
+  },
+  {
+    "id": "standalone-tie-rod-tab",
+    "category": "standalone",
+    "type": "detail",
+    "detailUrl": "/projects/tie-rod-tab/",
+    "title": "Tie Rod Tab (UBC Baja SAE)",
+    "hero": "/assets/images/Tie%20Rod%20Tab/on upright with rods.jpg",
+    "alt": "Tie rod tab CAD model for UBC Baja SAE",
+    "problem": "The steering linkage mount required a compact tab design with clear manufacturability and load-path confidence.",
+    "solution": "I designed a tab mount with geometry tuned for fit-up, fabrication practicality, and stable integration into the broader steering package.",
+    "tags": [
+      "Baja SAE",
+      "Automotive",
+      "Mount design",
+      "Fabrication-ready",
+      "CAD"
+    ],
+    "skills": [
+      "Mechanical design",
+      "GD&T awareness",
+      "CAD workflow",
+      "Design review",
+      "Iteration"
+    ]
+  },
+  {
+    "id": "standalone-solidworks-sketch-exporter",
+    "category": "standalone",
+    "type": "single",
+    "actionUrl": "/projects/solidworks-sketch-viewer/",
+    "actionLabel": "Open viewer test page",
+    "actionNewTab": true,
+    "title": "SOLIDWORKS 3D Sketch Exporter and 2D Previewer",
+    "hero": "/assets/images/solidworks3DSketchExp.webp",
+    "alt": "SolidWorks add-in exporter and previewer interface concept",
+    "problem": "My BeamNG simulation pipeline tooling (WIP) required 3D sketch export, but native workflows were not streamlined for rapid iteration.",
+    "solution": "I built a custom C# SolidWorks add-in supporting multi-select export, construction filtering, axis remapping, and destination controls. A simple prokection viewer validated results and supported quick checks without leaving the CAD environment.",
+    "tags": [
+      "SOLIDWORKS",
+      "Add-in",
+      "Automation",
+      "BeamNG pipeline",
+      "Engineering tools"
+    ],
+    "skills": [
+      "C#",
+      "SOLIDWORKS API",
+      "Tool architecture",
+      "Export workflows",
+      "User-focused tooling"
+    ]
+  },
+  {
+    "id": "standalone-parkour-pathfinding-demo",
+    "category": "standalone",
+    "type": "detail",
+    "detailUrl": "/projects/walk-in-the-parkour-pathfinding/",
+    "title": "Walk in the Parkour Pathfinding Algorithm Demo",
+    "hero": "/assets/images/parkourdemo.png",
+    "heroVideo": "/assets/images/parkour/Minecraft Procedural Parkour.mp4",
+    "alt": "Voxel parkour pathfinding demonstration",
+    "problem": "Using simple randwalks or A* for platforming paths in a voxel environment led to unenjoyable or boring routes that didn't respect player engagement constraints.",
+    "solution": "I simulated player jump constraints in sampled environments and used that state to generate procedural platforming paths in an efficient way. The resulting algorithm produced more interesting routes that respected jump feasibility and engagement considerations. An implementation of this algorithm can be found here: https://kuemmerle.dev/fun/voxel-parkour/",
+    "tags": [
+      "Path finding",
+      "Voxel systems",
+      "Procedural generation",
+      "Game tooling",
+      "Simulation"
+    ],
+    "skills": [
+      "Algorithm design",
+      "C++",
+      "Java",
+      "Python",
+      "Systems simulation"
+    ]
+  },
+  {
+    "id": "standalone-elliptical-arch-bridge",
+    "category": "standalone",
+    "type": "detail",
+    "detailUrl": "/projects/standalone-elliptical-arch-bridge/",
+    "title": "Elliptical Arch Popsicle Bridge",
+    "hero": "/assets/images/Elliptical%20Arch%20Bridge/project pictures/final/finished photos/hero.jpg",
+    "alt": "Popsicle-stick bridge project concept",
+    "problem": "The 100-stick no-modification constraint created a tight optimization problem for load path and shape selection.",
+    "solution": "I developed an elliptical arch layout and iterated the structure as a first-year term project to balance stiffness and material limits.",
+    "tags": [
+      "Structural design",
+      "Bridge project",
+      "Constraint challenge",
+      "Iteration",
+      "Education"
+    ],
+    "skills": [
+      "Engineering design",
+      "FEA-informed thinking",
+      "Modeling",
+      "Project planning",
+      "Research"
+    ]
+  },
+  {
+    "id": "standalone-gopro-insta360-adapter",
+    "category": "standalone",
+    "type": "single",
+    "title": "GoPro to Insta360 Adapter",
+    "hero": "/assets/images/Misc%20Quick/tabor 1_Screenshot.jpg",
+    "alt": "GoPro to Insta360 3D printed adapter",
+    "problem": "I already had a large GoPro hardware stack, but wanted to run an Insta360 workflow without rebuilding my whole mounting ecosystem.",
+    "solution": "I created a compact adapter geometry that snaps into the existing GoPro hardware set, so camera transitions are quick and existing gear remains useful.",
+    "tags": [
+      "Adapter",
+      "Rapid build",
+      "3D printing",
+      "Camera hardware",
+      "Reuse"
+    ],
+    "skills": [
+      "CAD",
+      "Mechanical packaging",
+      "Fit testing",
+      "Iterative prototyping",
+      "Design for compatibility"
+    ]
+  },
+  {
+    "id": "standalone-drinkbot",
+    "category": "standalone",
+    "type": "single",
+    "title": "DrinkBot: Automatic Dog Water Refiller",
+    "hero": "/assets/images/drinkBot/drinkBot Wiring Diagram.png",
+    "alt": "DrinkBot hardware and electronics project",
+    "problem": "The refill system needed reliable sensing and waterproof-aware design while remaining understandable for users.",
+    "solution": "I combined strain-gage signal handling, enclosure considerations, and custom LCD behavior to produce a practical automatic refill prototype.",
+    "tags": [
+      "Embedded system",
+      "Arduino",
+      "Sensors",
+      "Waterproofing",
+      "Team project"
+    ],
+    "skills": [
+      "C++",
+      "Circuit design",
+      "Noise reduction",
+      "System integration",
+      "Prototype validation"
+    ]
+  },
+  {
+    "id": "standalone-gesture-link",
+    "category": "standalone",
+    "type": "detail",
+    "detailUrl": "/projects/gesture-link/",
+    "title": "GestureLink: Wearable Magnetic Finger Tracking",
+    "hero": "/assets/images/Gesture%20Link/hub%20render.png",
+    "alt": "GestureLink wearable magnetic finger-tracking hardware render",
+    "problem": "Touchscreens, buttons, and camera-based finger tracking all break down in motion-heavy or line-of-sight-limited situations, while existing magnetic systems are often too bulky or inaccessible for wearable developer input.",
+    "solution": "GestureLink uses a pulsed electromagnetic ring and a wrist-mounted sensor array to estimate finger pose without cameras, opening a path toward lighting-independent gesture input for XR, media control, and general-purpose interaction tooling.",
+    "tags": [
+      "Wearable input",
+      "Magnetic tracking",
+      "Finger pose",
+      "XR controls",
+      "Embedded prototype"
+    ],
+    "skills": [
+      "Sensor integration",
+      "Electromagnetic prototyping",
+      "Signal processing",
+      "Embedded systems",
+      "Hardware-software integration"
+    ]
+  },
+  {
+    "id": "standalone-parametric-shop-desk",
+    "category": "standalone",
+    "type": "single",
+    "title": "Fully Parametric Shop Desk",
+    "hero": "/assets/images/dorm maker setup.jpg",
+    "alt": "Parametric desk model for plywood and dimensional lumber builds",
+    "problem": "Small and effective space usage desk for dorm was needed but available solutions were not a great fit for the space or were prohibitively expensive.",
+    "solution": "I built a parameter-driven desk model so dimensions can be regenerated quickly for different spaces while preserving structural logic; then I fabricated the design and organized things for an affordable and customizable workspace.",
+    "tags": [
+      "Woodworking",
+      "Parametric design",
+      "Fabrication",
+      "Shop tooling",
+      "Scalable layout"
+    ],
+    "skills": [
+      "Autodesk Fusion 360",
+      "Design constraints",
+      "Build planning",
+      "Structural thinking",
+      "Documentation"
+    ]
+  },
+  {
+    "id": "standalone-lego-drift-chassis",
+    "category": "standalone",
+    "type": "single",
+    "title": "Lego Technic Drift Chassis",
+    "hero": "/assets/images/drift%20chassis.png",
+    "alt": "Lego Technic drift chassis",
+    "problem": "High-RPM drift use exposed weaknesses in stock hub durability and overall suspension tuning. It also necessitated a custom  hub solution that would perform under the high rpm and torque conditions.",
+    "solution": "I iterated drivetrain, suspension geometry, and custom hub components, building a platform that taught core vehicle dynamics concepts.",
+    "tags": [
+      "Lego Technic",
+      "Drivetrain",
+      "Suspension geometry",
+      "Vehicle dynamics",
+      "Iteration"
+    ],
+    "skills": [
+      "Mechanical engineering",
+      "Automotive packaging",
+      "3D printing",
+      "Test-driven iteration",
+      "Design refinement"
+    ]
+  },
+  {
+    "id": "standalone-lego-rock-crawler",
+    "category": "standalone",
+    "type": "single",
+    "title": "Rock Crawler Model",
+    "hero": "/assets/images/crawler.png",
+    "alt": "Lego rock crawler competition build",
+    "problem": "Competition crawling required extreme articulation, steep-angle performance, and precise control under high load.",
+    "solution": "I engineered a high-flex crawler with portal reduction, individual wheel control, and validated performance metrics across slope and obstacle tests.",
+    "tags": [
+      "Competition build",
+      "Crawling",
+      "Articulation",
+      "Portal axles",
+      "Performance testing"
+    ],
+    "skills": [
+      "Mechanical design",
+      "Vehicle setup",
+      "Testing protocols",
+      "Control strategy",
+      "Iteration"
+    ]
+  },
+  {
+    "id": "standalone-lego-defender-90",
+    "category": "standalone",
+    "type": "single",
+    "title": "Lego Technic Land Rover Defender 90 Model",
+    "hero": "/assets/images/Defender%2090/defender90.PNG",
+    "alt": "Lego Technic Defender 90 model",
+    "problem": "The model goal was realistic suspension and drivetrain behavior within Lego Technic constraints, while also implementing a realistic body design.",
+    "solution": "I built and tuned a full drivetrain and suspension implementation that balanced realism, reliability, and clean packaging, while also integrating a high torque reliable driveline.",
+    "tags": [
+      "Lego Technic",
+      "Vehicle model",
+      "Suspension",
+      "Drivetrain",
+      "Mechanical systems"
+    ],
+    "skills": [
+      "Mechanical engineering",
+      "Packaging",
+      "Iterative design",
+      "Modeling",
+      "System integration"
+    ]
+  },
+  {
+    "id": "standalone-minecraft-servers",
+    "category": "standalone",
+    "type": "single",
+    "title": "Minecraft Server Operations",
+    "hero": "/assets/images/minecraftgroup.png",
+    "alt": "Minecraft server operation and moderation",
+    "problem": "Running community servers required reliable hosting and clear moderation during complex player disputes. Develpment of new engaging features was also needed to keep the community active and growing.",
+    "solution": "I managed local and VPS deployments while handling moderation and conflict resolution to keep the community stable and active.",
+    "tags": [
+      "Server management",
+      "Community operations",
+      "Moderation",
+      "VPS",
+      "Live service"
+    ],
+    "skills": [
+      "Oracle Cloud",
+      "Linux server ops",
+      "Conflict resolution",
+      "Team leadership",
+      "Plugin development"
+    ]
+  },
+  {
+    "id": "construction-timberline-trail-system",
+    "category": "standalone",
+    "type": "detail",
+    "detailUrl": "/construction/timberline-trail-system/",
+    "title": "Timberline Trail System",
+    "hero": "/assets/images/Timberline/Wallride%20progress%2075.jpg",
+    "heroPositionY": "60%",
+    "alt": "Timberline trail system field work",
+    "problem": "Local trail usage needed ongoing routing, upkeep, and build decisions that respected terrain and long-term sustainability.",
+    "solution": "I contribute to planning and building a local mountain bike trail system with sustainable design choices and maintenance-focused execution.",
+    "tags": [
+      "Trail building",
+      "Sustainability",
+      "Mountain biking",
+      "Land stewardship",
+      "Operations"
+    ],
+    "skills": [
+      "Project management",
+      "Path finding",
+      "Skilled labor",
+      "Team leadership",
+      "Environmental awareness"
+    ]
+  },
+  {
+    "id": "construction-beamng-cad",
+    "category": "construction",
+    "type": "detail",
+    "detailUrl": "https://beamng-cad.mcneds.dev/",
+    "detailLabel": "Open project wiki",
+    "detailNewTab": true,
+    "title": "BeamNG.cad — From SolidWorks to a Tuned Vehicle",
+    "hero": "/assets/images/BeamNG.cad/motion-mass16-rendered-20261012.png",
+    "heroAspect": "16 / 9",
+    "alt": "Complete CAD-derived Baja SAE development vehicle in BeamNG, with frame, body panels, drivetrain, wheels, and coilover suspension.",
+    "problem": "As our Baja SAE vehicle designs evolve, rebuilding a simulation by hand takes time and specialist knowledge. Student turnover makes that expertise difficult to retain, so the workflow needs to be repeatable for future team members.",
+    "solution": "I built a C# SolidWorks add-in with Python geometry, calibration, and vehicle-generation tools. The pipeline now produces a complete, drivable vehicle, with a well-tuned development build reached through iterative testing of its structure, suspension, steering, and drivetrain. Automated tests compare motion with the source CAD geometry; physical correlation with the real vehicle remains ongoing.",
+    "tags": [
+      "Baja SAE",
+      "BeamNG",
+      "In progress",
+      "JBeam",
+      "Automation",
+      "Knowledge transfer"
+    ],
+    "skills": [
+      "SolidWorks API",
+      "C#/.NET",
+      "Python",
+      "Geometry processing",
+      "Vehicle simulation",
+      "Automated testing"
+    ]
+  },
+  {
+    "id": "construction-modulus-drawer-system",
+    "category": "construction",
+    "type": "detail",
+    "detailUrl": "/construction/modulus-drawer-system/",
+    "title": "Modulus Drawers",
+    "hero": "/assets/images/modulus%20drawers/Clipped_image_20250312_200150.png",
+    "alt": "Modulus drawer system concept branding",
+    "problem": "Storage modules were growing ad hoc, so dimensions, labeling, and attachment methods were inconsistent, which made scaling and maintenance harder over time.",
+    "solution": "I am formalizing a parameterized module standard with shared interfaces and naming rules so additions remain compatible and easier to fabricate.",
+    "tags": [
+      "Modular system",
+      "Workshop tooling",
+      "Scalability",
+      "Standardization",
+      "In progress"
+    ],
+    "skills": [
+      "Parametric design",
+      "Configuration planning",
+      "Process design",
+      "Fabrication workflow",
+      "Versioned iteration"
+    ]
+  },
+  {
+    "id": "construction-litholamps-pg",
+    "category": "construction",
+    "type": "single",
+    "title": "Litholamps",
+    "hero": "/assets/images/lithodemo.png",
+    "alt": "Litholamps project concept",
+    "problem": "Turning custom lit prints into a consistent, scalable product required stronger process standardization across design and deployment.",
+    "solution": "I continue refining CAD, electronics, and web tooling workflows to make Litholamps more repeatable for production and customer delivery.",
+    "tags": [
+      "Lighting product",
+      "Productization",
+      "E-commerce",
+      "3D printing",
+      "Automation"
+    ],
+    "skills": [
+      "Fusion 360",
+      "JavaScript",
+      "Python",
+      "Process design",
+      "Project leadership"
+    ],
+    "extraLinks": [
+      {
+        "href": "/fun/lithophane-renderer/",
+        "label": "Open shader demo"
+      }
+    ]
+  }
+]
