@@ -67,6 +67,29 @@ const portfolioSearch = (() => {
     contact: "/contact/",
     fun: "/fun/"
   };
+  const absoluteUrl = (path) => new URL(path, window.location.origin);
+  const relatedLinks = (entry) => (entry.extraLinks || []).map(({ href, label }) => ({
+    label,
+    url: absoluteUrl(href).href
+  }));
+
+  const projectFacts = async (entry, signal) => {
+    if (!entry.detailUrl) return { status: "catalog_only", facts: [] };
+    const url = absoluteUrl(entry.detailUrl);
+    if (url.origin !== window.location.origin) return { status: "external", facts: [] };
+
+    const response = await fetch(url.href, { signal, redirect: "error" });
+    if (!response.ok) throw new Error("Could not load the case study.");
+    const template = document.createElement("template");
+    template.innerHTML = await response.text();
+    const facts = [...template.content.querySelectorAll("main [data-project-fact][id]")].map((fact) => ({
+      kind: fact.dataset.projectFact,
+      text: fact.textContent.replace(/\s+/g, " ").trim(),
+      url: new URL("#" + encodeURIComponent(fact.id), url).href
+    }));
+    return { status: facts.length ? "available" : "unannotated", facts };
+  };
+
   const tools = [
     {
       name: "navigate_portfolio",
@@ -103,17 +126,57 @@ const portfolioSearch = (() => {
           input.value = query;
           input.dispatchEvent(new Event("input", { bubbles: true }));
         }
-        const absoluteUrl = (path) => new URL(path, window.location.origin).href;
         return {
           results: matches.map((entry) => ({
+            id: entry.id,
             title: entry.title,
             summary: entry.solution,
-            url: absoluteUrl(portfolioSearch.url(entry)),
-            links: (entry.extraLinks || []).map(({ href, label }) => ({
-              label,
-              url: absoluteUrl(href)
-            }))
+            url: absoluteUrl(portfolioSearch.url(entry)).href,
+            links: relatedLinks(entry)
           }))
+        };
+      }
+    },
+    {
+      name: "get_project_details",
+      description: "Look up a public portfolio project by its search result ID. Returns catalog details and, where available, case study facts with source links.",
+      annotations: { readOnlyHint: true },
+      inputSchema: {
+        type: "object",
+        properties: { id: { type: "string", description: "Project ID from search_portfolio_projects" } },
+        required: ["id"],
+        additionalProperties: false
+      },
+      execute: async ({ id } = {}, { signal } = {}) => {
+        if (typeof id !== "string" || !/^[a-z0-9-]+$/.test(id)) {
+          return { error: "Provide a project ID from search_portfolio_projects." };
+        }
+        let entry;
+        try {
+          entry = (await portfolioSearch.load()).find((project) => project.id === id);
+        } catch {
+          return { error: "The project catalog could not be loaded. Try again." };
+        }
+        if (!entry) return { error: "Project ID not found. Use search_portfolio_projects to find a valid ID." };
+
+        let caseStudy;
+        try {
+          caseStudy = await projectFacts(entry, signal);
+        } catch (error) {
+          if (signal?.aborted) throw error;
+          caseStudy = { status: "unavailable", facts: [] };
+        }
+        return {
+          id: entry.id,
+          title: entry.title,
+          category: entry.category,
+          problem: entry.problem,
+          approach: entry.solution,
+          skills: entry.skills,
+          tags: entry.tags,
+          url: absoluteUrl(portfolioSearch.url(entry)).href,
+          links: relatedLinks(entry),
+          caseStudy
         };
       }
     }
