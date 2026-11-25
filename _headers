@@ -10,3 +10,5 @@
 /.well-known/agent-skills/portfolio-navigation/SKILL.md
   Content-Type: text/markdown; charset=utf-8
   Cache-Control: no-cache
+/
+  Link: </llms.txt>; rel="describedby"; type="text/plain", </.well-known/agent-skills/index.json>; rel="describedby"; type="application/json"
