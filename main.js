@@ -26,6 +26,12 @@ const portfolioSearch = (() => {
     leading: "leadership"
   };
   const stopWords = new Set(["a", "an", "and", "by", "for", "in", "of", "on", "the", "to", "with"]);
+  const questionWords = new Set([
+    "aiden", "are", "can", "could", "did", "do", "does", "had", "has", "have", "he",
+    "his", "how", "into", "is", "it", "its", "kuemmerle", "me", "much", "my",
+    "portfolio", "show", "tell", "that", "their", "them", "they", "this", "was",
+    "were", "what", "when", "where", "which", "who", "why", "would", "you", "your"
+  ]);
   const words = (text) => {
     const tokens = text.toLowerCase()
       .replace(/\bdesign for manufactur(?:e|ing|ability)\b/g, "manufacturing")
@@ -73,11 +79,12 @@ const portfolioSearch = (() => {
     word === term || (term.length >= 3 && word.startsWith(term))
   );
 
-  const match = (entries, terms) => {
+  const rank = (entries, terms, minimumMatches) => {
     if (!terms.length) {
       return entries.filter((entry) => entry.type !== "experience").map((entry) => ({ entry, evidence: null }));
     }
     const unique = [...new Set(terms)];
+    const required = minimumMatches ?? unique.length;
     const phrase = terms.join(" ");
     return entries.flatMap((entry) => {
       const factFields = entry.searchFacts.map((fact) => ({
@@ -88,7 +95,7 @@ const portfolioSearch = (() => {
       const termScores = unique.map((term) =>
         Math.max(0, ...fields.filter((field) => hasTerm(field.words, term)).map((field) => field.weight))
       );
-      if (termScores.some((score) => score === 0)) return [];
+      if (termScores.filter(Boolean).length < required) return [];
 
       const evidenceRank = (fact) => unique.filter((term) => hasTerm(fact.words, term)).length * 10
         + Number(fact.kind === "validation");
@@ -103,6 +110,15 @@ const portfolioSearch = (() => {
       const evidence = best ? { kind: best.kind, text: excerpt, url: best.url } : null;
       return [{ entry, evidence, score }];
     }).sort((a, b) => b.score - a.score);
+  };
+
+  const match = (entries, terms) => {
+    const matches = rank(entries, terms);
+    if (matches.length || !terms.length) return matches;
+
+    const keywords = terms.filter((term) => term.length >= 3 && !questionWords.has(term));
+    if (keywords.length < 2) return [];
+    return rank(entries, keywords, 2);
   };
 
   const url = (entry) => {
