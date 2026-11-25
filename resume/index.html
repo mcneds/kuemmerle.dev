@@ -61,20 +61,27 @@ Bosch Section
   <main class="page">
     <section class="contentSection resumeLibrary" data-resume-library>
       <h1>Resume</h1>
-      <p class="muted resumeLibraryIntro">Use the list to switch resume variants. For now this page only exposes the coop one-page version.</p>
+      <p class="muted resumeLibraryIntro">View or download my one-page co-op resume.</p>
 
       <div class="resumeLibraryLayout">
         <aside class="resumePanel resumePanel--list">
           <h2 class="resumePanelTitle">Available Resumes</h2>
-          <ul class="resumeList" data-resume-list></ul>
+          <ul class="resumeList" data-resume-list>
+            <li>
+              <a class="resumeListButton isActive" href="/assets/resumes/coop%20resume%201page%202026.pdf" aria-current="true">
+                <span class="resumeListLabel">Co-op Resume (1 Page)</span>
+                <span class="resumeListSub">Primary public version</span>
+              </a>
+            </li>
+          </ul>
         </aside>
 
         <section class="resumePanel resumePanel--viewer">
-          <h2 class="resumePanelTitle" data-resume-title>Resume Preview</h2>
-          <p class="muted resumePanelMeta" data-resume-meta></p>
+          <h2 class="resumePanelTitle" data-resume-title>Co-op Resume (1 Page)</h2>
+          <p class="muted resumePanelMeta" data-resume-meta>Primary public version</p>
           <div class="resumeActions">
-            <a class="resumeAction resumeAction--open" data-resume-open target="_blank" rel="noopener noreferrer">Open PDF</a>
-            <a class="resumeAction resumeAction--download" data-resume-download download>Download PDF</a>
+            <a class="resumeAction resumeAction--open" href="/assets/resumes/coop%20resume%201page%202026.pdf" data-resume-open target="_blank" rel="noopener noreferrer">Open PDF</a>
+            <a class="resumeAction resumeAction--download" href="/assets/resumes/coop%20resume%201page%202026.pdf" data-resume-download download>Download PDF</a>
             <a class="resumeAction resumeAction--social" href="https://linkedin.com/in/aidenkuemmerle/" target="_blank" rel="noopener noreferrer" aria-label="View LinkedIn profile">
               <svg class="socialIcon" viewBox="0 0 24 24" aria-hidden="true">
                 <rect x="2" y="2" width="20" height="20" rx="4" fill="#0a66c2"/>
@@ -86,7 +93,7 @@ Bosch Section
             </a>
           </div>
           <div class="resumePreviewFrame">
-            <iframe class="resumePreview" data-resume-preview title="Resume PDF preview"></iframe>
+            <iframe class="resumePreview" src="/assets/resumes/coop%20resume%201page%202026.pdf#view=FitH" data-resume-preview title="Resume PDF preview"></iframe>
           </div>
         </section>
       </div>

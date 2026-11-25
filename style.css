@@ -1275,12 +1275,14 @@ ul.gearList.gearList--poster{
   margin: 0 0 0.8rem;
 }
 
+.aboutText a,
 .projectDetailBack a{
   color: rgba(200,220,255,0.94);
   text-decoration: none;
   border-bottom: 1px solid rgba(200,220,255,0.35);
 }
 
+.aboutText a:hover,
 .projectDetailBack a:hover{
   border-bottom-color: rgba(200,220,255,0.78);
 }
@@ -1402,6 +1404,7 @@ ul.gearList.gearList--poster{
 }
 
 .resumeListButton{
+  display: block;
   width: 100%;
   text-align: left;
   border: 1px solid rgba(233,233,239,0.2);
@@ -1410,6 +1413,7 @@ ul.gearList.gearList--poster{
   color: rgba(233,233,239,0.9);
   padding: 0.55rem 0.62rem;
   font: inherit;
+  text-decoration: none;
   cursor: pointer;
 }
 

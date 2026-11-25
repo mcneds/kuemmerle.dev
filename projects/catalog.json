@@ -665,9 +665,15 @@
     "id": "construction-beamng-cad",
     "category": "construction",
     "type": "detail",
-    "detailUrl": "https://beamng-cad.mcneds.dev/",
-    "detailLabel": "Open project wiki",
-    "detailNewTab": true,
+    "detailUrl": "/construction/beamng-cad/",
+    "detailLabel": "Read the BeamNG.cad case study",
+    "extraLinks": [
+      {
+        "href": "https://beamng-cad.mcneds.dev/",
+        "label": "Open project wiki",
+        "newTab": true
+      }
+    ],
     "title": "BeamNG.cad — From SolidWorks to a Tuned Vehicle",
     "hero": "/assets/images/BeamNG.cad/motion-mass16-rendered-20261012.png",
     "heroAspect": "16 / 9",

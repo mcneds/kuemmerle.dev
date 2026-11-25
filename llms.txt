@@ -1,0 +1,15 @@
+# Aiden Kuemmerle | Engineering Portfolio
+
+> Aiden Kuemmerle is an engineering student at the University of British Columbia. This portfolio covers mechanical design, CAD, prototyping, simulation, and engineering software.
+
+Public portfolio pages are available for search and AI-assisted summaries under [robots.txt](https://kuemmerle.dev/robots.txt). The contact form is intended for people to submit directly.
+
+## Portfolio
+
+- [Homepage](https://kuemmerle.dev/): Background and engineering interests.
+- [Standalone Projects](https://kuemmerle.dev/projects/): Completed engineering systems and detailed write-ups.
+- [Quick Side Quests](https://kuemmerle.dev/quick/): Small builds, tools, CAD experiments, and prototypes.
+- [Under Construction](https://kuemmerle.dev/construction/): Active projects and development milestones.
+- [BeamNG.cad case study](https://kuemmerle.dev/construction/beamng-cad/): A repeatable SolidWorks-to-BeamNG vehicle simulation workflow for UBC Baja SAE.
+- [Résumé](https://kuemmerle.dev/resume/): One-page co-op résumé with PDF links.
+- [Sitemap](https://kuemmerle.dev/sitemap.xml): Canonical URLs for published pages.

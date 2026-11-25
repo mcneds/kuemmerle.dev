@@ -1249,61 +1249,34 @@ document.querySelectorAll(".tile").forEach(tile => {
   const root = document.querySelector("[data-resume-library]");
   if (!root) return;
 
-  // Add new resume variants here as they become publication-ready.
-  const resumeCatalog = [
-    {
-      id: "coop-1page",
-      label: "Co-op Resume (1 Page)",
-      audience: "Primary public version",
-      file: "/assets/resumes/coop resume 1page 2026.pdf"
-    }
-  ];
-
-  const list = root.querySelector("[data-resume-list]");
+  const links = [...root.querySelectorAll("[data-resume-list] a[href]")];
   const title = root.querySelector("[data-resume-title]");
   const meta = root.querySelector("[data-resume-meta]");
   const preview = root.querySelector("[data-resume-preview]");
   const openLink = root.querySelector("[data-resume-open]");
   const downloadLink = root.querySelector("[data-resume-download]");
-  if (!list || !title || !meta || !preview || !openLink || !downloadLink || !resumeCatalog.length) return;
+  if (!title || !meta || !preview || !openLink || !downloadLink || links.length < 2) return;
 
-  const encodePath = (path) => encodeURI(path);
+  links.forEach((link) => {
+    link.addEventListener("click", (event) => {
+      if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      event.preventDefault();
+      if (link.getAttribute("aria-current") === "true") return;
 
-  list.innerHTML = resumeCatalog
-    .map((entry, index) => `
-      <li>
-        <button type="button" class="resumeListButton${index === 0 ? " isActive" : ""}" data-resume-id="${entry.id}">
-          <span class="resumeListLabel">${entry.label}</span>
-          <span class="resumeListSub">${entry.audience}</span>
-        </button>
-      </li>
-    `)
-    .join("");
+      const fileUrl = link.getAttribute("href");
+      title.textContent = link.querySelector(".resumeListLabel").textContent;
+      meta.textContent = link.querySelector(".resumeListSub")?.textContent ?? "";
+      preview.src = `${fileUrl}#view=FitH`;
+      openLink.href = fileUrl;
+      downloadLink.href = fileUrl;
 
-  const buttons = [...list.querySelectorAll(".resumeListButton")];
-
-  const applyResume = (id) => {
-    const entry = resumeCatalog.find((item) => item.id === id) || resumeCatalog[0];
-    const fileUrl = encodePath(entry.file);
-    title.textContent = entry.label;
-    meta.textContent = entry.audience;
-    preview.src = `${fileUrl}#view=FitH`;
-    openLink.href = fileUrl;
-    downloadLink.href = fileUrl;
-    downloadLink.setAttribute("download", entry.file.split("/").pop() || "resume.pdf");
-
-    buttons.forEach((button) => {
-      button.classList.toggle("isActive", button.dataset.resumeId === entry.id);
-    });
-  };
-
-  buttons.forEach((button) => {
-    button.addEventListener("click", () => {
-      applyResume(button.dataset.resumeId || "");
+      const previous = links.find((item) => item.getAttribute("aria-current") === "true");
+      previous?.classList.remove("isActive");
+      previous?.removeAttribute("aria-current");
+      link.classList.add("isActive");
+      link.setAttribute("aria-current", "true");
     });
   });
-
-  applyResume(resumeCatalog[0].id);
 })();
 
 (() => {
