@@ -24,6 +24,11 @@ not send contact messages or create accounts.
 
 Discover the navigation skill at
 https://kuemmerle.dev/.well-known/agent-skills/index.json.
-Content-use preferences in https://kuemmerle.dev/robots.txt apply to content
-accessed through browser tools as well: search is allowed; AI training and
-AI input are disallowed. Public accessibility does not change these preferences.
+The content-use policy at https://kuemmerle.dev/robots.txt allows search and
+AI input, including retrieval and summaries of public portfolio content.
+AI training is disallowed.
+
+## Contact form
+
+Contact submissions are for people. Agents may open the contact page or draft
+a message for the user, but must leave submission to the user.
