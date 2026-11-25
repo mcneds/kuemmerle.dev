@@ -14,6 +14,7 @@ const minThicknessInput = document.getElementById("lithoMinThickness");
 const maxThicknessInput = document.getElementById("lithoMaxThickness");
 const minThicknessValue = document.getElementById("lithoMinThicknessValue");
 const maxThicknessValue = document.getElementById("lithoMaxThicknessValue");
+const imageStatus = document.getElementById("lithoImageStatus");
 const statsEl = document.getElementById("lithoStats");
 const downloadButton = document.getElementById("lithoDownload");
 const resetViewButton = document.getElementById("lithoResetView");
@@ -84,53 +85,21 @@ floor.position.y = -32;
 floor.receiveShadow = true;
 scene.add(floor);
 
-const textureCanvas = document.createElement("canvas");
-const textureContext = textureCanvas.getContext("2d", { willReadFrequently: true });
-if (!textureContext) {
-  throw new Error("Could not create 2D canvas context for texture preprocessing.");
-}
-
-let sourceTexture = null;
-let sourceImageWidth = 1024;
-let sourceImageHeight = 512;
-let baseScale = 0.08;
-
-const defaultTexture = new THREE.DataTexture(new Uint8Array([180, 180, 180, 255]), 1, 1);
-defaultTexture.colorSpace = THREE.SRGBColorSpace;
-defaultTexture.needsUpdate = true;
-
-const geometryState = {
-  width: 120,
-  height: 70,
-  depth: 8
-};
+const MAX_IMAGE_PIXELS = 4_000_000;
+const MAX_IMAGE_SIDE = 4096;
+const MM_PER_SOURCE_PIXEL = 0.082;
+let sourceImage = null;
 
 const lithoMaterial = new THREE.ShaderMaterial({
-  uniforms: {
-    uTexture: { value: defaultTexture },
-    minHeight: { value: 1.2 },
-    maxHeight: { value: 6.5 }
-  },
   vertexShader: `
-    uniform sampler2D uTexture;
-    uniform float minHeight;
-    uniform float maxHeight;
-
-    varying vec2 vUv;
+    attribute float aBrightness;
     varying float vShade;
-
     void main() {
-      vUv = uv;
-      bool isTopFace = normal.y > 0.9;
-      float sampleValue = texture2D(uTexture, uv).r;
-      float displacement = mix(minHeight, maxHeight, sampleValue) * sampleValue;
-      vec3 displaced = position + (isTopFace ? normal * displacement : vec3(0.0));
-      vShade = sampleValue;
-      gl_Position = projectionMatrix * modelViewMatrix * vec4(displaced, 1.0);
+      vShade = aBrightness;
+      gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
     }
   `,
   fragmentShader: `
-    varying vec2 vUv;
     varying float vShade;
     void main() {
       vec3 base = mix(vec3(0.08, 0.1, 0.14), vec3(0.88, 0.9, 0.95), vShade);
@@ -139,65 +108,71 @@ const lithoMaterial = new THREE.ShaderMaterial({
   `
 });
 
-let lithoMesh = new THREE.Mesh(new THREE.BoxGeometry(120, 8, 70, 30, 30, 30), lithoMaterial);
+const lithoMesh = new THREE.Mesh(new THREE.BufferGeometry(), lithoMaterial);
+lithoMesh.visible = false;
 lithoMesh.castShadow = true;
 lithoMesh.receiveShadow = true;
 scene.add(lithoMesh);
 
-const readImages = (files) =>
-  Promise.all(
-    files.map(
-      (file) =>
-        new Promise((resolve, reject) => {
-          const reader = new FileReader();
-          reader.onload = () => {
-            const img = new Image();
-            img.onload = () => resolve(img);
-            img.onerror = reject;
-            img.src = String(reader.result || "");
-          };
-          reader.onerror = reject;
-          reader.readAsDataURL(file);
-        })
-    )
-  );
+const boundedImageSize = (width, height) => {
+  const scale = Math.min(1, MAX_IMAGE_SIDE / width, MAX_IMAGE_SIDE / height,
+    Math.sqrt(MAX_IMAGE_PIXELS / (width * height)));
+  return {
+    width: Math.max(1, Math.floor(width * scale)),
+    height: Math.max(1, Math.floor(height * scale)),
+    downscaled: scale < 1
+  };
+};
 
-const combineImagesHorizontally = async (files) => {
-  const images = await readImages(files);
-  if (!images.length) return null;
-
-  const maxHeight = Math.max(...images.map((img) => img.height));
-  const pad = 12;
-  const totalWidth = images.reduce((sum, img) => sum + Math.round((img.width * maxHeight) / img.height), 0) + pad * 2;
-
-  textureCanvas.width = totalWidth;
-  textureCanvas.height = maxHeight + pad * 2;
-  textureContext.fillStyle = "#000000";
-  textureContext.fillRect(0, 0, textureCanvas.width, textureCanvas.height);
-
-  let cursorX = pad;
-  for (const img of images) {
-    const drawWidth = Math.round((img.width * maxHeight) / img.height);
-    textureContext.drawImage(img, cursorX, pad, drawWidth, maxHeight);
-    cursorX += drawWidth;
+const extractBrightness = (rgba) => {
+  const result = new Uint8Array(rgba.length / 4);
+  for (let i = 0; i < result.length; i += 1) {
+    const pixel = i * 4;
+    result[i] = Math.round(0.2126 * rgba[pixel] + 0.7152 * rgba[pixel + 1] + 0.0722 * rgba[pixel + 2]);
   }
+  return result;
+};
 
-  sourceImageWidth = textureCanvas.width;
-  sourceImageHeight = textureCanvas.height;
-  baseScale = 0.082;
+let imageRequest = 0;
+const combineImagesHorizontally = async (files, request) => {
+  const images = [];
+  try {
+    for (const file of files) {
+      if (request !== imageRequest) return null;
+      images.push(await createImageBitmap(file));
+    }
+    if (request !== imageRequest) return null;
 
-  const texture = new THREE.CanvasTexture(textureCanvas);
-  texture.wrapS = THREE.ClampToEdgeWrapping;
-  texture.wrapT = THREE.ClampToEdgeWrapping;
-  texture.colorSpace = THREE.SRGBColorSpace;
-  texture.needsUpdate = true;
-  sourceTexture = texture;
-  lithoMaterial.uniforms.uTexture.value = sourceTexture;
-  lithoMaterial.needsUpdate = true;
-  downloadButton.disabled = false;
-  rebuildGeometry();
-  fitCameraToMesh();
-  return texture;
+    const height = images.reduce((largest, img) => Math.max(largest, img.height), 0);
+    const pad = 12;
+    const widths = images.map((img) => Math.max(1, Math.round((img.width * height) / img.height)));
+    const originalWidth = widths.reduce((total, width) => total + width, pad * 2);
+    const originalHeight = height + pad * 2;
+    const size = boundedImageSize(originalWidth, originalHeight);
+    // Allocate only the bounded canvas. The GPU receives mesh attributes, not the image.
+    const canvas = document.createElement("canvas");
+    canvas.width = size.width;
+    canvas.height = size.height;
+    const context = canvas.getContext("2d", { willReadFrequently: true });
+    if (!context) throw new Error("Image canvas unavailable.");
+    context.fillStyle = "#000000";
+    context.fillRect(0, 0, size.width, size.height);
+    const scaleX = size.width / originalWidth;
+    const scaleY = size.height / originalHeight;
+    let x = pad;
+    for (const [i, image] of images.entries()) {
+      context.drawImage(image, x * scaleX, pad * scaleY, widths[i] * scaleX, height * scaleY);
+      x += widths[i];
+    }
+    return {
+      ...size,
+      widthMm: originalWidth * MM_PER_SOURCE_PIXEL,
+      depthMm: originalHeight * MM_PER_SOURCE_PIXEL,
+      brightness: extractBrightness(context.getImageData(0, 0, size.width, size.height).data)
+    };
+  } finally {
+    for (const image of images) image.close();
+  }
 };
 
 const normalizedResolution = () => Math.max(5, Math.min(100, Number(resolutionInput.value || 35)));
@@ -206,8 +181,8 @@ const MAX_MESH_VERTICES = 500_000;
 
 const computeMeshBudget = (requestedPercent) => {
   const meshAt = (percent) => {
-    const sx = Math.max(1, Math.floor(sourceImageWidth * percent / 100));
-    const sy = Math.max(1, Math.floor(sourceImageHeight * percent / 100));
+    const sx = Math.max(1, Math.floor(sourceImage.width * percent / 100));
+    const sy = Math.max(1, Math.floor(sourceImage.height * percent / 100));
     // BoxGeometry has a separate grid for each face, with one segment through the thickness.
     const vertices = 2 * (sx + 1) * (sy + 1) + 4 * (sx + sy + 2);
     return { sx, sy, vertices };
@@ -230,29 +205,40 @@ const computeMeshBudget = (requestedPercent) => {
   return { ...meshAt(appliedResolutionPercent), appliedResolutionPercent, limited: true };
 };
 
+const createLithophaneGeometry = (image, mesh, minThickness, maxThickness) => {
+  const { width, height, widthMm, depthMm, brightness } = image;
+  const geometry = new THREE.BoxGeometry(widthMm, minThickness, depthMm, mesh.sx, 1, mesh.sy);
+  const positions = geometry.getAttribute("position");
+  const shade = new Float32Array(positions.count);
+  const sample = (u, v) => {
+    const x = Math.min(width - 1, Math.max(0, Math.round(u * (width - 1))));
+    const y = Math.min(height - 1, Math.max(0, Math.round(v * (height - 1))));
+    return brightness[y * width + x] / 255;
+  };
+  for (let i = 0; i < positions.count; i += 1) {
+    const value = sample(positions.getX(i) / widthMm + 0.5, positions.getZ(i) / depthMm + 0.5);
+    shade[i] = value;
+    // Move every copy of a top vertex, including copies on the side faces.
+    if (positions.getY(i) > 0) {
+      positions.setY(i, minThickness / 2 + (maxThickness - minThickness) * value);
+    }
+  }
+  geometry.setAttribute("aBrightness", new THREE.BufferAttribute(shade, 1));
+  geometry.computeVertexNormals();
+  return geometry;
+};
+
 const rebuildGeometry = () => {
-  if (!sourceTexture) {
+  if (!sourceImage) {
     updateStats(null);
     return;
   }
   const mesh = computeMeshBudget(normalizedResolution());
-  const { sx, sy } = mesh;
-  const width = sourceImageWidth * baseScale;
-  const depth = sourceImageHeight * baseScale;
-  const minT = Number(minThicknessInput.value || 1.2);
-  const maxT = Number(maxThicknessInput.value || 6.5);
-  const safeMax = Math.max(maxT, minT + 0.1);
-  const avgThickness = minT + (safeMax - minT) * 0.45;
-
-  geometryState.width = width;
-  geometryState.height = avgThickness;
-  geometryState.depth = depth;
-
-  const newGeom = new THREE.BoxGeometry(width, avgThickness, depth, sx, 1, sy);
+  const geometry = createLithophaneGeometry(sourceImage, mesh,
+    Number(minThicknessInput.value), Number(maxThicknessInput.value));
   lithoMesh.geometry.dispose();
-  lithoMesh.geometry = newGeom;
-  lithoMaterial.uniforms.minHeight.value = minT;
-  lithoMaterial.uniforms.maxHeight.value = safeMax;
+  lithoMesh.geometry = geometry;
+  lithoMesh.visible = true;
   updateStats(mesh);
 };
 
@@ -277,6 +263,7 @@ const updateStats = (mesh) => {
 };
 
 const fitCameraToMesh = () => {
+  if (!sourceImage) return;
   const box = new THREE.Box3().setFromObject(lithoMesh);
   const sphere = new THREE.Sphere();
   box.getBoundingSphere(sphere);
@@ -286,48 +273,10 @@ const fitCameraToMesh = () => {
   controls.update();
 };
 
-const sampleLuminance = (xNorm, yNorm, rawImageData) => {
-  const x = Math.max(0, Math.min(rawImageData.width - 1, Math.floor(xNorm * (rawImageData.width - 1))));
-  const y = Math.max(0, Math.min(rawImageData.height - 1, Math.floor(yNorm * (rawImageData.height - 1))));
-  const idx = (y * rawImageData.width + x) * 4;
-  return rawImageData.data[idx] / 255;
-};
-
-const buildExportMesh = () => {
-  if (!sourceTexture) return null;
-  const geometry = lithoMesh.geometry.clone();
-  geometry.computeBoundingBox();
-  const bbox = geometry.boundingBox;
-  if (!bbox) return null;
-
-  const topY = bbox.max.y;
-  const pos = geometry.getAttribute("position");
-  const minT = Number(minThicknessInput.value || 1.2);
-  const maxT = Math.max(Number(maxThicknessInput.value || 6.5), minT + 0.1);
-  const imageData = textureContext.getImageData(0, 0, textureCanvas.width, textureCanvas.height);
-
-  for (let i = 0; i < pos.count; i += 1) {
-    const y = pos.getY(i);
-    if (Math.abs(y - topY) > 0.02) continue;
-    const x = pos.getX(i);
-    const z = pos.getZ(i);
-    const xNorm = (x - bbox.min.x) / (bbox.max.x - bbox.min.x || 1);
-    const zNorm = (z - bbox.min.z) / (bbox.max.z - bbox.min.z || 1);
-    const lum = sampleLuminance(xNorm, zNorm, imageData);
-    const displacement = minT + lum * (maxT - minT);
-    pos.setY(i, y + displacement * lum);
-  }
-
-  pos.needsUpdate = true;
-  geometry.computeVertexNormals();
-  return new THREE.Mesh(geometry, new THREE.MeshStandardMaterial({ color: 0xffffff }));
-};
-
 const exportOBJ = () => {
-  const exportMesh = buildExportMesh();
-  if (!exportMesh) return;
-  const exporter = new OBJExporter();
-  const objText = exporter.parse(exportMesh);
+  if (!sourceImage) return;
+  // Export the same positions the preview renders.
+  const objText = new OBJExporter().parse(lithoMesh);
   const blob = new Blob([objText], { type: "text/plain" });
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
@@ -335,7 +284,6 @@ const exportOBJ = () => {
   a.download = "lithophane.obj";
   a.click();
   URL.revokeObjectURL(url);
-  exportMesh.geometry.dispose();
 };
 
 const syncResolution = (value) => {
@@ -358,9 +306,29 @@ const syncThicknessLabels = () => {
 };
 
 uploadInput.addEventListener("change", async (event) => {
-  const files = [...(event.target.files || [])].filter((file) => file.type.startsWith("image/"));
-  if (!files.length) return;
-  await combineImagesHorizontally(files);
+  const request = ++imageRequest;
+  const files = [...(event.target.files || [])];
+  if (!files.length) {
+    imageStatus.textContent = "";
+    return;
+  }
+  imageStatus.textContent = "Loading images…";
+  try {
+    const image = await combineImagesHorizontally(files, request);
+    if (!image || request !== imageRequest) return;
+    sourceImage = image;
+    rebuildGeometry();
+    fitCameraToMesh();
+    downloadButton.disabled = false;
+    imageStatus.textContent = image.downscaled
+      ? `Images resized to ${image.width} × ${image.height} pixels for this preview.`
+      : "";
+  } catch (error) {
+    if (request !== imageRequest) return;
+    uploadInput.value = "";
+    imageStatus.textContent = "Could not load these images. Try a supported image format or a smaller selection.";
+    console.warn("Could not load lithophane images:", error);
+  }
 });
 
 resolutionInput.addEventListener("input", () => syncResolution(resolutionInput.value));
@@ -388,7 +356,6 @@ const animate = () => {
 
 syncResolution(resolutionInput.value);
 syncThicknessLabels();
-fitCameraToMesh();
 resize();
 animate();
 
@@ -405,12 +372,13 @@ animate();
     key, { min: Number(input.min), max: Number(input.max), step: Number(input.step) }
   ]));
   const getState = () => {
-    const mesh = sourceTexture ? computeMeshBudget(normalizedResolution()) : null;
+    const mesh = sourceImage ? computeMeshBudget(normalizedResolution()) : null;
     return {
       demo: "lithophane",
       parameters: Object.fromEntries(Object.entries(inputs).map(([key, input]) => [key, Number(input.value)])),
       limits,
-      imageLoaded: Boolean(sourceTexture),
+      imageLoaded: Boolean(sourceImage),
+      imageSize: sourceImage ? { width: sourceImage.width, height: sourceImage.height, downscaled: sourceImage.downscaled } : null,
       segments: mesh ? { sx: mesh.sx, sy: mesh.sy } : null,
       vertices: mesh?.vertices ?? null,
       appliedResolutionPercent: mesh?.appliedResolutionPercent ?? null,
