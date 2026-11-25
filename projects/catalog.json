@@ -731,6 +731,35 @@
     ]
   },
   {
+    "id": "standalone-copper-speakers",
+    "category": "standalone",
+    "type": "single",
+    "title": "Copper Speakers",
+    "hero": "/assets/images/copper-speakers.png",
+    "alt": "Copper Speakers project icon",
+    "problem": "I wanted Minecraft players to wire a jukebox to speakers and hear the same disc in multiple locations, including when the wiring changed during playback.",
+    "solution": "I built a server-side Fabric mod that tracks the wiring as blocks change while preserving standard jukebox, hopper, and redstone behavior.\nTo attach a speaker in the middle of a track, the server moves an already-playing sound source to it without starting the song again. Built-in discs share a decoded audio buffer to reduce startup differences between speakers. I instrumented Java client playback to measure timing and built a Geyser bundle with resource packs and mappings for Bedrock clients.",
+    "tags": [
+      "Minecraft mod",
+      "Positional audio",
+      "Java and Bedrock"
+    ],
+    "skills": [
+      "Java",
+      "Fabric",
+      "Graph traversal",
+      "Audio timing instrumentation",
+      "Polymer and Geyser"
+    ],
+    "extraLinks": [
+      {
+        "href": "https://github.com/mcneds/Copper-Speakers",
+        "label": "View Copper Speakers on GitHub",
+        "newTab": true
+      }
+    ]
+  },
+  {
     "id": "construction-timberline-trail-system",
     "category": "standalone",
     "type": "detail",
