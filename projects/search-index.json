@@ -1,0 +1,167 @@
+{
+  "facts": {
+    "standalone-leaf-walker-platform": [
+      {
+        "kind": "role",
+        "text": "Alongside the prototype development, I presented Leaf Walker in person to multiple audience types, including students as young as 8 years old and technically focused reviewers. Across those groups, people were still able to understand and appreciate the project's intent: reduce ground disturbance while improving pathing efficiency through virtual pivot steering and lockable bogey behavior. What changed per audience was the depth of geometry, tradeoff, and implementation detail.",
+        "url": "/projects/leaf-walker-platform/#presentation-contribution"
+      },
+      {
+        "kind": "approach",
+        "text": "The platform replaces conventional articulated steering with a modified virtual pivot. Instead of turning around a point behind the cab, each wheel hub rides on a circular carriage so the effective pivot sits between the wheels, reducing turning arc and ground disturbance.",
+        "url": "/projects/leaf-walker-platform/#steering-design"
+      },
+      {
+        "kind": "validation",
+        "text": "The design has been iterated for five years through documented LEGO-based prototypes. Each revision was tested for rigidity and off-road capability on the same obstacle course at full charge, with failures logged and fed back into the next build.",
+        "url": "/projects/leaf-walker-platform/#prototype-testing"
+      }
+    ],
+    "standalone-tie-rod-tab": [
+      {
+        "kind": "role",
+        "text": "I iterated tab geometry through CAD and prototype checks, then verified mounting and integration on the upright and car to keep the final part practical, repeatable, and structurally sensible.",
+        "url": "/projects/tie-rod-tab/#prototype-fitment"
+      },
+      {
+        "kind": "approach",
+        "text": "The design process balanced packaging constraints with manufacturability and load confidence.",
+        "url": "/projects/tie-rod-tab/#manufacturability"
+      },
+      {
+        "kind": "validation",
+        "text": "Prototype prints, bench fit checks, and installed-vehicle verification were used to converge on a mount that could move from concept to team-ready hardware.",
+        "url": "/projects/tie-rod-tab/#hardware-fitment-checks"
+      }
+    ],
+    "standalone-parkour-pathfinding-demo": [
+      {
+        "kind": "role",
+        "text": "Solution and Outcome I simulated player jump constraints in sampled environments and used that state to generate procedural platforming paths in an efficient way. The resulting algorithm produced more interesting routes that respected jump feasibility and engagement considerations.",
+        "url": "/projects/walk-in-the-parkour-pathfinding/#jump-generation-contribution"
+      }
+    ],
+    "standalone-elliptical-arch-bridge": [
+      {
+        "kind": "limitations",
+        "text": "The design had to maximize stiffness and load capacity under a hard material constraint: exactly 100 popsicle sticks with no cutting or shaping.",
+        "url": "/projects/standalone-elliptical-arch-bridge/#material-constraint"
+      },
+      {
+        "kind": "approach",
+        "text": "An elliptical arch with Howe-style triangulation was iterated through trace studies and build trials, then finalized around predictable load paths and buildability.",
+        "url": "/projects/standalone-elliptical-arch-bridge/#bridge-design"
+      },
+      {
+        "kind": "role",
+        "text": "I developed and iterated the elliptical arch layout to balance stiffness and material limits.",
+        "url": "/projects/standalone-elliptical-arch-bridge/#bridge-contribution"
+      },
+      {
+        "kind": "validation",
+        "text": "Load test setup",
+        "url": "/projects/standalone-elliptical-arch-bridge/#bridge-load-test"
+      }
+    ],
+    "standalone-gesture-link": [
+      {
+        "kind": "team",
+        "text": "A UBC Integrated Engineering team project exploring wearable magnetic finger tracking without cameras, built around a pulsed ring, a wrist-mounted sensor array, and a lightweight real-time processing pipeline.",
+        "url": "/projects/gesture-link/#team-scope"
+      },
+      {
+        "kind": "role",
+        "text": "I conceived GestureLink and led a five-person multidisciplinary team through development. I set the technical direction and developed the embedded sensor acquisition and signal processing pipeline.",
+        "url": "/projects/gesture-link/#project-leadership"
+      },
+      {
+        "kind": "validation",
+        "text": "Pearson Correlation r = 0.834 Strong linear agreement between simulated and measured field values.",
+        "url": "/projects/gesture-link/#pearson-correlation"
+      },
+      {
+        "kind": "limitations",
+        "text": "Performance was limited more by observability, sampling, and data quality than by electrical resonance.",
+        "url": "/projects/gesture-link/#main-limitation"
+      }
+    ],
+    "construction-timberline-trail-system": [
+      {
+        "kind": "role",
+        "text": "I contribute to planning and building a local mountain bike trail system with sustainable design choices and maintenance-focused execution.",
+        "url": "/construction/timberline-trail-system/#trail-contribution"
+      },
+      {
+        "kind": "validation",
+        "text": "Full run of the line after key feature completion.",
+        "url": "/construction/timberline-trail-system/#post-build-ride"
+      },
+      {
+        "kind": "validation",
+        "text": "First drop test and rider confidence check.",
+        "url": "/construction/timberline-trail-system/#first-drop-test"
+      }
+    ],
+    "construction-beamng-cad": [
+      {
+        "kind": "role",
+        "text": "I built a SolidWorks add-in in C#, supported by Python geometry, calibration, and vehicle-generation tools. It captures selected CAD components, material properties, and reviewed joint definitions, generates the BeamNG physics structure, connects the visible geometry, and packages the vehicle as a mod.",
+        "url": "/construction/beamng-cad/#contribution"
+      },
+      {
+        "kind": "validation",
+        "text": "Repeated tests held 18, 36, and 54 km/h without broken beams or reported instability.",
+        "url": "/construction/beamng-cad/#steady-speed-test"
+      },
+      {
+        "kind": "limitations",
+        "text": "I’m refining physical accuracy using measured shock and tire specifications, improving numerical mass and inertia, and extending validation to more demanding driving and impact conditions. The current build provides a working foundation for that development; correlation with the real vehicle remains ongoing.",
+        "url": "/construction/beamng-cad/#remaining-validation"
+      },
+      {
+        "kind": "validation",
+        "text": "Loading and recovery. The front-right suspension returned to its pre-load state after controlled loads up to 1,000 N. These bounded tests demonstrate recovery in the simulation; real-vehicle correlation remains ongoing.",
+        "url": "/construction/beamng-cad/#load-recovery-test"
+      }
+    ],
+    "construction-modulus-drawer-system": [
+      {
+        "kind": "role",
+        "text": "I am defining the parameterized module standard, including shared interfaces and naming rules for compatible additions.",
+        "url": "/construction/modulus-drawer-system/#module-standard-contribution"
+      },
+      {
+        "kind": "validation",
+        "text": "Physical prototyping has validated core module compatibility and stack behavior.",
+        "url": "/construction/modulus-drawer-system/#prototype-compatibility"
+      },
+      {
+        "kind": "limitations",
+        "text": "Manufacturing readiness remains the main hardware gap before scale-up.",
+        "url": "/construction/modulus-drawer-system/#manufacturing-readiness"
+      },
+      {
+        "kind": "limitations",
+        "text": "Automatic sorting and data-driven layout logic are in active prototype stages.",
+        "url": "/construction/modulus-drawer-system/#automation-stage"
+      }
+    ]
+  },
+  "experience": [
+    {
+      "id": "bosch-mems",
+      "title": "Bosch Research: MEMS Development",
+      "category": "experience",
+      "type": "experience",
+      "actionUrl": "/resume/#bosch-experience",
+      "solution": "At Bosch Research, I developed an automated MEMS simulation and analysis workflow using COMSOL, parameterized geometry, compute-cluster runs, and custom post-processing. I also worked on a macro-scale mechanical demonstrator to communicate how the devices move.",
+      "searchFacts": [
+        {
+          "kind": "role",
+          "text": "At Bosch Research, I developed an automated MEMS simulation and analysis workflow using COMSOL, parameterized geometry, compute-cluster runs, and custom post-processing. I also worked on a macro-scale mechanical demonstrator to communicate how the devices move.",
+          "url": "/resume/#bosch-contribution"
+        }
+      ]
+    }
+  ]
+}

@@ -471,6 +471,21 @@ body{
   color: rgba(233,233,239,0.64);
 }
 
+.projectEntryList[hidden]{
+  display: none;
+}
+
+.projectSearchEvidence{
+  margin: 0.2rem 0 0.65rem;
+  color: var(--muted);
+}
+
+.projectSearchEvidence a{
+  display: inline;
+  padding: 0;
+  text-decoration: underline;
+}
+
 .projectEntryList{
   display: grid;
   gap: 1rem;

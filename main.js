@@ -2,7 +2,8 @@ const portfolioSearch = (() => {
   const labels = {
     quick: "Quick Side Quests",
     standalone: "Standalone Projects",
-    construction: "Under Construction"
+    construction: "Under Construction",
+    experience: "Engineering Experience"
   };
   const sectionUrls = {
     quick: "/quick/",
@@ -10,38 +11,98 @@ const portfolioSearch = (() => {
     construction: "/construction/"
   };
 
-  const words = (text) => text.toLowerCase().match(/[\p{L}\p{N}]+(?:\+\+|#)?/gu) || [];
-  let catalogRequest;
+  const wordForms = {
+    manufacture: "manufacturing",
+    manufacturable: "manufacturing",
+    manufacturability: "manufacturing",
+    fabrication: "manufacturing",
+    fabricated: "manufacturing",
+    machining: "manufacturing",
+    dfm: "manufacturing",
+    prototypes: "prototype",
+    prototyping: "prototype",
+    prototyped: "prototype",
+    led: "leadership",
+    leading: "leadership"
+  };
+  const stopWords = new Set(["a", "an", "and", "by", "for", "in", "of", "on", "the", "to", "with"]);
+  const words = (text) => {
+    const tokens = text.toLowerCase()
+      .replace(/\bdesign for manufactur(?:e|ing|ability)\b/g, "manufacturing")
+      .match(/[\p{L}\p{N}]+(?:\+\+|#)?/gu) || [];
+    const significant = tokens.filter((word) => !stopWords.has(word));
+    return (significant.length ? significant : tokens).map((word) => Object.hasOwn(wordForms, word) ? wordForms[word] : word);
+  };
 
+  const loadJson = async (path) => {
+    const response = await fetch(path, { cache: "no-cache" });
+    if (!response.ok) throw new Error(`HTTP ${response.status} for ${path}`);
+    return response.json();
+  };
+
+  const indexEntry = (entry, facts) => ({
+    ...entry,
+    searchFacts: facts.map((fact) => ({ ...fact, words: words(fact.text) })),
+    searchFields: [
+      [12, entry.title],
+      [9, (entry.skills || []).join(" ")],
+      [8, (entry.searchAliases || []).join(" ")],
+      [6, (entry.tags || []).join(" ")],
+      [5, [entry.problem, entry.solution].join(" ")],
+      [3, (entry.extraLinks || []).map((link) => link.label).join(" ")],
+      [1, labels[entry.category] || ""]
+    ].map(([weight, text]) => ({ weight, words: words(text) }))
+  });
+
+  let catalogRequest;
   const load = () => {
-    catalogRequest ??= fetch("/projects/catalog.json", { cache: "no-cache" })
-      .then(async (response) => {
-        if (!response.ok) throw new Error(`HTTP ${response.status}`);
-        const entries = await response.json();
-        return entries.map((entry) => ({
-          ...entry,
-          searchTitle: words(entry.title).join(" "),
-          searchText: words([
-            entry.title, entry.problem, entry.solution, ...entry.tags, ...entry.skills,
-            ...(entry.extraLinks || []).map((link) => link.label), labels[entry.category]
-          ].join(" ")).join(" ")
-        }));
-      })
-      .catch((error) => {
-        catalogRequest = undefined;
-        throw error;
-      });
+    catalogRequest ??= Promise.all([
+      loadJson("/projects/catalog.json"),
+      loadJson("/projects/search-index.json").catch(() => ({ facts: {}, experience: [] }))
+    ]).then(([entries, index]) => [
+      ...entries.map((entry) => indexEntry(entry, index.facts[entry.id] || [])),
+      ...index.experience.map((entry) => indexEntry(entry, entry.searchFacts))
+    ]).catch((error) => {
+      catalogRequest = undefined;
+      throw error;
+    });
     return catalogRequest;
   };
 
+  const hasTerm = (field, term) => field.some((word) =>
+    word === term || (term.length >= 3 && word.startsWith(term))
+  );
+
   const match = (entries, terms) => {
-    if (!terms.length) return entries;
+    if (!terms.length) {
+      return entries.filter((entry) => entry.type !== "experience").map((entry) => ({ entry, evidence: null }));
+    }
+    const unique = [...new Set(terms)];
     const phrase = terms.join(" ");
-    const rank = (entry) =>
-      entry.searchTitle.includes(phrase) ? 2 : entry.searchText.includes(phrase) ? 1 : 0;
-    return entries
-      .filter((entry) => terms.every((term) => entry.searchText.includes(term)))
-      .sort((left, right) => rank(right) - rank(left));
+    return entries.flatMap((entry) => {
+      const factFields = entry.searchFacts.map((fact) => ({
+        words: fact.words,
+        weight: fact.kind === "role" || fact.kind === "validation" ? 8 : 5
+      }));
+      const fields = [...entry.searchFields, ...factFields];
+      const termScores = unique.map((term) =>
+        Math.max(0, ...fields.filter((field) => hasTerm(field.words, term)).map((field) => field.weight))
+      );
+      if (termScores.some((score) => score === 0)) return [];
+
+      const evidenceRank = (fact) => unique.filter((term) => hasTerm(fact.words, term)).length * 10
+        + Number(fact.kind === "validation");
+      const best = entry.searchFacts.filter((fact) => unique.some((term) => hasTerm(fact.words, term)))
+        .sort((a, b) => evidenceRank(b) - evidenceRank(a))[0];
+      const score = termScores.reduce((sum, weight) => sum + weight, 0)
+        + Math.max(0, ...fields.filter((field) => field.words.join(" ").includes(phrase)).map((field) => field.weight))
+        + ((entry.searchAliases || []).some((alias) => words(alias).join(" ") === phrase) ? 9 : 0)
+        + (best ? evidenceRank(best) / 10 : 0);
+      const excerpt = best?.text.split(/(?<=[.!?])\s+/)
+        .sort((a, b) => evidenceRank({ words: words(b) }) - evidenceRank({ words: words(a) }))[0];
+      const evidence = best ? { kind: best.kind, text: excerpt, url: best.url } : null;
+      return [{ entry, evidence, score }];
+    }).sort((a, b) => b.score - a.score);
   };
 
   const url = (entry) => {
@@ -74,6 +135,12 @@ const portfolioSearch = (() => {
   }));
 
   const projectFacts = async (entry, signal) => {
+    if (entry.type === "experience") {
+      return {
+        status: "experience",
+        facts: entry.searchFacts.map(({ kind, text, url }) => ({ kind, text, url: absoluteUrl(url).href }))
+      };
+    }
     if (!entry.detailUrl) return { status: "catalog_only", facts: [] };
     const url = absoluteUrl(entry.detailUrl);
     if (url.origin !== window.location.origin) return { status: "external", facts: [] };
@@ -108,7 +175,7 @@ const portfolioSearch = (() => {
     },
     {
       name: "search_portfolio_projects",
-      description: "Search the public project catalog across sections. Returns titles, summaries, and links. An empty query returns all projects and clears the visible filter. Content use remains subject to /robots.txt.",
+      description: "Search public projects and engineering experience. Returns ranked matches and links to supporting evidence. An empty query returns all projects and clears the visible filter. Content use remains subject to /robots.txt.",
       inputSchema: {
         type: "object",
         properties: { query: { type: "string", maxLength: 200 } },
@@ -127,29 +194,31 @@ const portfolioSearch = (() => {
           input.dispatchEvent(new Event("input", { bubbles: true }));
         }
         return {
-          results: matches.map((entry) => ({
+          results: matches.map(({ entry, evidence }) => ({
             id: entry.id,
+            type: entry.type === "experience" ? "experience" : "project",
             title: entry.title,
             summary: entry.solution,
             url: absoluteUrl(portfolioSearch.url(entry)).href,
-            links: relatedLinks(entry)
+            links: relatedLinks(entry),
+            evidence: evidence ? { ...evidence, url: absoluteUrl(evidence.url).href } : null
           }))
         };
       }
     },
     {
       name: "get_project_details",
-      description: "Look up a public portfolio project by its search result ID. Returns catalog details and, where available, case study facts with source links.",
+      description: "Look up a public project or experience entry by its search result ID. Returns details and source-linked facts where available.",
       annotations: { readOnlyHint: true },
       inputSchema: {
         type: "object",
-        properties: { id: { type: "string", description: "Project ID from search_portfolio_projects" } },
+        properties: { id: { type: "string", description: "Result ID from search_portfolio_projects" } },
         required: ["id"],
         additionalProperties: false
       },
       execute: async ({ id } = {}, { signal } = {}) => {
         if (typeof id !== "string" || !/^[a-z0-9-]+$/.test(id)) {
-          return { error: "Provide a project ID from search_portfolio_projects." };
+          return { error: "Provide a result ID from search_portfolio_projects." };
         }
         let entry;
         try {
@@ -157,7 +226,7 @@ const portfolioSearch = (() => {
         } catch {
           return { error: "The project catalog could not be loaded. Try again." };
         }
-        if (!entry) return { error: "Project ID not found. Use search_portfolio_projects to find a valid ID." };
+        if (!entry) return { error: "Result ID not found. Use search_portfolio_projects to find a valid ID." };
 
         let caseStudy;
         try {
@@ -170,10 +239,10 @@ const portfolioSearch = (() => {
           id: entry.id,
           title: entry.title,
           category: entry.category,
-          problem: entry.problem,
+          problem: entry.problem ?? null,
           approach: entry.solution,
-          skills: entry.skills,
-          tags: entry.tags,
+          skills: entry.skills || [],
+          tags: entry.tags || [],
           url: absoluteUrl(portfolioSearch.url(entry)).href,
           links: relatedLinks(entry),
           caseStudy
@@ -1253,68 +1322,67 @@ document.querySelectorAll(".tile").forEach(tile => {
     const crossList = library.querySelector("[data-project-cross-results]");
     if (!list || !input) return;
 
-    const cardById = new Map(
-      [...list.querySelectorAll("[data-project-entry]")].map((el) => [el.dataset.entryId || "", el])
-    );
+    const localWrap = document.createElement("section");
+    localWrap.className = "projectCrossMatches";
+    localWrap.hidden = true;
+    const localHeading = document.createElement("h2");
+    const localList = document.createElement("ul");
+    localList.className = "projectCrossList";
+    localWrap.append(localHeading, localList);
+    (crossWrap || list).before(localWrap);
+
+    const renderResults = (results) => results.map(({ entry, evidence }) => {
+      const href = portfolioSearch.url(entry);
+      const newTab = entry.type === "detail" && entry.detailUrl
+        ? Boolean(entry.detailNewTab)
+        : Boolean(entry.actionUrl && entry.actionNewTab);
+      const sectionLabel = portfolioSearch.labels[entry.category] || "Other";
+      const evidenceLink = evidence
+        ? ` <a href="${escapeHtml(evidence.url)}">View source</a>`
+        : "";
+      const related = (entry.extraLinks || []).map(({ href, label, newTab }) =>
+        `<a href="${escapeHtml(href)}"${newTab ? ' target="_blank" rel="noopener noreferrer"' : ""}>${escapeHtml(label)}</a>`
+      ).join(" · ");
+      return `
+        <li>
+          <a href="${escapeHtml(href)}"${newTab ? ' target="_blank" rel="noopener noreferrer"' : ""}>
+            <span>${escapeHtml(entry.title)}</span>
+            <span class="projectCrossSection">(${escapeHtml(sectionLabel)})</span>
+          </a>
+          <p class="projectSearchEvidence">${escapeHtml(evidence?.text || entry.solution)}${evidenceLink}</p>
+          ${related ? `<p class="projectSearchEvidence">${related}</p>` : ""}
+        </li>`;
+    }).join("");
 
     const applyFilter = () => {
       const terms = portfolioSearch.words(input.value);
       const query = terms.length > 0;
-      const globalMatches = portfolioSearch.match(indexedCatalog, terms);
-      const matchingIds = new Set(globalMatches.map((entry) => entry.id));
-      let visibleCount = 0;
+      const matches = query ? portfolioSearch.match(indexedCatalog, terms) : [];
+      const local = matches.filter(({ entry }) => entry.category === category);
+      const others = matches.filter(({ entry }) => entry.category !== category).slice(0, 6);
 
-      cardById.forEach((card, id) => {
-        const matches = matchingIds.has(id);
-        card.hidden = !matches;
-        if (matches) visibleCount += 1;
-      });
-
-      const crossMatches = globalMatches.filter((entry) => entry.category !== category).slice(0, 6);
+      list.hidden = query;
+      localWrap.hidden = !local.length;
+      localHeading.textContent = local.length ? "Matches In This Section" : "";
+      localList.innerHTML = renderResults(local);
 
       if (meta) {
-        if (!query) {
-          const sectionLabel = portfolioSearch.labels[category] || "this section";
-          meta.textContent = `Showing ${visibleCount} of ${categoryEntries.length} entries in ${sectionLabel}.`;
-        } else {
-          meta.textContent = `${visibleCount} in this section, ${globalMatches.length} across all projects.`;
-        }
+        const sectionLabel = portfolioSearch.labels[category] || "this section";
+        meta.textContent = query
+          ? `${local.length} in this section, ${matches.length} across the portfolio.`
+          : `Showing ${categoryEntries.length} of ${categoryEntries.length} entries in ${sectionLabel}.`;
       }
 
       if (emptyState) {
-        const showEmptyState = query && visibleCount === 0;
+        const showEmptyState = query && !matches.length;
         emptyState.hidden = !showEmptyState;
-        emptyState.textContent = showEmptyState
-          ? "No matches in this section. Try a broader term or check cross-section matches below."
-          : "";
+        emptyState.textContent = showEmptyState ? "No matches. Try a broader term." : "";
       }
 
-      const showCrossMatches = query && crossMatches.length > 0;
-      if (crossHeading) crossHeading.textContent = showCrossMatches ? "Matches In Other Sections" : "";
+      if (crossHeading) crossHeading.textContent = others.length ? "Matches In Other Sections" : "";
       if (crossWrap && crossList) {
-        if (showCrossMatches) {
-          crossList.innerHTML = crossMatches
-            .map((entry) => {
-              const href = portfolioSearch.url(entry);
-              const newTab = entry.type === "detail" && entry.detailUrl
-                ? Boolean(entry.detailNewTab)
-                : Boolean(entry.actionUrl && entry.actionNewTab);
-              const sectionLabel = portfolioSearch.labels[entry.category] || "Other";
-              return `
-                <li>
-                  <a href="${escapeHtml(href)}"${newTab ? ' target="_blank" rel="noopener noreferrer"' : ""}>
-                    <span>${escapeHtml(entry.title)}</span>
-                    <span class="projectCrossSection">(${escapeHtml(sectionLabel)})</span>
-                  </a>
-                </li>
-              `;
-            })
-            .join("");
-          crossWrap.hidden = false;
-        } else {
-          crossWrap.hidden = true;
-          crossList.innerHTML = "";
-        }
+        crossWrap.hidden = !others.length;
+        crossList.innerHTML = renderResults(others);
       }
     };
 

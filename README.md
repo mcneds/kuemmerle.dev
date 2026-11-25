@@ -11,8 +11,10 @@ Build the project listings and sitemap from the repository root with Node.js:
 node scripts/build-portfolio.mjs
 ```
 
-This updates the generated blocks in the three section pages. Search uses the
-same catalog. The sitemap lists published HTML pages, including new project pages
+This updates the generated blocks in the three section pages and the search
+index. The index adds annotated case-study facts and the public résumé
+experience section to the project catalog. Use `searchAliases` for accurate
+alternate terms that recruiters might search. The sitemap lists published HTML pages, including new project pages
 added under a section. Use `node scripts/build-portfolio.mjs --check` to check
 whether the generated files are current.
 

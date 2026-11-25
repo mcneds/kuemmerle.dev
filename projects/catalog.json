@@ -312,6 +312,11 @@
       "Prototype testing",
       "Iterative design",
       "Engineering communication"
+    ],
+    "searchAliases": [
+      "mechanical prototyping",
+      "mechanism design",
+      "physical prototype"
     ]
   },
   {
@@ -362,6 +367,13 @@
       "CAD workflow",
       "Design review",
       "Iteration"
+    ],
+    "searchAliases": [
+      "mechanical prototyping",
+      "design for manufacturing",
+      "DFM",
+      "machining",
+      "fit-up"
     ]
   },
   {
@@ -520,6 +532,10 @@
       "Embedded systems",
       "Hardware-software integration",
       "Team leadership"
+    ],
+    "searchAliases": [
+      "technical leadership",
+      "embedded prototyping"
     ]
   },
   {
@@ -702,6 +718,11 @@
       "Geometry processing",
       "Vehicle simulation",
       "Automated testing"
+    ],
+    "searchAliases": [
+      "CAD automation",
+      "SolidWorks suspension",
+      "simulation validation"
     ]
   },
   {
