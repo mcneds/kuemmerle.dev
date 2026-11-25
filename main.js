@@ -1,3 +1,58 @@
+const portfolioSearch = (() => {
+  const labels = {
+    quick: "Quick Side Quests",
+    standalone: "Standalone Projects",
+    construction: "Under Construction"
+  };
+  const sectionUrls = {
+    quick: "/quick/",
+    standalone: "/projects/",
+    construction: "/construction/"
+  };
+
+  const words = (text) => text.toLowerCase().match(/[\p{L}\p{N}]+(?:\+\+|#)?/gu) || [];
+  let catalogRequest;
+
+  const load = () => {
+    catalogRequest ??= fetch("/projects/catalog.json", { cache: "no-cache" })
+      .then(async (response) => {
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const entries = await response.json();
+        return entries.map((entry) => ({
+          ...entry,
+          searchTitle: words(entry.title).join(" "),
+          searchText: words([
+            entry.title, entry.problem, entry.solution, ...entry.tags, ...entry.skills,
+            ...(entry.extraLinks || []).map((link) => link.label), labels[entry.category]
+          ].join(" ")).join(" ")
+        }));
+      })
+      .catch((error) => {
+        catalogRequest = undefined;
+        throw error;
+      });
+    return catalogRequest;
+  };
+
+  const match = (entries, terms) => {
+    if (!terms.length) return entries;
+    const phrase = terms.join(" ");
+    const rank = (entry) =>
+      entry.searchTitle.includes(phrase) ? 2 : entry.searchText.includes(phrase) ? 1 : 0;
+    return entries
+      .filter((entry) => terms.every((term) => entry.searchText.includes(term)))
+      .sort((left, right) => rank(right) - rank(left));
+  };
+
+  const url = (entry) => {
+    if (entry.type === "detail" && entry.detailUrl) return entry.detailUrl;
+    if (entry.actionUrl) return entry.actionUrl;
+    return `${sectionUrls[entry.category]}#project-entry-${entry.id}`;
+  };
+
+  return { labels, words, load, match, url };
+})();
+
 // WebMCP is optional: ordinary browsers continue using the existing controls.
 (() => {
   const modelContext = document.modelContext || navigator.modelContext;
@@ -30,7 +85,7 @@
     },
     {
       name: "search_portfolio_projects",
-      description: "Filter the visible project library by a phrase, including cross-section matches. Opens the project library when needed. An empty query clears the filter. Content use remains subject to /robots.txt.",
+      description: "Search the public project catalog across sections. Returns titles, summaries, and links. An empty query returns all projects and clears the visible filter. Content use remains subject to /robots.txt.",
       inputSchema: {
         type: "object",
         properties: { query: { type: "string", maxLength: 200 } },
@@ -41,15 +96,25 @@
         if (typeof query !== "string" || query.length > 200) {
           throw new Error("Query must be a string of at most 200 characters.");
         }
+        const entries = await portfolioSearch.load();
+        const matches = portfolioSearch.match(entries, portfolioSearch.words(query));
         const input = document.querySelector("[data-project-search]");
-        if (!input) {
-          const url = `/projects/?${new URLSearchParams({ q: query })}`;
-          window.location.assign(url);
-          return { url };
+        if (input) {
+          input.value = query;
+          input.dispatchEvent(new Event("input", { bubbles: true }));
         }
-        input.value = query;
-        input.dispatchEvent(new Event("input", { bubbles: true }));
-        return { status: "Project filter updated." };
+        const absoluteUrl = (path) => new URL(path, window.location.origin).href;
+        return {
+          results: matches.map((entry) => ({
+            title: entry.title,
+            summary: entry.solution,
+            url: absoluteUrl(portfolioSearch.url(entry)),
+            links: (entry.extraLinks || []).map(({ href, label }) => ({
+              label,
+              url: absoluteUrl(href)
+            }))
+          }))
+        };
       }
     }
   ];
@@ -1094,33 +1159,13 @@ document.querySelectorAll(".tile").forEach(tile => {
   const libraries = [...document.querySelectorAll("[data-project-library]")];
   if (!libraries.length) return;
 
-  const sectionLabelByCategory = {
-    quick: "Quick Side Quests",
-    standalone: "Standalone Projects",
-    construction: "Under Construction"
-  };
-
-  const sectionUrlByCategory = {
-    quick: "/quick/",
-    standalone: "/projects/",
-    construction: "/construction/"
-  };
-
-  let projectCatalog;
+  let indexedCatalog;
   try {
-    const response = await fetch("/projects/catalog.json", { cache: "no-cache" });
-    if (!response.ok) throw new Error(`HTTP ${response.status}`);
-    projectCatalog = await response.json();
+    indexedCatalog = await portfolioSearch.load();
   } catch (error) {
     console.warn("Could not load the project catalog:", error);
     return;
   }
-
-  const normalize = (value) =>
-    String(value || "")
-      .toLowerCase()
-      .replace(/\s+/g, " ")
-      .trim();
 
   const escapeHtml = (value) =>
     String(value || "")
@@ -1129,26 +1174,6 @@ document.querySelectorAll(".tile").forEach(tile => {
       .replace(/>/g, "&gt;")
       .replace(/"/g, "&quot;")
       .replace(/'/g, "&#39;");
-
-  const indexedCatalog = projectCatalog.map((entry) => {
-    const combined = [
-      entry.title,
-      entry.problem,
-      entry.solution,
-      entry.tags.join(" "),
-      entry.skills.join(" "),
-      (entry.extraLinks || []).map((link) => link.label).join(" "),
-      sectionLabelByCategory[entry.category] || ""
-    ].join(" ");
-    return { ...entry, searchText: normalize(combined) };
-  });
-
-  const linkForEntry = (entry) => {
-    if (entry.type === "detail" && entry.detailUrl) return entry.detailUrl;
-    if (entry.actionUrl) return entry.actionUrl;
-    const sectionUrl = sectionUrlByCategory[entry.category] || "/";
-    return `${sectionUrl}#project-entry-${entry.id}`;
-  };
 
   libraries.forEach((library) => {
     const category = library.dataset.projectCategory || "";
@@ -1161,35 +1186,32 @@ document.querySelectorAll(".tile").forEach(tile => {
     const meta = library.querySelector("[data-project-search-meta]");
     const emptyState = library.querySelector("[data-project-search-empty]");
     const crossWrap = library.querySelector("[data-project-cross-wrap]");
+    const crossHeading = library.querySelector("[data-project-cross-heading]");
     const crossList = library.querySelector("[data-project-cross-results]");
     if (!list || !input) return;
 
-    const entryById = new Map(categoryEntries.map((entry) => [entry.id, entry]));
     const cardById = new Map(
       [...list.querySelectorAll("[data-project-entry]")].map((el) => [el.dataset.entryId || "", el])
     );
 
     const applyFilter = () => {
-      const queryRaw = input.value.trim();
-      const query = normalize(queryRaw);
+      const terms = portfolioSearch.words(input.value);
+      const query = terms.length > 0;
+      const globalMatches = portfolioSearch.match(indexedCatalog, terms);
+      const matchingIds = new Set(globalMatches.map((entry) => entry.id));
       let visibleCount = 0;
 
       cardById.forEach((card, id) => {
-        const entry = entryById.get(id);
-        if (!entry) return;
-        const matches = !query || entry.searchText.includes(query);
+        const matches = matchingIds.has(id);
         card.hidden = !matches;
         if (matches) visibleCount += 1;
       });
 
-      const globalMatches = query
-        ? indexedCatalog.filter((entry) => entry.searchText.includes(query))
-        : [];
       const crossMatches = globalMatches.filter((entry) => entry.category !== category).slice(0, 6);
 
       if (meta) {
         if (!query) {
-          const sectionLabel = sectionLabelByCategory[category] || "this section";
+          const sectionLabel = portfolioSearch.labels[category] || "this section";
           meta.textContent = `Showing ${visibleCount} of ${categoryEntries.length} entries in ${sectionLabel}.`;
         } else {
           meta.textContent = `${visibleCount} in this section, ${globalMatches.length} across all projects.`;
@@ -1197,18 +1219,24 @@ document.querySelectorAll(".tile").forEach(tile => {
       }
 
       if (emptyState) {
-        emptyState.hidden = !(query && visibleCount === 0);
+        const showEmptyState = query && visibleCount === 0;
+        emptyState.hidden = !showEmptyState;
+        emptyState.textContent = showEmptyState
+          ? "No matches in this section. Try a broader term or check cross-section matches below."
+          : "";
       }
 
+      const showCrossMatches = query && crossMatches.length > 0;
+      if (crossHeading) crossHeading.textContent = showCrossMatches ? "Matches In Other Sections" : "";
       if (crossWrap && crossList) {
-        if (query && crossMatches.length) {
+        if (showCrossMatches) {
           crossList.innerHTML = crossMatches
             .map((entry) => {
-              const href = linkForEntry(entry);
+              const href = portfolioSearch.url(entry);
               const newTab = entry.type === "detail" && entry.detailUrl
                 ? Boolean(entry.detailNewTab)
                 : Boolean(entry.actionUrl && entry.actionNewTab);
-              const sectionLabel = sectionLabelByCategory[entry.category] || "Other";
+              const sectionLabel = portfolioSearch.labels[entry.category] || "Other";
               return `
                 <li>
                   <a href="${escapeHtml(href)}"${newTab ? ' target="_blank" rel="noopener noreferrer"' : ""}>

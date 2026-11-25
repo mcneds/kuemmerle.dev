@@ -13,3 +13,8 @@ Public portfolio pages are available for search and AI-assisted summaries under 
 - [BeamNG.cad case study](https://kuemmerle.dev/construction/beamng-cad/): A repeatable SolidWorks-to-BeamNG vehicle simulation workflow for UBC Baja SAE.
 - [Résumé](https://kuemmerle.dev/resume/): One-page co-op résumé with PDF links.
 - [Sitemap](https://kuemmerle.dev/sitemap.xml): Canonical URLs for published pages.
+
+## For agents
+
+- [Project catalog (JSON)](https://kuemmerle.dev/projects/catalog.json): Project summaries, skills, and links.
+- [Agent skill manifest](https://kuemmerle.dev/.well-known/agent-skills/index.json): Navigation guidance and browser tool instructions.
