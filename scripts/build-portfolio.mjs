@@ -2,6 +2,7 @@ import { existsSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { join, relative, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 
+import { buildSearchIndex } from "./build-search-index.mjs";
 import { renderEntry } from "./render-project-entry.mjs";
 
 const root = fileURLToPath(new URL("../", import.meta.url));
@@ -75,6 +76,8 @@ outputs.set(join(root, "sitemap.xml"), [
   '</urlset>',
   ''
 ].join("\n"));
+
+outputs.set(join(root, "projects/search-index.json"), JSON.stringify(buildSearchIndex(root, catalog), null, 2) + "\n");
 
 for (const [file, content] of outputs) {
   if (check) {

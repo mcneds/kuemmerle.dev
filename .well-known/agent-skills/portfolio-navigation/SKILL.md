@@ -17,13 +17,14 @@ When WebMCP is available, use `navigate_portfolio` with a `section` of `home`,
 This opens the selected section in the current tab.
 
 Use `search_portfolio_projects` with a `query` of up to 200 characters.
-It matches words across titles, descriptions, tags, and skills in all sections.
-The tool returns project IDs, titles, summaries, and URLs, including related links.
+It ranks matches across projects and public engineering experience using
+titles, skills, alternate terms, and case-study evidence. Results include IDs,
+summaries, related links, and a source-linked excerpt when available.
 On a project library page it also updates the visible filter. An empty query
 returns the full catalog and clears the filter when present.
 
 Use `get_project_details` with an `id` from search to read the catalog entry
-and any annotated case-study facts. Fact URLs point to the original paragraphs,
+and any source-linked facts. Fact URLs point to the original paragraphs,
 captions, or results. If no facts are available, use the case-study link for
 further context.
 
