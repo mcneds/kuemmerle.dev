@@ -77,7 +77,7 @@
     "type": "single",
     "title": "Ball Bearing Lego Wheel Hub",
     "hero": "/assets/images/bearingHub.jfif",
-    "alt": "CAD concept for Lego wheel hub using skate bearings",
+    "alt": "Two 3D-printed LEGO wheel hub prototypes side by side",
     "problem": "Standard hubs were failing at higher RPM and torque during drift chassis testing.",
     "solution": "I created a drop-in replacement hub using skateboard bearings to improve durability and rotational stability under load.",
     "tags": [
