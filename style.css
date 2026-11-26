@@ -179,10 +179,11 @@ body{
 .cadNameBox{
   position: relative;
   width: min(920px, 92vw);
+  /* Leave room for the dimension label and resize handles. */
+  max-width: calc(100vw - 112px);
   height: 110px;
   margin: 0 auto;
   user-select: none;
-  touch-action: none;
 }
 
 .cadNameText{
@@ -272,6 +273,7 @@ body{
 /* Sketch handles */
 .sketchHandle{
   position: absolute;
+  touch-action: none;
   width: 16px;
   height: 16px;
   border-radius: 4px;
@@ -3088,8 +3090,12 @@ ul.gearList.gearList--poster{
     grid-template-columns: 1fr;
     padding-top: 0;
   }
+  .projectEntryList,
   .projectEntryBody{
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .projectEntry{
+    overflow-wrap: anywhere;
   }
   .bridgeMediaGrid{
     grid-template-columns: 1fr;

@@ -452,9 +452,8 @@ document.querySelectorAll(".tile").forEach(tile => {
     if (start.corner.includes("t")) newH = start.h - dy;
 
     // Resize frame; SVG stretches to match both axes.
-    const maxW = window.innerWidth - 40;
     const maxH = 240;
-    newW = Math.max(280, Math.min(newW, maxW));
+    newW = Math.max(Math.min(280, window.innerWidth / 2), newW);
     newH = Math.max(52, Math.min(newH, maxH));
 
     box.style.width = `${Math.round(newW)}px`;
@@ -464,6 +463,9 @@ document.querySelectorAll(".tile").forEach(tile => {
   };
 
   const onUp = () => {
+    if (!start) return;
+    // Store the visible width after the CSS viewport limit is applied.
+    box.style.width = `${box.offsetWidth}px`;
     start = null;
   };
 
@@ -478,6 +480,7 @@ document.querySelectorAll(".tile").forEach(tile => {
 
   window.addEventListener("pointermove", onMove);
   window.addEventListener("pointerup", onUp);
+  window.addEventListener("pointercancel", onUp);
 })();
 
 (() => {
